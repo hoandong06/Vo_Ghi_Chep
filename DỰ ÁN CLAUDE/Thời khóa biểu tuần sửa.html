@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Thời khóa biểu tuần</title>
+<style>
+:root{--bg:#f6f5f1;--card:#fff;--tx:#1d1d1b;--mut:#6b6a64;--bd:#e3e1d9;--ac:#1f6feb;
+--sc:#fcd9b6;--to:#cfe1ff;--pj:#d6f0dc;--zh:#f9d3e2;--rv:#fff1b8;--lf:#ecebe5;--sl:#dcd9f2;--vc:#d4efe9;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#17171a;--card:#212126;--tx:#ececea;--mut:#9d9c96;--bd:#33333a;--ac:#5b9bff;
+--sc:#6b3d17;--to:#1e3a66;--pj:#1f4a2f;--zh:#5a2640;--rv:#5a4a12;--lf:#2c2c32;--sl:#2a2750;--vc:#17483f;color-scheme:dark}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font:15px/1.5 -apple-system,"Segoe UI",Roboto,Arial,sans-serif}
+main{max-width:1100px;margin:0 auto;padding:18px 14px 50px}
+h1{font-size:24px;margin:6px 0 2px}
+.sub{color:var(--mut);margin:0 0 12px}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}
+.chip{display:flex;align-items:center;gap:6px;font-size:13px;background:var(--card);border:1px solid var(--bd);border-radius:20px;padding:3px 10px}
+.chip i{width:12px;height:12px;border-radius:3px;border:1px solid var(--bd)}
+#info{background:var(--card);border:1px solid var(--bd);border-radius:10px;padding:10px 12px;margin-bottom:10px;min-height:44px}
+.wrap{overflow-x:auto;border:1px solid var(--bd);border-radius:10px;background:var(--card)}
+.cal{display:grid;grid-template-columns:38px repeat(7,minmax(112px,1fr));min-width:830px}
+.h{position:sticky;top:0;text-align:center;font-weight:600;font-size:13px;padding:7px 0;border-bottom:1px solid var(--bd);background:var(--card);z-index:2}
+.h.today{color:var(--ac);box-shadow:inset 0 -3px 0 var(--ac)}
+.ax,.col{position:relative;height:720px}
+.ax span{position:absolute;right:4px;font-size:10px;color:var(--mut);transform:translateY(-6px)}
+.col{border-left:1px solid var(--bd);background:repeating-linear-gradient(to bottom,transparent 0,transparent 29px,var(--bd) 29px,var(--bd) 30px)}
+.b{position:absolute;left:2px;right:2px;border-radius:6px;padding:2px 5px;font-size:11.5px;line-height:1.3;overflow:hidden;cursor:pointer;border:1px solid rgba(0,0,0,.08);color:var(--tx)}
+.b.sc{font-weight:600;border-color:#e08a3c}
+.b small{display:block;font-weight:400;opacity:.75}
+.sc{background:var(--sc)}.to{background:var(--to)}.pj{background:var(--pj)}.zh{background:var(--zh)}.rv{background:var(--rv)}.lf{background:var(--lf)}.vc{background:var(--vc)}.sl{background:var(--sl)}
+.tips{margin-top:14px;background:var(--card);border:1px solid var(--bd);border-radius:10px;padding:12px 16px;font-size:14px}
+.tips b{display:block;margin-bottom:4px}
+.tips ul{margin:0;padding-left:20px}
+</style>
+</head>
+<body>
+<main>
+<h1>Thời khóa biểu tuần</h1>
+<p class="sub">Lịch trường cố định + TOEIC + dự án Frontend/Tester + tiếng Trung · cuối tuần vẫn học, tối trước ngày có lớp là buổi chuẩn bị bài · chạm vào khối để xem chi tiết</p>
+<div class="chips" id="chips"></div>
+<div id="info">Chạm vào một khối để xem chi tiết.</div>
+<div class="wrap"><div class="cal" id="cal"></div></div>
+<div class="tips"><b>Lưu ý để lịch này chạy được</b><ul>
+<li>Thứ 5 và thứ 6 vào học lúc 7:40, nên đêm thứ 4 và thứ 5 đi ngủ lúc 23:30 (ngủ 7 tiếng). Các đêm còn lại ngủ lúc 02:00, ngủ đủ 8 tiếng.</li>
+<li>Để ngủ sớm được hai đêm đó: ra nắng buổi chiều, không cà phê sau 16:00, tắt màn hình lúc 23:00 và viết ra những điều đang lo trước khi nằm.</li>
+<li>Đêm khuya chỉ để việc nhẹ hơn (Frontend, Tester, nghe TOEIC), việc cần tập trung nặng xếp vào buổi tối. Không cắt giấc ngủ để học thêm.</li>
+<li>Khối TOEIC làm theo đúng thứ tự bài và bài tập bắt buộc trong trang lộ trình.</li><li>Ôn từ vựng: flashcard theo chu kỳ 1–3–7–14 ngày, Chủ nhật kiểm tra lại cả tuần.</li><li>Ôn bài trường: ôn sau giờ học (AI T5, Java T6) và ôn lại cuối tuần để nhớ lâu.</li><li>Bữa tối kéo dài đến 20:00 nên buổi học tối bắt đầu từ 20:00. Cuối tuần vẫn học nhưng nhẹ hơn, chiều và tối vẫn có giờ nghỉ.</li><li>Quy tắc chuẩn bị bài: tối hôm trước mỗi môn chính đều có buổi đọc trước bài. Đồ án: Chủ nhật và tối thứ 2. Java: Chủ nhật, tối thứ 3 và tối thứ 5. AI: tối thứ 4.</li></ul></div>
+</main>
+<script>
+var D=["Thứ 2","Thứ 3","Thứ 4","Thứ 5","Thứ 6","Thứ 7","CN"];
+var N={sc:"Lịch trường",to:"TOEIC",pj:"Dự án Frontend / Tester",zh:"Tiếng Trung",rv:"Ôn bài trường (Java/AI/Đồ án)",vc:"Ôn từ vựng",lf:"Ăn · nghỉ · vận động",sl:"Ngủ"};
+var T=[
+["00:00-02:00 pj Dự án Frontend","02:00-10:00 sl Ngủ","10:00-11:30 lf Dậy · ra nắng · ăn sáng","11:30-12:15 vc Ôn từ vựng (flashcard)","12:15-13:30 to TOEIC: học bài mới trong lộ trình","13:30-14:30 lf Ăn trưa · nghỉ","14:30-16:30 rv Ôn Java: bài tuần trước","16:30-17:30 lf Đi bộ · vận động","17:30-18:30 pj Học Tester","18:30-20:00 lf Ăn tối · nghỉ","20:00-21:30 to TOEIC: bài tập bắt buộc","21:30-22:45 rv Chuẩn bị bài Đồ án 1 (đọc trước buổi mai)","22:45-24:00 pj Dự án Frontend"],
+["00:00-02:00 pj Dự án Frontend","02:00-10:30 sl Ngủ","10:30-11:30 lf Dậy · ăn sáng","11:30-12:15 vc Ôn từ vựng","12:15-12:45 lf Di chuyển","12:45-17:15 sc Đồ án 1|Đồ án 1 · A2.204 · Nguyễn Văn Cường · 12:45–17:15","17:15-18:30 lf Về nhà · nghỉ","18:30-20:00 lf Ăn tối","20:00-22:00 to TOEIC: bài tập bắt buộc","22:00-23:15 rv Chuẩn bị bài Java (đọc trước buổi mai)","23:15-24:00 pj Dự án Frontend"],
+["00:00-01:00 to TOEIC: nghe + shadowing","01:00-02:00 pj Học Tester","02:00-10:30 sl Ngủ","10:30-11:30 lf Dậy · ăn sáng","11:30-12:15 vc Ôn từ vựng","12:15-12:45 lf Di chuyển","12:45-17:15 sc Lập trình Java|Lập trình Java · A5.604 (TH) · Trần Văn Tâm · 12:45–17:15","17:15-18:30 lf Về nhà · nghỉ","18:30-20:00 lf Ăn tối","20:00-21:30 rv Chuẩn bị bài AI (đọc trước buổi sáng mai)","21:30-23:00 to TOEIC: bài tập","23:00-23:30 lf Tắt màn hình · viết ra điều lo","23:30-24:00 sl Ngủ"],
+["00:00-06:30 sl Ngủ","06:30-07:40 lf Dậy · ăn sáng · di chuyển","07:40-12:10 sc Trí tuệ nhân tạo|Trí tuệ nhân tạo · A8.401 · Đỗ Bảo Sơn · 07:40–12:10","12:10-14:00 lf Ăn trưa · ngủ trưa ≤30 phút","14:00-16:00 rv Ôn AI: ghi chú buổi sáng + bài tập","16:00-17:00 lf Đi bộ · ra nắng","17:00-17:45 vc Ôn từ vựng","17:45-18:30 pj Học Tester","18:30-20:00 lf Ăn tối","20:00-21:30 to TOEIC: bài tập bắt buộc","21:30-23:00 rv Chuẩn bị bài Java (đọc trước buổi sáng mai)","23:00-23:30 lf Tắt màn hình · viết ra điều lo","23:30-24:00 sl Ngủ"],
+["00:00-06:30 sl Ngủ","06:30-07:40 lf Dậy · ăn sáng · di chuyển","07:40-12:10 sc Lập trình Java|Lập trình Java · A5.603 (TH) · Trần Văn Tâm · 07:40–12:10","12:10-14:30 lf Ăn trưa · ngủ trưa ≤30 phút","14:30-16:30 rv Ôn Java: bài tập tuần","16:30-17:15 vc Ôn từ vựng","17:15-18:30 lf Vận động · nghỉ","18:30-20:00 lf Ăn tối","20:00-22:30 pj Dự án Frontend","22:30-24:00 to TOEIC: nghe + luyện Part"],
+["00:00-02:00 pj Học Tester","02:00-10:00 sl Ngủ","10:00-11:00 lf Dậy · ra nắng · ăn sáng","11:00-11:45 vc Ôn từ vựng","11:45-13:30 to TOEIC: bài mới trong lộ trình","13:30-14:30 lf Ăn trưa · nghỉ","14:30-17:00 pj Dự án Frontend","17:00-18:00 lf Vận động","18:00-20:00 lf Ăn tối · nghỉ","20:00-21:30 zh Tiếng Trung (buổi 1)","21:30-23:00 to TOEIC: làm đề · ôn sổ lỗi","23:00-24:00 lf Thư giãn"],
+["00:00-02:00 lf Thư giãn · nghỉ ngơi","02:00-10:00 sl Ngủ","10:00-10:30 lf Dậy · ra nắng · ăn sáng","10:30-12:00 zh Tiếng Trung (buổi 2)","12:00-12:45 vc Kiểm tra từ vựng cả tuần","12:45-14:00 lf Ăn trưa · nghỉ","14:00-16:00 rv Chuẩn bị bài Đồ án 1 (đọc trước buổi thứ 3)","16:00-18:00 lf Vận động · nghỉ","18:00-20:00 lf Ăn tối","20:00-21:30 rv Chuẩn bị bài Java (đọc trước buổi thứ 4)","21:30-23:00 pj Học Tester","23:00-24:00 lf Thư giãn · lên kế hoạch tuần mới"]
+];
+function m(x){var a=x.split(":");return+a[0]*60+ +a[1]}
+var tot={},cal=document.getElementById("cal"),info=document.getElementById("info"),H=30;
+var td=(new Date().getDay()+6)%7;
+var h='<div class="h"></div>'+D.map(function(d,i){return'<div class="h'+(i===td?" today":"")+'">'+d+'</div>'}).join("");
+h+='<div class="ax">';
+for(var i=0;i<24;i+=2)h+='<span style="top:'+i*H+'px">'+(i<10?"0":"")+i+':00</span>';
+h+='</div>';
+T.forEach(function(day,di){
+ h+='<div class="col">';
+ day.forEach(function(s){
+  var p=s.split(" "),t=p[0].split("-"),ty=p[1],r=p.slice(2).join(" ").split("|"),lab=r[0],det=r[1]||lab;
+  var a=m(t[0]),b=m(t[1]);
+  tot[ty]=(tot[ty]||0)+(b-a)/60;
+  h+='<div class="b '+ty+'" data-d="'+t[0]+'–'+t[1]+' · '+det.replace(/"/g,"")+'" style="top:'+a/60*H+'px;height:'+((b-a)/60*H-1)+'px">'+lab+'<small>'+t[0]+'–'+t[1]+'</small></div>';
+ });
+ h+='</div>';
+});
+cal.innerHTML=h;
+cal.addEventListener("click",function(e){var b=e.target.closest(".b");if(b)info.textContent=b.dataset.d});
+document.getElementById("chips").innerHTML=["sc","to","vc","pj","rv","zh"].map(function(k){return'<span class="chip"><i class="'+k+'"></i>'+N[k]+': '+Math.round(tot[k])+'h/tuần</span>'}).join("")+'<span class="chip"><i class="lf"></i>'+N.lf+'</span><span class="chip"><i class="sl"></i>'+N.sl+'</span>';
+</script>
+</body>
+</html>

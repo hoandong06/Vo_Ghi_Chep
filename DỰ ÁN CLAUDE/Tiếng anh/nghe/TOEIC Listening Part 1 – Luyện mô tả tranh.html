@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="vi"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>TOEIC Listening Part 1 – Luyện mô tả tranh</title>
+<style>
+:root{--bg:#f5f6fa;--card:#fff;--tx:#1d2233;--mu:#667;--pr:#3b5bdb;--ok:#2b9348;--no:#d62839;--bd:#dde1ec;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#12141c;--card:#1c2030;--tx:#e8eaf3;--mu:#9aa0b5;--pr:#7c93ff;--ok:#4cc26b;--no:#ff6b78;--bd:#31364b}}
+:root[data-theme="dark"]{--bg:#12141c;--card:#1c2030;--tx:#e8eaf3;--mu:#9aa0b5;--pr:#7c93ff;--ok:#4cc26b;--no:#ff6b78;--bd:#31364b}
+*{box-sizing:border-box}html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+main{max-width:720px;margin:0 auto;padding:16px}
+h1{font-size:1.35rem;margin:6px 0 2px}.sub{color:var(--mu);margin:0 0 14px;font-size:.92rem}
+nav{display:flex;gap:8px;margin-bottom:14px}
+nav button,.btn{font:inherit;border:1px solid var(--bd);background:var(--card);color:var(--tx);padding:9px 14px;border-radius:10px;cursor:pointer}
+nav button.on,.btn.pr{background:var(--pr);color:#fff;border-color:var(--pr)}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:16px;margin-bottom:12px}
+.card h3{margin:0 0 6px;font-size:1.02rem}.card p,.card ul{margin:4px 0}.card ul{padding-left:20px}
+.scene{font-size:64px;text-align:center;line-height:1.2;padding:26px 8px;border-radius:12px;background:linear-gradient(135deg,rgba(59,91,219,.16),rgba(43,147,72,.14));word-break:break-all}
+.bar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:12px 0}
+.opts{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:8px 0}
+.opt{font-size:1.2rem;font-weight:700;padding:14px 0;border-radius:10px;border:2px solid var(--bd);background:var(--card);color:var(--tx);cursor:pointer}
+.opt.ok{border-color:var(--ok);background:rgba(43,147,72,.18)}.opt.no{border-color:var(--no);background:rgba(214,40,57,.16)}
+.tr{padding:6px 0;border-bottom:1px dashed var(--bd)}.tr:last-child{border:0}
+.tr.c{color:var(--ok);font-weight:600}.mu{color:var(--mu);font-size:.9rem}
+.stat{display:flex;gap:14px;font-size:.92rem;color:var(--mu);flex-wrap:wrap}
+label{font-size:.9rem;color:var(--mu)}input[type=range]{vertical-align:middle;width:110px}
+[hidden]{display:none!important}
+</style></head><body><main>
+<h1>🎧 TOEIC Listening – Part 1</h1>
+<p class="sub">Mô tả tranh: học phương pháp, rồi luyện câu hỏi mới liên tục.</p>
+<nav><button id="t1" class="on">Luyện nghe</button><button id="t2">Phương pháp</button></nav>
+
+<section id="p1">
+ <div class="card">
+  <div class="stat"><span>Câu: <b id="n">0</b></span><span>Đúng: <b id="ok">0</b></span><span>Tỉ lệ: <b id="pc">–</b></span><span>Chuỗi đúng: <b id="st">0</b></span></div>
+ </div>
+ <div class="card">
+  <div class="scene" id="sc"></div>
+  <div class="bar">
+   <button class="btn pr" id="play">▶ Nghe</button>
+   <button class="btn" id="stop">⏹ Dừng</button>
+   <label>Tốc độ <input type="range" id="rate" min="0.7" max="1.2" step="0.05" value="0.9"></label>
+  </div>
+  <p class="mu" id="hint">Nhìn tranh (người, vật, hành động, vị trí) → nghe 4 câu → chọn câu mô tả đúng.</p>
+  <div class="opts" id="opts"></div>
+  <div id="fb" hidden>
+   <div id="tr"></div>
+   <p id="ex" class="mu"></p>
+   <button class="btn pr" id="next">Câu tiếp theo →</button>
+  </div>
+ </div>
+</section>
+
+<section id="p2" hidden>
+ <div class="card"><h3>1. Part 1 là gì?</h3><p>6 câu, mỗi câu 1 bức tranh. Bạn nghe 4 câu mô tả (A–D, <b>không in trong đề</b>) và chọn câu mô tả đúng nhất. Chỉ phát một lần.</p></div>
+ <div class="card"><h3>2. Trước khi nghe: quét tranh trong 5 giây</h3><ul><li><b>Ai?</b> Một người hay nhiều người? Nam/nữ? Nghề gì?</li><li><b>Làm gì?</b> Đang đứng, ngồi, đi, cầm, mặc, đẩy, tải hàng…</li><li><b>Ở đâu?</b> Trong nhà, ngoài trời, bến tàu, nhà bếp, văn phòng…</li><li><b>Vật nào nổi bật?</b> Xe, ghế, sách, ô, cây…</li></ul></div>
+ <div class="card"><h3>3. Cấu trúc câu hay gặp</h3><ul><li><b>Hành động của người:</b> He is + V-ing (<i>is typing, is carrying</i>).</li><li><b>Trạng thái vật:</b> Cars are parked… / Books are lined up… (hiện tại đơn, bị động).</li><li><b>Hành động đang bị tác động:</b> The floor is being swept. (<i>is being + V3</i>).</li><li><b>Kết quả:</b> The table has been set. (<i>has been + V3</i>).</li></ul></div>
+ <div class="card"><h3>4. Các bẫy kinh điển</h3><ul><li><b>Từ gần âm/đồng âm:</b> <i>sail/sale, copy/coffee, walk/work</i>.</li><li><b>Đúng đồ vật, sai hành động:</b> thấy máy tính nhưng người đó không đang gọi điện.</li><li><b>Vật không có trong tranh:</b> câu nhắc tới thứ bạn không thấy.</li><li><b>Suy đoán:</b> <i>They are waiting for a bus</i> (không thể biết chắc) → thường sai.</li><li><b>Thì sai:</b> tranh tĩnh nhưng nghe <i>is being</i> mà không có ai đang làm.</li></ul></div>
+ <div class="card"><h3>5. Chiến thuật khi nghe</h3><ul><li>Nghe hết cả 4 câu, đừng chốt sớm khi chưa nghe câu D.</li><li>Chú ý <b>động từ</b> trước, rồi đến danh từ.</li><li>Gạch bỏ câu sai ngay (loại trừ), còn lại chọn câu khớp nhất.</li><li>Tranh có người: ưu tiên câu nói về hành động của họ. Tranh không người: ưu tiên vị trí, trạng thái đồ vật.</li><li>Nếu không chắc, chọn nhanh rồi nhìn tranh tiếp theo, không dừng lại tiếc nuối.</li></ul></div>
+ <div class="card"><h3>6. Từ vựng nên ôn</h3><p>hang, stack, pile, lean against, face, arrange, load/unload, push, pull, hold, carry, pour, sweep, repair, board, dock, lined up, displayed, parked, empty, occupied.</p></div>
+</section>
+<p class="mu">Lưu ý: phần nghe dùng giọng đọc tiếng Anh có sẵn trong trình duyệt (Chrome, Edge, Safari). Mỗi lần có thể ra giọng khác nhau (Mỹ/Anh/Úc), giống đề thật.</p>
+</main>
+<script>
+const B=[
+["👩‍💻🖥️","A woman is typing on a computer.",["A woman is answering the phone.","A woman is reading a newspaper.","A woman is closing a window."],"Thấy người phụ nữ gõ phím trước máy tính. Các câu khác đúng bối cảnh văn phòng nhưng sai hành động."],
+["👨‍🍳🍳","A man is cooking in a kitchen.",["A man is washing the dishes.","A man is setting the table.","A man is buying vegetables."],"Chảo và đầu bếp cho thấy hành động nấu ăn (cooking)."],
+["🚗🚗🚗🛣️","Some cars are parked along the street.",["Cars are driving through a tunnel.","A car is being washed.","People are getting into vehicles."],"Tranh không có người: câu đúng nói về trạng thái xe (parked)."],
+["🧑‍🔧🔧⚙️","A mechanic is repairing a machine.",["A mechanic is carrying a box.","A machine is being delivered.","A mechanic is painting a wall."],"Dụng cụ và máy móc: repairing là hành động đúng."],
+["👥📋🪑","People are seated around a table.",["People are leaving the room.","A group is waiting in line.","Some people are standing at a podium."],"Tất cả ngồi quanh bàn họp: seated around a table."],
+["👩🛒🥬","A woman is pushing a shopping cart.",["A woman is paying at a counter.","A woman is loading a truck.","A woman is trying on a jacket."],"Chú ý động từ push và vật shopping cart trong tranh."],
+["🚶‍♂️🌉🌊","A man is walking across a bridge.",["A man is fishing from a boat.","A man is climbing a ladder.","A man is crossing a busy road."],"Cầu và người đi bộ: walking across a bridge."],
+["📚📚🗄️","Books are lined up on shelves.",["Books are being packed into boxes.","A librarian is reading aloud.","Some shelves are empty."],"Không người, nhiều sách xếp ngay ngắn: lined up on shelves."],
+["☔🌧️🚶‍♀️🚶","Some people are holding umbrellas.",["Some people are running a race.","A man is closing a shop.","Rain is being cleaned from the street."],"Có mưa và ô: holding umbrellas. Đừng bị lừa bởi từ rain trong câu D."],
+["👨‍🏫📝🧑‍🎓","A man is writing on a whiteboard.",["A man is erasing a screen.","Students are taking an exam.","A man is distributing papers."],"Hành động chính của người đàn ông là viết lên bảng."],
+["🚢⚓🌅","A boat is docked at a pier.",["A boat is being repaired in a garage.","People are selling sails.","A ship is sinking."],"Bẫy gần âm: sail/sale. Docked at a pier mô tả đúng tàu đang đậu."],
+["🪴🪑🪑🍽️","Some chairs are arranged around a table.",["A waiter is serving dinner.","All the chairs are stacked in a corner.","A plant is being watered."],"Không có người nên không thể là câu về waiter hay đang tưới cây."],
+["🧑‍🌾💧🌱","A man is watering some plants.",["A man is picking up a shovel.","Some plants are being sold.","A man is cutting a tree."],"Vòi nước và cây non: watering plants."],
+["🚆🧍‍♀️🚉","A woman is boarding a train.",["A woman is buying a ticket.","A train is leaving the platform.","A woman is waving from a window."],"Người đang bước lên tàu: boarding. Các câu còn lại là suy đoán hoặc sai hành động."],
+["👷🧱🏗️","A worker is stacking bricks.",["A worker is drawing a plan.","Some bricks are being delivered by truck.","A building is being demolished."],"Thợ xây xếp gạch: stacking bricks."],
+["👩‍⚕️🩺🧑‍🦱","A doctor is examining a patient.",["A nurse is writing a prescription.","A patient is signing a form.","A doctor is leaving a hospital."],"Ống nghe và bệnh nhân cho thấy đang khám bệnh (examining)."]
+];
+const $=id=>document.getElementById(id);
+let q=[],last=-1,cur=null,done=false,S={n:0,ok:0,st:0},tmr=null;
+const sh=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]]}return a};
+function pick(){if(!q.length){q=sh(B.map((_,i)=>i));if(q[0]===last)q.push(q.shift())}last=q.shift();return B[last]}
+function load(auto){
+ stop();const it=pick();
+ const o=sh([[it[1],1],...it[2].map(t=>[t,0])]);
+ cur={it,o,v:null};done=false;
+ $("sc").textContent=it[0];$("hint").hidden=false;$("fb").hidden=true;
+ $("opts").innerHTML=o.map((x,i)=>'<button class="opt" data-i="'+i+'">'+"ABCD"[i]+'</button>').join("");
+ if(auto)play();
+}
+function voices(){return(speechSynthesis.getVoices()||[]).filter(v=>/^en/i.test(v.lang))}
+function play(){
+ if(!("speechSynthesis" in window)){alert("Trình duyệt của bạn không hỗ trợ giọng đọc. Hãy dùng Chrome, Edge hoặc Safari.");return}
+ stop();
+ const vs=voices();if(!cur.v&&vs.length)cur.v=vs[Math.random()*vs.length|0];
+ const parts=["Look at the picture.",...cur.o.map((x,i)=>"Letter "+"ABCD"[i]+". "+x[0])];
+ let i=0;const rate=+$("rate").value;
+ const next=()=>{if(i>=parts.length)return;const u=new SpeechSynthesisUtterance(parts[i++]);u.lang="en-US";if(cur.v){u.voice=cur.v;u.lang=cur.v.lang}u.rate=rate;u.onend=()=>{tmr=setTimeout(next,i===1?1500:900)};speechSynthesis.speak(u)};
+ next();
+}
+function stop(){clearTimeout(tmr);if("speechSynthesis" in window)speechSynthesis.cancel()}
+function stats(){$("n").textContent=S.n;$("ok").textContent=S.ok;$("pc").textContent=S.n?Math.round(S.ok/S.n*100)+"%":"–";$("st").textContent=S.st}
+$("opts").onclick=e=>{
+ const b=e.target.closest(".opt");if(!b||done)return;done=true;stop();
+ const i=+b.dataset.i,right=cur.o[i][1]===1;
+ S.n++;if(right){S.ok++;S.st++}else S.st=0;stats();
+ [...$("opts").children].forEach((c,k)=>{if(cur.o[k][1])c.classList.add("ok");else if(k===i)c.classList.add("no")});
+ $("tr").innerHTML=cur.o.map((x,k)=>'<div class="tr'+(x[1]?" c":"")+'">'+(x[1]?"✓ ":"✗ ")+"("+"ABCD"[k]+") "+x[0]+"</div>").join("");
+ $("ex").textContent=(right?"Chính xác! ":"Chưa đúng. ")+cur.it[3];
+ $("hint").hidden=true;$("fb").hidden=false;
+};
+$("play").onclick=play;$("stop").onclick=stop;$("next").onclick=()=>load(true);
+function tab(a){$("p1").hidden=a!==1;$("p2").hidden=a!==2;$("t1").classList.toggle("on",a===1);$("t2").classList.toggle("on",a===2);if(a===2)stop()}
+$("t1").onclick=()=>tab(1);$("t2").onclick=()=>tab(2);
+if("speechSynthesis" in window)speechSynthesis.onvoiceschanged=()=>{};
+load(false);stats();
+</script></body></html>

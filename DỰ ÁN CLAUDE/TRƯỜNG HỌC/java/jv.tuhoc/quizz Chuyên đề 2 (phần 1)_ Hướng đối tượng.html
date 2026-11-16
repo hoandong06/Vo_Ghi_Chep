@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Chuyên đề 2 (phần 1): Hướng đối tượng</title>
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+--bg:#f3f6fa;--surface:#fff;--text:#14202e;--muted:#5a6b7d;--line:#d3dce6;--accent:#1f5fbf;--ok:#17803d;--ok-bg:#e3f4e8;--bad:#b42318;--bad-bg:#fde8e6;--tip-bg:#fff6dd;--tip:#7a5200;--btn-text:#fff}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){color-scheme:dark;--bg:#0f1720;--surface:#17212c;--text:#e8eef5;--muted:#93a4b6;--line:#2c3a49;--accent:#6aa5f5;--ok:#5fd08a;--ok-bg:#12301f;--bad:#ff8a80;--bad-bg:#3a1a18;--tip-bg:#33290f;--tip:#f2cf7a;--btn-text:#0f1720}}
+:root[data-theme="dark"]{color-scheme:dark;--bg:#0f1720;--surface:#17212c;--text:#e8eef5;--muted:#93a4b6;--line:#2c3a49;--accent:#6aa5f5;--ok:#5fd08a;--ok-bg:#12301f;--bad:#ff8a80;--bad-bg:#3a1a18;--tip-bg:#33290f;--tip:#f2cf7a;--btn-text:#0f1720}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:"Be Vietnam Pro","Segoe UI",system-ui,sans-serif;line-height:1.6}
+main{max-width:660px;margin:0 auto;padding:20px 16px 48px}
+header{display:flex;justify-content:space-between;align-items:baseline;gap:8px;margin-bottom:8px}
+h1{font-size:1.2rem;margin:0}
+.score{font-weight:600;color:var(--accent);white-space:nowrap}
+.bar{height:6px;background:var(--line);border-radius:3px;overflow:hidden;margin-bottom:20px}
+.bar i{display:block;height:100%;width:0;background:var(--accent);transition:width .3s}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px}
+.lv{display:inline-block;padding:2px 10px;border:1.5px solid var(--accent);border-radius:999px;color:var(--accent);font-size:.82rem;font-weight:600;margin-bottom:10px}
+.q{font-size:1.06rem;font-weight:600;margin:0 0 12px}
+pre{background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:10px 12px;overflow-x:auto;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.85rem;margin:0 0 12px}
+.opts{display:grid;gap:10px}
+.opt{display:flex;gap:10px;text-align:left;width:100%;padding:12px 14px;border:1.5px solid var(--line);border-radius:10px;background:var(--surface);color:var(--text);font:inherit;cursor:pointer}
+.opt:hover:not(:disabled){border-color:var(--accent)}
+.opt:focus-visible,.btn:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.opt b{min-width:1.4em}
+.opt:disabled{cursor:default}
+.mark{margin-left:auto;font-weight:700;white-space:nowrap}
+.w.ok .opt{border-color:var(--ok);background:var(--ok-bg)}
+.w.bad .opt{border-color:var(--bad);background:var(--bad-bg)}
+.w.ok .mark{color:var(--ok)}.w.bad .mark{color:var(--bad)}
+.why{display:none;margin:6px 4px 2px;padding-left:10px;border-left:3px solid var(--line);font-size:.92rem;color:var(--muted)}
+.w.ok .why{border-color:var(--ok)}.w.bad .why{border-color:var(--bad)}
+.verdict{display:none;margin-top:14px;font-weight:600}
+.verdict.ok{color:var(--ok)}.verdict.bad{color:var(--bad)}
+.tip{display:none;margin-top:14px;padding:12px 14px;border-radius:10px;background:var(--tip-bg);color:var(--tip);font-size:.93rem}
+.tip strong{display:block;margin-bottom:4px}
+.shown .why,.shown .verdict,.shown .tip{display:block}
+.nav{display:flex;justify-content:flex-end;margin-top:16px}
+.btn{padding:11px 22px;border:0;border-radius:10px;background:var(--accent);color:var(--btn-text);font:inherit;font-weight:600;cursor:pointer}
+.btn[hidden]{display:none}
+.result{text-align:center;padding:12px 0}
+.result .big{font-size:2.6rem;font-weight:700;color:var(--accent)}
+</style>
+</head>
+<body>
+<main>
+  <header><h1>Chuyên đề 2 (phần 1): Hướng đối tượng</h1><span class="score" id="score">Điểm: 0</span></header>
+  <div class="bar"><i id="bar"></i></div>
+  <div class="card" id="card"></div>
+</main>
+<script>
+var Q=[
+{q:"Dòng nào tạo ra một object kiểu Dog đúng cú pháp?",o:["Dog d = new Dog();","Dog d = Dog;","new Dog d;","Dog d = new Dog;"],a:0,
+t:"Class giống bản vẽ, object là sản phẩm làm từ bản vẽ. Từ khóa new là lệnh \"hãy làm ra một sản phẩm mới\". Cặp ngoặc () phía sau Dog là lúc gọi constructor (hàm khởi tạo) để lắp ráp object. Biến d chỉ giữ địa chỉ của object, như tờ giấy ghi địa chỉ nhà.",
+x:["Đúng. Dog d khai báo biến, new Dog() tạo object, dấu = đưa địa chỉ object vào biến.","Sai. Dog đứng một mình chỉ là tên bản vẽ, chưa tạo ra object nào.","Sai. new phải nằm ở vế phải của dấu =. Viết thế này sai cú pháp.","Sai. Thiếu cặp ngoặc (). new Dog() là lời gọi constructor nên bắt buộc có ngoặc."]},
+{q:"Trong class Car có biến color và hàm run(). Chúng lần lượt được gọi là gì?",o:["color là field (thuộc tính), run() là method (phương thức)","color là method, run() là field","Cả hai đều là constructor","Cả hai đều là object"],a:0,
+t:"Mỗi object có hai thứ. Dữ liệu nó mang (màu xe, tốc độ) gọi là field hay thuộc tính, giống đặc điểm của một con người như tên, tuổi. Việc nó làm được (chạy, phanh) gọi là method hay phương thức, giống kỹ năng của người đó. Hiểu đơn giản: field là danh từ, method là động từ.",
+x:["Đúng. color là field (dữ liệu của object), run() là method (hành động object làm được).","Sai. Bị đảo ngược: biến lưu dữ liệu là field, hàm làm việc là method.","Sai. Constructor là hàm đặc biệt dùng để tạo object, không phải thuộc tính hay hành động thông thường.","Sai. Object là chiếc xe cụ thể tạo ra từ class Car. color và run() là các thành phần bên trong class."]},
+{q:"Constructor có đặc điểm nào sau đây?",o:["Tên trùng tên class và không có kiểu trả về","Tên bất kỳ và có kiểu trả về void","Phải gọi thủ công sau khi new","Chỉ dùng được trong interface"],a:0,
+t:"Constructor (hàm khởi tạo) là hàm đặc biệt chạy tự động ngay khi bạn gọi new, để \"lắp ráp\" object mới và đặt giá trị ban đầu, như nhân viên lắp ráp xe khi xe vừa ra khỏi dây chuyền. Cách nhận biết: tên trùng với tên class và không ghi kiểu trả về (kể cả void).",
+x:["Đúng. Ví dụ class Dog thì constructor tên Dog(), và không có kiểu trả về phía trước.","Sai. Constructor phải trùng tên class. Nếu ghi void phía trước thì nó thành method thường, không còn là constructor.","Sai. Constructor chạy tự động khi gọi new, bạn không cần gọi thủ công.","Sai. Interface không có constructor. Constructor dùng trong class."]},
+{q:"Đoạn code sau in ra gì?",code:"class Dog {\n  String name;\n}\n// ...\nDog d = new Dog();\nSystem.out.println(d.name);",o:["null","Chuỗi rỗng","0","Lỗi biên dịch"],a:0,
+t:"Field của object nếu chưa gán giá trị thì Java tự điền giá trị mặc định (giống các ô của mảng): số là 0, boolean là false, còn kiểu tham chiếu như String là null. null nghĩa là \"chưa trỏ tới object nào\", như tờ giấy địa chỉ còn để trống.",
+x:["Đúng. name là String chưa gán nên mặc định là null, và println in ra chữ null.","Sai. Chuỗi rỗng \"\" là một String thật, không phải giá trị mặc định. Mặc định của String là null.","Sai. 0 là mặc định của kiểu số, không phải của String.","Sai. Code hợp lệ, đọc field chưa gán không gây lỗi."]},
+{q:"Đoạn code sau in ra gì?",code:"class Person {\n  String name;\n  Person(String name) {\n    this.name = name;\n  }\n}\n// ...\nPerson p = new Person(\"An\");\nSystem.out.println(p.name);",o:["An","null","Lỗi biên dịch","name"],a:0,
+t:"this nghĩa là \"chính object này\", như khi bạn tự nói \"tôi\". Trong constructor, tham số name và field name trùng tên. Khi đó tên name đứng một mình chỉ tham số (vì gần hơn), nên phải viết this.name để chỉ rõ field của object. this.name = name nghĩa là: lấy giá trị tham số bỏ vào field của chính object này.",
+x:["Đúng. Tham số name nhận \"An\", this.name = name đưa \"An\" vào field name của object. In ra An.","Sai. null chỉ ra nếu quên this (viết name = name): tham số tự gán cho chính nó và field vẫn chưa có giá trị.","Sai. Code hợp lệ.","Sai. name là tên biến, còn giá trị bên trong là \"An\" nên in ra An."]},
+{q:"Class Account có field private. Ở class khác, cách nào lấy được số dư một cách hợp lệ?",code:"class Account {\n  private int balance = 100;\n  public int getBalance() { return balance; }\n}\n// ở class khác:\nAccount acc = new Account();",o:["acc.balance","acc.getBalance()","Account.balance","acc->balance"],a:1,
+t:"Đóng gói (encapsulation) giống chiếc máy ATM: tiền nằm trong két (private), bạn không thò tay vào, chỉ bấm nút (method public) để xem số dư hoặc rút tiền. Nhờ vậy class kiểm soát được dữ liệu của mình, chẳng hạn không cho số dư bị âm. Method lấy giá trị gọi là getter, method gán giá trị gọi là setter.",
+x:["Sai. balance là private nên bên ngoài class không truy cập trực tiếp, compiler báo lỗi.","Đúng. getBalance() là method public (getter), đi qua \"nút bấm\" để lấy giá trị được phép.","Sai. balance không phải static nên không gọi qua tên class, và vẫn là private.","Sai. Java không dùng mũi tên -> để truy cập field, mà dùng dấu chấm."]},
+{q:"Đoạn code sau in ra gì?",code:"class Counter {\n  static int count = 0;\n  Counter() { count++; }\n}\n// ...\nnew Counter();\nnew Counter();\nSystem.out.println(Counter.count);",o:["0","1","2","Lỗi biên dịch"],a:2,
+t:"static nghĩa là thuộc về class, không thuộc riêng object nào, giống bảng thông báo chung của lớp học: cả lớp dùng chung một bảng. Field không static thì mỗi object có bản riêng, như mỗi bạn một quyển vở. Vì count là chung nên mỗi lần new Counter() đều cộng vào cùng một biến. Truy cập bằng tên class: Counter.count.",
+x:["Sai. 0 là giá trị ban đầu, nhưng constructor đã chạy hai lần và làm tăng count.","Sai. 1 chỉ ra nếu mỗi object có count riêng. Nhưng count là static nên dùng chung.","Đúng. Hai lần new Counter() chạy constructor hai lần, count (dùng chung) tăng từ 0 lên 2.","Sai. Code hợp lệ, gọi static field qua tên class là cách chuẩn."]},
+{q:"Một class không viết constructor nào. Điều gì xảy ra khi gọi new?",o:["Java tự thêm một constructor mặc định không tham số","Không thể tạo được object","Lỗi biên dịch","Object được tạo nhưng không có field nào"],a:0,
+t:"Constructor mặc định (default constructor) là constructor rỗng, không tham số, do Java tự thêm giúp khi bạn không viết constructor nào. Giống hãng xe luôn có sẵn một mẫu lắp ráp cơ bản nếu bạn không yêu cầu cấu hình riêng. Nhờ đó new Dog() chạy được dù class Dog chưa viết gì.",
+x:["Đúng. Java ngầm thêm constructor rỗng, nên new Dog() vẫn chạy bình thường.","Sai. Bạn vẫn tạo được object nhờ constructor mặc định.","Sai. Không có lỗi biên dịch trong trường hợp này.","Sai. Object vẫn có đầy đủ field với giá trị mặc định (số là 0, String là null)."]},
+{q:"Đoạn code sau cho kết quả gì?",code:"class P {\n  P(String n) { }\n}\n// ...\nP p = new P();",o:["Tạo object bình thường","Lỗi biên dịch","Tạo object với tên null","Lỗi lúc chạy"],a:1,
+t:"Java chỉ tặng constructor mặc định khi bạn không viết constructor nào. Hễ bạn tự viết bất kỳ constructor nào, món quà bị thu hồi. Ở đây class P chỉ có P(String n), nghĩa là bắt buộc phải đưa một String khi new. Gọi new P() không đưa gì thì không có constructor nào khớp. Muốn dùng cả hai cách, hãy tự viết thêm P() rỗng (gọi là overload constructor).",
+x:["Sai. Constructor mặc định không còn vì class đã có constructor riêng.","Đúng. Class có P(String n) nên Java không thêm P() rỗng nữa. new P() không khớp constructor nào, compiler báo lỗi.","Sai. Không có chuyện gán tên null, vì code còn không qua được bước biên dịch.","Sai. Lỗi này bị phát hiện ngay lúc biên dịch, trước khi chạy."]},
+{q:"Vì sao đoạn code sau gây lỗi biên dịch?",code:"class A {\n  int x = 5;\n  static void show() {\n    System.out.println(x);\n  }\n}",o:["static method không gắn với object nào, nên không biết x là của object nào","x là private nên không đọc được","show() phải trả về int","Phải viết this.x trong static method"],a:0,
+t:"Field x không static nên mỗi object có một x riêng. Còn method static thuộc về class, chạy được mà chưa cần có object nào. Vậy khi show() chạy, Java không biết nên đọc x của object nào, vì có thể chưa có object. Giống bảng thông báo chung của lớp không thể hiển thị \"điểm của tôi\" khi chưa biết \"tôi\" là bạn nào. Vì lý do này, trong method static cũng không dùng được this.",
+x:["Đúng. Method static không thuộc về object nào, nên không đọc được field của object (cần có object cụ thể).","Sai. x không ghi private. Hơn nữa, class A vẫn luôn đọc được field của chính mình.","Sai. Kiểu trả về void hoàn toàn hợp lệ, không phải nguyên nhân lỗi.","Sai. this cũng không dùng được trong static method, vì static không có \"chính object này\"."]},
+{q:"Đoạn code sau in ra gì?",code:"class Person { String name; Person(String n) { name = n; } }\n\nstatic void change(Person p) { p.name = \"B\"; }\nstatic void reassign(Person p) { p = new Person(\"C\"); }\n\n// trong main:\nPerson a = new Person(\"A\");\nchange(a);\nreassign(a);\nSystem.out.println(a.name);",o:["A","B","C","Lỗi biên dịch"],a:1,
+t:"Java truyền tham số theo kiểu giá trị: khi gọi hàm, nó chép tờ giấy ghi địa chỉ nhà đưa cho hàm. change: người nhận tờ giấy tìm đến đúng ngôi nhà và sơn lại tên, nên ngôi nhà thật bị đổi. reassign: người nhận chỉ vẽ lại tờ giấy bản sao của mình trỏ sang một ngôi nhà mới. Tờ giấy gốc của bạn không bị ảnh hưởng, nên a vẫn trỏ ngôi nhà cũ.",
+x:["Sai. change(a) đã sửa name thành \"B\" trong chính object mà a trỏ tới.","Đúng. change sửa trực tiếp object nên name thành B. reassign chỉ làm biến p (bản sao địa chỉ) trỏ sang object mới, còn a vẫn trỏ object cũ. Kết quả: B.","Sai. C thuộc về object mới tạo trong reassign, nhưng a không hề trỏ tới nó.","Sai. Code hợp lệ."]},
+{q:"Đoạn code sau in ra gì?",code:"class Person {\n  String name;\n  Person(String name) { this.name = name; }\n}\n// ...\nPerson p1 = new Person(\"An\");\nPerson p2 = new Person(\"An\");\nSystem.out.println(p1.equals(p2));",o:["true","false","Lỗi biên dịch","null"],a:1,
+t:"equals() là hàm hỏi \"hai object có bằng nhau không?\". Nếu class của bạn chưa tự viết lại equals, Java dùng bản mặc định của Object, và nó chỉ so địa chỉ (giống ==). p1 và p2 là hai object khác nhau được new riêng, nên dù cùng tên \"An\" thì vẫn ở hai địa chỉ khác nhau. Muốn so theo nội dung, phải override equals (và cả hashCode).",
+x:["Sai. true chỉ ra nếu class Person tự viết lại equals để so tên. Ở đây chưa viết.","Đúng. equals mặc định so địa chỉ. p1 và p2 là hai object riêng nên kết quả là false, dù nội dung giống nhau.","Sai. Mọi class đều thừa kế equals từ Object nên gọi được.","Sai. equals trả về true hoặc false, không trả về null."]}
+];
+var L=["A","B","C","D"],i=0,score=0,done=false,card=document.getElementById("card");
+function esc(s){return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")}
+function lvl(n){return n<4?"Cơ bản":n<8?"Trung bình":"Khá"}
+function show(){
+  done=false;var d=Q[i];
+  document.getElementById("bar").style.width=(i/Q.length*100)+"%";
+  var h='<span class="lv">'+lvl(i)+'</span><p class="q">Câu '+(i+1)+'/'+Q.length+'. '+esc(d.q)+'</p>';
+  if(d.code)h+='<pre>'+esc(d.code)+'</pre>';
+  h+='<div class="opts">';
+  d.o.forEach(function(t,k){h+='<div class="w" data-k="'+k+'"><button class="opt"><b>'+L[k]+'.</b><span>'+esc(t)+'</span><span class="mark"></span></button><div class="why">'+esc(d.x[k])+'</div></div>'});
+  h+='</div><div class="verdict" id="vd"></div><div class="tip"><strong>Hiểu câu hỏi này</strong>'+esc(d.t)+'</div><div class="nav"><button class="btn" id="next" hidden>'+(i===Q.length-1?"Xem kết quả":"Câu tiếp theo")+'</button></div>';
+  card.className="card";card.innerHTML=h;
+  card.querySelectorAll(".w").forEach(function(w){w.querySelector(".opt").onclick=function(){pick(+w.dataset.k)}});
+  document.getElementById("next").onclick=function(){i++;i<Q.length?show():finish();window.scrollTo(0,0)};
+}
+function pick(k){
+  if(done)return;done=true;var d=Q[i],ok=k===d.a;if(ok)score++;
+  document.getElementById("score").textContent="Điểm: "+score;
+  card.querySelectorAll(".w").forEach(function(w,n){
+    var b=w.querySelector(".opt");b.disabled=true;
+    if(n===d.a){w.classList.add("ok");b.querySelector(".mark").textContent="✓ Đúng"}
+    else{w.classList.add("bad");b.querySelector(".mark").textContent=(n===k?"✗ Bạn chọn":"✗")}
+  });
+  var v=document.getElementById("vd");v.className="verdict "+(ok?"ok":"bad");
+  v.textContent=ok?"Chính xác! Xem lý do từng đáp án bên trên.":"Chưa đúng. Đáp án đúng là "+L[d.a]+". Xem lý do từng đáp án bên trên.";
+  card.classList.add("shown");document.getElementById("next").hidden=false;
+}
+function finish(){
+  document.getElementById("bar").style.width="100%";
+  var p=Math.round(score/Q.length*100);
+  var m=p>=80?"Rất tốt, bạn đã nắm vững phần 1 của Chuyên đề 2. Sẵn sàng sang kế thừa và đa hình.":p>=50?"Khá ổn. Hãy đọc lại phần \"Hiểu câu hỏi này\" ở các câu sai rồi làm lại.":"Chưa sao, hãy làm lại từ đầu và đọc kỹ phần \"Hiểu câu hỏi này\" mỗi câu.";
+  card.className="card";card.innerHTML='<div class="result"><div class="big">'+score+'/'+Q.length+'</div><p>'+m+'</p><button class="btn" id="again">Làm lại</button></div>';
+  document.getElementById("again").onclick=function(){i=0;score=0;document.getElementById("score").textContent="Điểm: 0";show()};
+}
+show();
+</script>
+</body>
+</html>

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Chuyên đề 1: Nền tảng Java</title>
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+--bg:#f3f6fa;--surface:#fff;--text:#14202e;--muted:#5a6b7d;--line:#d3dce6;--accent:#1f5fbf;--ok:#17803d;--ok-bg:#e3f4e8;--bad:#b42318;--bad-bg:#fde8e6;--tip-bg:#fff6dd;--tip:#7a5200;--btn-text:#fff}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){color-scheme:dark;--bg:#0f1720;--surface:#17212c;--text:#e8eef5;--muted:#93a4b6;--line:#2c3a49;--accent:#6aa5f5;--ok:#5fd08a;--ok-bg:#12301f;--bad:#ff8a80;--bad-bg:#3a1a18;--tip-bg:#33290f;--tip:#f2cf7a;--btn-text:#0f1720}}
+:root[data-theme="dark"]{color-scheme:dark;--bg:#0f1720;--surface:#17212c;--text:#e8eef5;--muted:#93a4b6;--line:#2c3a49;--accent:#6aa5f5;--ok:#5fd08a;--ok-bg:#12301f;--bad:#ff8a80;--bad-bg:#3a1a18;--tip-bg:#33290f;--tip:#f2cf7a;--btn-text:#0f1720}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:"Be Vietnam Pro","Segoe UI",system-ui,sans-serif;line-height:1.6}
+main{max-width:660px;margin:0 auto;padding:20px 16px 48px}
+header{display:flex;justify-content:space-between;align-items:baseline;gap:8px;margin-bottom:8px}
+h1{font-size:1.2rem;margin:0}
+.score{font-weight:600;color:var(--accent);white-space:nowrap}
+.bar{height:6px;background:var(--line);border-radius:3px;overflow:hidden;margin-bottom:20px}
+.bar i{display:block;height:100%;width:0;background:var(--accent);transition:width .3s}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px}
+.lv{display:inline-block;padding:2px 10px;border:1.5px solid var(--accent);border-radius:999px;color:var(--accent);font-size:.82rem;font-weight:600;margin-bottom:10px}
+.q{font-size:1.06rem;font-weight:600;margin:0 0 12px}
+pre{background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:10px 12px;overflow-x:auto;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.85rem;margin:0 0 12px}
+.opts{display:grid;gap:10px}
+.opt{display:flex;gap:10px;text-align:left;width:100%;padding:12px 14px;border:1.5px solid var(--line);border-radius:10px;background:var(--surface);color:var(--text);font:inherit;cursor:pointer}
+.opt:hover:not(:disabled){border-color:var(--accent)}
+.opt:focus-visible,.btn:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.opt b{min-width:1.4em}
+.opt:disabled{cursor:default}
+.mark{margin-left:auto;font-weight:700;white-space:nowrap}
+.w.ok .opt{border-color:var(--ok);background:var(--ok-bg)}
+.w.bad .opt{border-color:var(--bad);background:var(--bad-bg)}
+.w.ok .mark{color:var(--ok)}.w.bad .mark{color:var(--bad)}
+.why{display:none;margin:6px 4px 2px;padding-left:10px;border-left:3px solid var(--line);font-size:.92rem;color:var(--muted)}
+.w.ok .why{border-color:var(--ok)}.w.bad .why{border-color:var(--bad)}
+.verdict{display:none;margin-top:14px;font-weight:600}
+.verdict.ok{color:var(--ok)}.verdict.bad{color:var(--bad)}
+.tip{display:none;margin-top:14px;padding:12px 14px;border-radius:10px;background:var(--tip-bg);color:var(--tip);font-size:.93rem}
+.tip strong{display:block;margin-bottom:4px}
+.shown .why,.shown .verdict,.shown .tip{display:block}
+.nav{display:flex;justify-content:flex-end;margin-top:16px}
+.btn{padding:11px 22px;border:0;border-radius:10px;background:var(--accent);color:var(--btn-text);font:inherit;font-weight:600;cursor:pointer}
+.btn[hidden]{display:none}
+.result{text-align:center;padding:12px 0}
+.result .big{font-size:2.6rem;font-weight:700;color:var(--accent)}
+</style>
+</head>
+<body>
+<main>
+  <header><h1>Chuyên đề 1: Nền tảng Java</h1><span class="score" id="score">Điểm: 0</span></header>
+  <div class="bar"><i id="bar"></i></div>
+  <div class="card" id="card"></div>
+</main>
+<script>
+var Q=[
+{q:"Bạn viết file Hello.java rồi chạy. Quá trình nào sau đây đúng?",o:["Máy tính đọc trực tiếp file .java và chạy","Trình biên dịch (javac) dịch .java thành .class (bytecode), rồi JVM chạy file .class","JVM chuyển file .java thành file .exe","File .java được mở bằng trình duyệt để chạy"],a:1,
+t:"Code bạn viết (file .java) là chữ con người đọc được, máy tính không hiểu. Compiler (trình biên dịch, tên là javac) giống người phiên dịch: dịch sang bytecode, lưu trong file .class. JVM (Java Virtual Machine) là \"máy ảo\" đọc bytecode và chạy trên Windows, Mac hay Linux. Vì vậy Java có câu nổi tiếng: viết một lần, chạy mọi nơi.",
+x:["Sai. Máy tính không hiểu trực tiếp chữ trong file .java, cần dịch trước.","Đúng. javac dịch .java thành .class (bytecode), JVM đọc .class rồi chạy. Cùng một file .class chạy được trên nhiều hệ điều hành.","Sai. Java không tạo file .exe. Kết quả dịch là .class và JVM chạy nó.","Sai. Trình duyệt không chạy file .java."]},
+{q:"Dòng nào khai báo biến đúng cú pháp Java?",o:["int age = 20;","age int = 20;","int age == 20;","integer age = 20;"],a:0,
+t:"Cú pháp là luật viết câu của ngôn ngữ, như ngữ pháp trong tiếng Việt. Khai báo biến là tạo một chiếc hộp có dán nhãn để đựng dữ liệu. Luật của Java: kiểu dữ liệu đứng trước, tên biến đứng sau, dấu = để gán giá trị, và kết thúc câu lệnh bằng dấu chấm phẩy ;",
+x:["Đúng. Thứ tự: kiểu (int), tên (age), dấu = gán giá trị, kết thúc bằng ;","Sai. Sai thứ tự: kiểu dữ liệu phải đứng trước tên biến.","Sai. Dấu == là phép so sánh (hỏi \"có bằng nhau không?\"). Để gán giá trị phải dùng một dấu =.","Sai. Java dùng int chứ không dùng integer cho số nguyên. (Integer viết hoa là một class khác.)"]},
+{q:"Kiểu nào sau đây KHÔNG phải kiểu nguyên thủy (primitive) trong Java?",o:["int","boolean","char","String"],a:3,
+t:"Kiểu nguyên thủy là loại dữ liệu đơn giản nhất, dựng sẵn trong Java, giống nguyên liệu thô như muối, đường. Có đúng 8 kiểu: byte, short, int, long, float, double, boolean, char. Mọi thứ còn lại, như String, là kiểu tham chiếu (object), giống món ăn đã chế biến phức tạp hơn. Mẹo nhận biết: kiểu nguyên thủy viết thường, class viết hoa chữ cái đầu.",
+x:["Sai. int là kiểu nguyên thủy, lưu số nguyên.","Sai. boolean là kiểu nguyên thủy, chỉ có true hoặc false.","Sai. char là kiểu nguyên thủy, lưu một ký tự như 'a'.","Đúng. String là một class (kiểu tham chiếu), dùng để lưu chuỗi ký tự và có sẵn nhiều method như length()."]},
+{q:"Đoạn code sau in ra gì?",code:"System.out.println(7 / 2);",o:["3.5","3","4","Lỗi biên dịch"],a:1,
+t:"System.out.println() là lệnh in kết quả ra màn hình. Khi chia hai số nguyên cho nhau, Java cũng trả về số nguyên và phần lẻ bị cắt bỏ (không làm tròn). Giống chia 7 cái kẹo cho 2 bạn: mỗi bạn được 3 cái nguyên, còn dư 1 cái.",
+x:["Sai. 3.5 chỉ ra khi một trong hai số là số thực, ví dụ 7 / 2.0.","Đúng. 7 và 2 đều là int nên kết quả cũng là int, phần .5 bị cắt bỏ, còn lại 3.","Sai. Java cắt bỏ phần lẻ chứ không làm tròn lên, nên không ra 4.","Sai. Chia hai số nguyên hoàn toàn hợp lệ."]},
+{q:"Đoạn code sau in ra gì?",code:"System.out.println(10 % 3);",o:["3","1","0","3.33"],a:1,
+t:"Toán tử % (modulo) cho ra phần dư của phép chia. Rất hay dùng để kiểm tra số chẵn lẻ: số nào % 2 bằng 0 là số chẵn.",
+x:["Sai. 3 là thương (10 chia 3 được 3), không phải phần dư.","Đúng. 10 chia 3 được 3, dư 1 (vì 3 x 3 = 9, và 10 - 9 = 1).","Sai. Phần dư bằng 0 chỉ khi chia hết, mà 10 không chia hết cho 3.","Sai. 3.33 là kết quả phép chia số thực. % chỉ cho phần dư."]},
+{q:"Đoạn code sau in ra gì?",code:"int x = 7;\nif (x > 5 && x < 10) System.out.println(\"A\");\nelse System.out.println(\"B\");",o:["A","B","A rồi B","Lỗi biên dịch"],a:0,
+t:"if/else là câu lệnh rẽ nhánh: nếu điều kiện đúng thì làm việc này, ngược lại làm việc kia, như \"nếu trời mưa thì mang ô\". && nghĩa là VÀ: cả hai điều kiện phải cùng đúng. || nghĩa là HOẶC: chỉ cần một điều kiện đúng.",
+x:["Đúng. x > 5 đúng (7 > 5) và x < 10 đúng (7 < 10). Cả hai đúng nên && cho kết quả đúng, và in A.","Sai. B chỉ được in khi điều kiện sai. Ở đây cả hai vế đều đúng.","Sai. if/else chỉ chạy một trong hai nhánh, không chạy cả hai.","Sai. Code đúng cú pháp."]},
+{q:"Đoạn code sau in ra gì?",code:"for (int i = 0; i < 3; i++) {\n  System.out.print(i);\n}",o:["123","012","0123","Lặp mãi không dừng"],a:1,
+t:"Vòng lặp for lặp lại một việc nhiều lần, giống chạy 3 vòng quanh sân. Trong ngoặc có 3 phần: bắt đầu (int i = 0), điều kiện để tiếp tục (i < 3), và bước nhảy sau mỗi vòng (i++, nghĩa là tăng i lên 1). print in ra mà không xuống dòng.",
+x:["Sai. i bắt đầu từ 0 chứ không phải từ 1.","Đúng. i = 0 in 0, i = 1 in 1, i = 2 in 2. Khi i = 3 thì điều kiện i < 3 sai nên dừng. Kết quả: 012.","Sai. Khi i = 3, điều kiện i < 3 đã sai nên số 3 không được in.","Sai. Mỗi vòng i tăng thêm 1, đến 3 thì điều kiện sai và vòng lặp dừng."]},
+{q:"Đoạn code sau in ra gì?",code:"for (int i = 1; i <= 5; i++) {\n  if (i == 3) continue;\n  System.out.print(i);\n}",o:["12345","1245","12","345"],a:1,
+t:"continue nghĩa là \"bỏ qua phần còn lại của vòng này, sang vòng tiếp theo\", như bỏ qua một món trong thực đơn nhưng vẫn gọi các món sau. Còn break là dừng hẳn cả vòng lặp.",
+x:["Sai. Khi i = 3, lệnh continue bỏ qua dòng print nên số 3 không được in.","Đúng. Vòng i = 3 bị bỏ qua, các vòng còn lại vẫn chạy: 1, 2, 4, 5.","Sai. Đây là kết quả nếu dùng break (dừng hẳn khi i = 3). continue chỉ bỏ qua một vòng.","Sai. Vòng lặp bắt đầu từ 1, nên 1 và 2 vẫn được in."]},
+{q:"Đoạn code sau in ra gì?",code:"int x = 5;\nint y = x++;\nSystem.out.println(x + \" \" + y);",o:["5 5","6 5","6 6","5 6"],a:1,
+t:"x++ nghĩa là tăng x lên 1, nhưng thứ tự rất quan trọng. x++ (viết sau) là \"dùng giá trị hiện tại trước, rồi mới tăng\". ++x (viết trước) là \"tăng trước, rồi mới dùng\". Giống phát số thứ tự cho khách rồi mới ghi thêm một người vào sổ.",
+x:["Sai. Sau lệnh thứ hai x đã tăng lên 6, nên không còn là 5.","Đúng. y = x++ gán y bằng giá trị cũ của x (5), sau đó x mới tăng lên 6. Kết quả: x = 6, y = 5.","Sai. Chỉ khi viết y = ++x (tăng trước rồi gán) mới ra 6 6.","Sai. x không thể còn 5 vì nó đã được tăng sau khi y lấy giá trị."]},
+{q:"Đoạn code sau in ra gì?",code:"String s = \"Hi\";\ns.concat(\" there\");\nSystem.out.println(s);",o:["Hi there","Hi","there","Lỗi biên dịch"],a:1,
+t:"concat() là method nối thêm chuỗi vào sau. String trong Java là bất biến (immutable): đã tạo ra thì nội dung không bao giờ sửa được, giống chữ đã in trên giấy. Mọi lệnh có vẻ \"sửa\" chuỗi thực ra tạo ra một chuỗi mới và trả về. Muốn dùng kết quả mới, phải gán lại vào biến.",
+x:["Sai. concat() có tạo chuỗi mới \"Hi there\" nhưng kết quả bị bỏ đi vì không được gán vào đâu. s vẫn là \"Hi\".","Đúng. s không đổi vì String bất biến. Muốn có \"Hi there\" phải viết s = s.concat(\" there\");","Sai. concat() nối thêm vào cuối chứ không thay thế cả chuỗi, và s không bị đổi.","Sai. Code hợp lệ, chỉ là kết quả của concat() bị bỏ không dùng."]}
+];
+var L=["A","B","C","D"],i=0,score=0,done=false,card=document.getElementById("card");
+function esc(s){return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")}
+function lvl(n){return n<4?"Cơ bản":n<8?"Trung bình":"Khá"}
+function show(){
+  done=false;var d=Q[i];
+  document.getElementById("bar").style.width=(i/Q.length*100)+"%";
+  var h='<span class="lv">'+lvl(i)+'</span><p class="q">Câu '+(i+1)+'/'+Q.length+'. '+esc(d.q)+'</p>';
+  if(d.code)h+='<pre>'+esc(d.code)+'</pre>';
+  h+='<div class="opts">';
+  d.o.forEach(function(t,k){h+='<div class="w" data-k="'+k+'"><button class="opt"><b>'+L[k]+'.</b><span>'+esc(t)+'</span><span class="mark"></span></button><div class="why">'+esc(d.x[k])+'</div></div>'});
+  h+='</div><div class="verdict" id="vd"></div><div class="tip"><strong>Hiểu câu hỏi này</strong>'+esc(d.t)+'</div><div class="nav"><button class="btn" id="next" hidden>'+(i===Q.length-1?"Xem kết quả":"Câu tiếp theo")+'</button></div>';
+  card.className="card";card.innerHTML=h;
+  card.querySelectorAll(".w").forEach(function(w){w.querySelector(".opt").onclick=function(){pick(+w.dataset.k)}});
+  document.getElementById("next").onclick=function(){i++;i<Q.length?show():finish();window.scrollTo(0,0)};
+}
+function pick(k){
+  if(done)return;done=true;var d=Q[i],ok=k===d.a;if(ok)score++;
+  document.getElementById("score").textContent="Điểm: "+score;
+  card.querySelectorAll(".w").forEach(function(w,n){
+    var b=w.querySelector(".opt");b.disabled=true;
+    if(n===d.a){w.classList.add("ok");b.querySelector(".mark").textContent="✓ Đúng"}
+    else{w.classList.add("bad");b.querySelector(".mark").textContent=(n===k?"✗ Bạn chọn":"✗")}
+  });
+  var v=document.getElementById("vd");v.className="verdict "+(ok?"ok":"bad");
+  v.textContent=ok?"Chính xác! Xem lý do từng đáp án bên trên.":"Chưa đúng. Đáp án đúng là "+L[d.a]+". Xem lý do từng đáp án bên trên.";
+  card.classList.add("shown");document.getElementById("next").hidden=false;
+}
+function finish(){
+  document.getElementById("bar").style.width="100%";
+  var p=Math.round(score/Q.length*100);
+  var m=p>=80?"Rất tốt, bạn đã nắm chắc Chuyên đề 1. Sẵn sàng sang chuyên đề tiếp theo.":p>=50?"Khá ổn. Hãy đọc lại phần \"Hiểu câu hỏi này\" ở các câu sai rồi làm lại.":"Chưa sao, hãy làm lại từ đầu và đọc kỹ phần \"Hiểu câu hỏi này\" mỗi câu.";
+  card.className="card";card.innerHTML='<div class="result"><div class="big">'+score+'/'+Q.length+'</div><p>'+m+'</p><button class="btn" id="again">Làm lại</button></div>';
+  document.getElementById("again").onclick=function(){i=0;score=0;document.getElementById("score").textContent="Điểm: 0";show()};
+}
+show();
+</script>
+</body>
+</html>

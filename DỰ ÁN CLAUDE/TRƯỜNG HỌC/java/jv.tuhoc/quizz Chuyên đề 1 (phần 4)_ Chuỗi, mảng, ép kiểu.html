@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Chuyên đề 1 (phần 4): Chuỗi, mảng, ép kiểu</title>
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+--bg:#f3f6fa;--surface:#fff;--text:#14202e;--muted:#5a6b7d;--line:#d3dce6;--accent:#1f5fbf;--ok:#17803d;--ok-bg:#e3f4e8;--bad:#b42318;--bad-bg:#fde8e6;--tip-bg:#fff6dd;--tip:#7a5200;--btn-text:#fff}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){color-scheme:dark;--bg:#0f1720;--surface:#17212c;--text:#e8eef5;--muted:#93a4b6;--line:#2c3a49;--accent:#6aa5f5;--ok:#5fd08a;--ok-bg:#12301f;--bad:#ff8a80;--bad-bg:#3a1a18;--tip-bg:#33290f;--tip:#f2cf7a;--btn-text:#0f1720}}
+:root[data-theme="dark"]{color-scheme:dark;--bg:#0f1720;--surface:#17212c;--text:#e8eef5;--muted:#93a4b6;--line:#2c3a49;--accent:#6aa5f5;--ok:#5fd08a;--ok-bg:#12301f;--bad:#ff8a80;--bad-bg:#3a1a18;--tip-bg:#33290f;--tip:#f2cf7a;--btn-text:#0f1720}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:"Be Vietnam Pro","Segoe UI",system-ui,sans-serif;line-height:1.6}
+main{max-width:660px;margin:0 auto;padding:20px 16px 48px}
+header{display:flex;justify-content:space-between;align-items:baseline;gap:8px;margin-bottom:8px}
+h1{font-size:1.2rem;margin:0}
+.score{font-weight:600;color:var(--accent);white-space:nowrap}
+.bar{height:6px;background:var(--line);border-radius:3px;overflow:hidden;margin-bottom:20px}
+.bar i{display:block;height:100%;width:0;background:var(--accent);transition:width .3s}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px}
+.lv{display:inline-block;padding:2px 10px;border:1.5px solid var(--accent);border-radius:999px;color:var(--accent);font-size:.82rem;font-weight:600;margin-bottom:10px}
+.q{font-size:1.06rem;font-weight:600;margin:0 0 12px}
+pre{background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:10px 12px;overflow-x:auto;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.85rem;margin:0 0 12px}
+.opts{display:grid;gap:10px}
+.opt{display:flex;gap:10px;text-align:left;width:100%;padding:12px 14px;border:1.5px solid var(--line);border-radius:10px;background:var(--surface);color:var(--text);font:inherit;cursor:pointer}
+.opt:hover:not(:disabled){border-color:var(--accent)}
+.opt:focus-visible,.btn:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.opt b{min-width:1.4em}
+.opt:disabled{cursor:default}
+.mark{margin-left:auto;font-weight:700;white-space:nowrap}
+.w.ok .opt{border-color:var(--ok);background:var(--ok-bg)}
+.w.bad .opt{border-color:var(--bad);background:var(--bad-bg)}
+.w.ok .mark{color:var(--ok)}.w.bad .mark{color:var(--bad)}
+.why{display:none;margin:6px 4px 2px;padding-left:10px;border-left:3px solid var(--line);font-size:.92rem;color:var(--muted)}
+.w.ok .why{border-color:var(--ok)}.w.bad .why{border-color:var(--bad)}
+.verdict{display:none;margin-top:14px;font-weight:600}
+.verdict.ok{color:var(--ok)}.verdict.bad{color:var(--bad)}
+.tip{display:none;margin-top:14px;padding:12px 14px;border-radius:10px;background:var(--tip-bg);color:var(--tip);font-size:.93rem}
+.tip strong{display:block;margin-bottom:4px}
+.shown .why,.shown .verdict,.shown .tip{display:block}
+.nav{display:flex;justify-content:flex-end;margin-top:16px}
+.btn{padding:11px 22px;border:0;border-radius:10px;background:var(--accent);color:var(--btn-text);font:inherit;font-weight:600;cursor:pointer}
+.btn[hidden]{display:none}
+.result{text-align:center;padding:12px 0}
+.result .big{font-size:2.6rem;font-weight:700;color:var(--accent)}
+</style>
+</head>
+<body>
+<main>
+  <header><h1>Chuyên đề 1 (phần 4): Chuỗi, mảng, ép kiểu</h1><span class="score" id="score">Điểm: 0</span></header>
+  <div class="bar"><i id="bar"></i></div>
+  <div class="card" id="card"></div>
+</main>
+<script>
+var Q=[
+{q:"Đoạn code sau hiển thị thế nào trên màn hình?",code:"System.out.print(\"A\");\nSystem.out.println(\"B\");\nSystem.out.println(\"C\");",o:["A, B, C mỗi chữ một dòng","AB ở dòng đầu, C ở dòng thứ hai","ABC trên một dòng","A ở dòng đầu, BC ở dòng thứ hai"],a:1,
+t:"print và println đều in ra màn hình. println (print line) in xong thì xuống dòng, như bấm phím Enter. print chỉ in rồi đứng nguyên tại chỗ, lần in tiếp theo sẽ nối ngay phía sau.",
+x:["Sai. print không xuống dòng nên A và B nằm cùng một dòng.","Đúng. print(\"A\") in A và đứng lại, println(\"B\") in B rồi xuống dòng, nên dòng đầu là AB. Sau đó C ở dòng thứ hai.","Sai. Sau println(\"B\") đã có xuống dòng, nên C nằm ở dòng mới.","Sai. A in bằng print nên không xuống dòng, B nằm cùng dòng với A."]},
+{q:"Đoạn code sau hiển thị thế nào?",code:"System.out.println(\"Hi\\nBye\");",o:["Hi\\nBye trên một dòng","Hi ở dòng đầu, Bye ở dòng dưới","Lỗi biên dịch","HiBye trên một dòng"],a:1,
+t:"Ký tự đặc biệt (escape sequence) bắt đầu bằng dấu gạch chéo ngược \\ và có ý nghĩa riêng. \\n là xuống dòng, \\t là phím Tab (cách một đoạn), còn \\\" dùng để in dấu nháy kép bên trong chuỗi. Giống những mật mã ngắn để ra lệnh cho máy in.",
+x:["Sai. \\n không được in nguyên văn, Java hiểu nó là lệnh xuống dòng.","Đúng. \\n là xuống dòng, nên Hi nằm ở dòng đầu và Bye ở dòng thứ hai.","Sai. Chuỗi hợp lệ, \\n là ký tự đặc biệt Java hỗ trợ.","Sai. HiBye dính liền chỉ ra nếu không có \\n."]},
+{q:"Đoạn code sau in ra gì?",code:"System.out.println(\"Hello\".charAt(4));",o:["l","o","Lỗi StringIndexOutOfBoundsException","H"],a:1,
+t:"Chuỗi cũng đánh số vị trí từ 0, giống mảng: H = 0, e = 1, l = 2, l = 3, o = 4. charAt(n) lấy ra ký tự ở vị trí n. Chuỗi 5 ký tự thì vị trí cuối là 4 (độ dài trừ 1). Lấy vị trí 5 trở đi mới gây lỗi StringIndexOutOfBoundsException.",
+x:["Sai. l nằm ở vị trí 2 và 3, không phải 4.","Đúng. Vị trí 4 là ký tự cuối cùng: o.","Sai. Vị trí 4 vẫn hợp lệ. Lỗi chỉ xảy ra từ vị trí 5 trở đi.","Sai. H ở vị trí 0, là ký tự đầu tiên."]},
+{q:"Đoạn code sau in ra gì?",code:"int[] a = new int[3];\nSystem.out.println(a[0]);",o:["0","null","Lỗi biên dịch","Một giá trị ngẫu nhiên"],a:0,
+t:"new int[3] tạo ra mảng gồm 3 ô. Khác với biến cục bộ, các ô của mảng được Java tự điền giá trị mặc định: 0 cho số, false cho boolean, null cho object (như String). Giống phòng trọ mới xây được dọn sạch, không có đồ cũ.",
+x:["Đúng. Mảng int tự điền 0 vào mọi ô.","Sai. null là mặc định cho kiểu tham chiếu (như String), còn int thì là 0.","Sai. Không có lỗi. Mảng mới tạo đã có giá trị mặc định nên đọc được.","Sai. Java không để giá trị ngẫu nhiên, mọi ô đều được điền giá trị mặc định."]},
+{q:"Đoạn code sau in ra gì?",code:"System.out.println(1 + 2 + \"3\");",o:["123","33","6","15"],a:1,
+t:"Dấu + có hai nghĩa: cộng số, và nối chuỗi khi có một vế là String. Java tính từ trái sang phải, từng cặp một. Cặp đầu 1 + 2 đều là số nên cộng thành 3. Rồi 3 + \"3\" có chuỗi nên nối thành \"33\". Nếu đảo thành \"3\" + 1 + 2 thì ra \"312\".",
+x:["Sai. 123 chỉ ra nếu cả ba đều bị nối chuỗi, nhưng 1 + 2 được tính là cộng số trước.","Đúng. 1 + 2 = 3 (cộng số), sau đó 3 + \"3\" là nối chuỗi nên ra \"33\".","Sai. 6 chỉ ra khi \"3\" là số. Nó là chuỗi nên phép + cuối cùng là nối chuỗi.","Sai. Không có phép tính nào ở đây cho ra 15."]},
+{q:"Đoạn code sau in ra gì?",code:"System.out.println(\"banana\".indexOf(\"na\"));",o:["1","2","3","-1"],a:1,
+t:"indexOf tìm một đoạn chữ trong chuỗi và trả về vị trí xuất hiện đầu tiên (đếm từ 0). Nếu không tìm thấy thì trả về -1. Giống dùng Ctrl+F để tìm chữ rồi báo vị trí. Với \"banana\": b = 0, a = 1, n = 2, a = 3, n = 4, a = 5.",
+x:["Sai. Vị trí 1 là chữ a, chưa phải đoạn \"na\".","Đúng. Đoạn \"na\" xuất hiện đầu tiên ở vị trí 2 (n ở vị trí 2, a ở vị trí 3).","Sai. 3 là vị trí của chữ a, còn \"na\" đã xuất hiện sớm hơn ở vị trí 2.","Sai. -1 chỉ trả về khi không tìm thấy, mà \"na\" có trong banana."]},
+{q:"Đoạn code sau in ra gì?",code:"int[] a = {1, 2, 3};\nint s = 0;\nfor (int v : a) {\n  s += v;\n}\nSystem.out.println(s);",o:["3","6","123","Lỗi biên dịch"],a:1,
+t:"for-each là vòng for rút gọn để đi qua từng phần tử của mảng: for (int v : a) đọc là \"với mỗi v trong a\". Không cần chỉ số, mỗi vòng v lần lượt nhận 1, 2, 3, như đi dọc hàng ghế và ngồi thử từng ghế. s += v là cộng dồn vào s.",
+x:["Sai. 3 là số phần tử của mảng, còn s là tổng các giá trị.","Đúng. s = 0 + 1 + 2 + 3 = 6.","Sai. 123 là kết quả nối chuỗi, nhưng ở đây là phép cộng số int.","Sai. Code hợp lệ."]},
+{q:"Đoạn code sau in ra gì?",code:"System.out.println(Integer.parseInt(\"12\") + 3);",o:["123","15","Lỗi lúc chạy","12"],a:1,
+t:"Chữ \"12\" trong ngoặc kép là chuỗi, không phải số, nên không cộng trừ được. Integer.parseInt biến chuỗi chữ số thành số int thật, như đổi tờ giấy ghi chữ \"12\" thành 12 viên bi. Sau đó 12 + 3 là phép cộng số. Nếu chuỗi không phải số (ví dụ \"abc\") sẽ gây lỗi NumberFormatException.",
+x:["Sai. 123 chỉ ra nếu viết \"12\" + 3 (nối chuỗi). Ở đây đã đổi thành số 12 trước.","Đúng. parseInt(\"12\") = 12 (số), 12 + 3 = 15.","Sai. Chuỗi \"12\" gồm chữ số hợp lệ nên parseInt chạy bình thường.","Sai. 12 chưa được cộng thêm 3."]},
+{q:"Dòng nào trong đoạn code sau gây lỗi biên dịch?",code:"int a = 10;       // dòng 1\nlong b = a;       // dòng 2\nint c = b;        // dòng 3",o:["Dòng 1","Dòng 2","Dòng 3","Không dòng nào"],a:2,
+t:"Các kiểu số như những chiếc hộp cỡ khác nhau. Bỏ đồ từ hộp nhỏ (int) vào hộp to (long) thì luôn vừa, nên Java tự làm giúp. Ngược lại, đổ từ hộp to vào hộp nhỏ có thể bị tràn, nên Java không tự làm mà bắt bạn ép kiểu thủ công và tự chịu trách nhiệm: int c = (int) b;",
+x:["Sai. Gán số 10 cho biến int là bình thường.","Sai. int vào long là từ hộp nhỏ sang hộp to, Java tự động làm được.","Đúng. long vào int là từ hộp to sang hộp nhỏ, có thể mất dữ liệu nên compiler báo lỗi. Cách sửa: int c = (int) b;","Sai. Dòng 3 chắc chắn gây lỗi."]},
+{q:"Đoạn code sau in ra gì?",code:"int[] a = {1, 2, 3};\nint[] b = a;\nb[0] = 99;\nSystem.out.println(a[0]);",o:["1","99","0","Lỗi biên dịch"],a:1,
+t:"Biến mảng không chứa các ô thật, mà chứa địa chỉ nơi mảng được cất, như tờ giấy ghi địa chỉ nhà. int[] b = a chỉ chép tờ giấy địa chỉ, không xây nhà mới. Nên a và b cùng trỏ vào một mảng, sửa qua b thì a cũng thấy thay đổi. Muốn có bản sao thật, dùng a.clone() hoặc Arrays.copyOf.",
+x:["Sai. a[0] chỉ còn 1 nếu b là bản sao riêng. Nhưng b chỉ là cái tên khác của cùng một mảng.","Đúng. a và b cùng trỏ một mảng, b[0] = 99 làm đổi chính mảng đó nên a[0] cũng là 99.","Sai. Không có bước nào gán 0 cả.","Sai. Code hợp lệ."]},
+{q:"Vì sao dòng code sau gây lỗi biên dịch?",code:"float f = 3.14;",o:["Số 3.14 mặc định là double, không tự nhét vừa vào float","float không chứa được số thực","Thiếu chữ new","float chỉ chứa số nguyên"],a:0,
+t:"Số thực viết trực tiếp trong code, như 3.14, mặc định là kiểu double (hộp to). float là hộp nhỏ hơn, nên Java không tự đổ vào được (giống bài hộp to - hộp nhỏ ở câu trước). Có hai cách sửa: thêm chữ f sau số (float f = 3.14f;) hoặc dùng double.",
+x:["Đúng. 3.14 là double, nhét vào float có thể mất độ chính xác nên bị báo lỗi. Cách sửa: 3.14f.","Sai. float chính là một kiểu số thực (độ chính xác thấp hơn double).","Sai. Kiểu nguyên thủy như float không cần từ khóa new.","Sai. float lưu số thực. Số nguyên là byte, short, int, long."]},
+{q:"Đoạn code sau in ra gì?",code:"int count = 0;\nfor (int i = 0; i < 10; i++) {\n  if (i % 2 == 0) continue;\n  if (i > 6) break;\n  count++;\n}\nSystem.out.println(count);",o:["3","4","5","7"],a:0,
+t:"Bài này kết hợp ba kỹ năng: % để nhận biết số chẵn, continue để bỏ qua vòng này, break để thoát hẳn vòng lặp. Cách làm: lập bảng theo dõi từng vòng. Số chẵn (i % 2 == 0) bị bỏ qua. Số lẻ thì kiểm tra tiếp: nếu lớn hơn 6 thì dừng hẳn, ngược lại count tăng 1.",
+x:["Đúng. Các vòng đếm được là i = 1, 3, 5 (mỗi lần count++). Số chẵn bị continue. Tới i = 7 là số lẻ nhưng 7 > 6 nên break, thoát luôn. count = 3.","Sai. 4 ra nếu đếm cả i = 7, nhưng i = 7 gặp break trước khi tới count++.","Sai. 5 là số lượng số lẻ từ 1 đến 9, nhưng vòng lặp đã bị break ở i = 7 nên không đếm hết.","Sai. 7 là giá trị i lúc dừng, không phải số lần đếm."]}
+];
+var L=["A","B","C","D"],i=0,score=0,done=false,card=document.getElementById("card");
+function esc(s){return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")}
+function lvl(n){return n<4?"Cơ bản":n<8?"Trung bình":"Khá"}
+function show(){
+  done=false;var d=Q[i];
+  document.getElementById("bar").style.width=(i/Q.length*100)+"%";
+  var h='<span class="lv">'+lvl(i)+'</span><p class="q">Câu '+(i+1)+'/'+Q.length+'. '+esc(d.q)+'</p>';
+  if(d.code)h+='<pre>'+esc(d.code)+'</pre>';
+  h+='<div class="opts">';
+  d.o.forEach(function(t,k){h+='<div class="w" data-k="'+k+'"><button class="opt"><b>'+L[k]+'.</b><span>'+esc(t)+'</span><span class="mark"></span></button><div class="why">'+esc(d.x[k])+'</div></div>'});
+  h+='</div><div class="verdict" id="vd"></div><div class="tip"><strong>Hiểu câu hỏi này</strong>'+esc(d.t)+'</div><div class="nav"><button class="btn" id="next" hidden>'+(i===Q.length-1?"Xem kết quả":"Câu tiếp theo")+'</button></div>';
+  card.className="card";card.innerHTML=h;
+  card.querySelectorAll(".w").forEach(function(w){w.querySelector(".opt").onclick=function(){pick(+w.dataset.k)}});
+  document.getElementById("next").onclick=function(){i++;i<Q.length?show():finish();window.scrollTo(0,0)};
+}
+function pick(k){
+  if(done)return;done=true;var d=Q[i],ok=k===d.a;if(ok)score++;
+  document.getElementById("score").textContent="Điểm: "+score;
+  card.querySelectorAll(".w").forEach(function(w,n){
+    var b=w.querySelector(".opt");b.disabled=true;
+    if(n===d.a){w.classList.add("ok");b.querySelector(".mark").textContent="✓ Đúng"}
+    else{w.classList.add("bad");b.querySelector(".mark").textContent=(n===k?"✗ Bạn chọn":"✗")}
+  });
+  var v=document.getElementById("vd");v.className="verdict "+(ok?"ok":"bad");
+  v.textContent=ok?"Chính xác! Xem lý do từng đáp án bên trên.":"Chưa đúng. Đáp án đúng là "+L[d.a]+". Xem lý do từng đáp án bên trên.";
+  card.classList.add("shown");document.getElementById("next").hidden=false;
+}
+function finish(){
+  document.getElementById("bar").style.width="100%";
+  var p=Math.round(score/Q.length*100);
+  var m=p>=80?"Rất tốt, bạn đã nắm vững nền tảng Chuyên đề 1. Sẵn sàng sang Chuyên đề 2.":p>=50?"Khá ổn. Hãy đọc lại phần \"Hiểu câu hỏi này\" ở các câu sai rồi làm lại.":"Chưa sao, hãy làm lại từ đầu và đọc kỹ phần \"Hiểu câu hỏi này\" mỗi câu.";
+  card.className="card";card.innerHTML='<div class="result"><div class="big">'+score+'/'+Q.length+'</div><p>'+m+'</p><button class="btn" id="again">Làm lại</button></div>';
+  document.getElementById("again").onclick=function(){i=0;score=0;document.getElementById("score").textContent="Điểm: 0";show()};
+}
+show();
+</script>
+</body>
+</html>

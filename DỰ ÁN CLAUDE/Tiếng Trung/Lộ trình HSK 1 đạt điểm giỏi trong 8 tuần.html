@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Lộ trình HSK 1 đạt điểm giỏi trong 8 tuần</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;700;800&family=Noto+Sans+SC:wght@700;900&display=swap">
+<style>
+:root{--bg:#f2f6fa;--surface:#fff;--ink:#14213d;--muted:#5a6783;--line:#d9e1ec;--accent:#0a8f6c;--accent-ink:#fff;--soft:#e1f3ed;--warn:#b4571a;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0f1626;--surface:#172138;--ink:#eaf0fb;--muted:#9db0d0;--line:#28365a;--accent:#2fd0a1;--accent-ink:#06261d;--soft:#12352f;--warn:#f0a36b}}
+:root[data-theme="dark"]{--bg:#0f1626;--surface:#172138;--ink:#eaf0fb;--muted:#9db0d0;--line:#28365a;--accent:#2fd0a1;--accent-ink:#06261d;--soft:#12352f;--warn:#f0a36b}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.65 "Be Vietnam Pro",system-ui,sans-serif}
+.wrap{max-width:820px;margin:0 auto;padding:0 20px 64px}
+.hero{padding:48px 0 28px}
+.han{font:900 clamp(72px,18vw,132px)/1 "Noto Sans SC","PingFang SC","Microsoft YaHei",sans-serif;letter-spacing:.04em;margin:0;color:var(--accent)}
+.py{font-weight:500;color:var(--muted);margin:4px 0 20px;font-size:18px}
+h1{font-size:clamp(26px,5vw,38px);line-height:1.2;margin:0 0 12px;font-weight:800}
+.lead{color:var(--muted);max-width:62ch;margin:0}
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:28px 0}
+.fact{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px 16px}
+.fact b{display:block;font-size:22px;font-weight:800}
+.fact span{color:var(--muted);font-size:14px}
+.progress{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);padding:12px 0;border-bottom:1px solid var(--line)}
+.bar{height:10px;background:var(--line);border-radius:6px;overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:var(--accent);transition:width .3s}
+.plabel{display:flex;justify-content:space-between;font-size:14px;color:var(--muted);margin-bottom:6px}
+h2{font-size:24px;margin:40px 0 14px;font-weight:800}
+details{background:var(--surface);border:1px solid var(--line);border-radius:10px;margin-bottom:10px}
+summary{cursor:pointer;padding:14px 16px;font-weight:700;list-style:none;display:flex;gap:12px;align-items:center}
+summary::-webkit-details-marker{display:none}
+summary:focus-visible,input:focus-visible,button:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.wk{flex:none;width:38px;height:38px;border-radius:50%;background:var(--soft);color:var(--accent);display:grid;place-items:center;font-weight:800;font-size:14px}
+.st{display:block;font-weight:700}
+.st small{display:block;font-weight:400;color:var(--muted);font-size:14px}
+.cnt{margin-left:auto;font-size:13px;color:var(--muted);font-weight:500;white-space:nowrap}
+details[open] summary{border-bottom:1px solid var(--line)}
+.body{padding:12px 16px 16px}
+.body p{margin:0 0 10px;color:var(--muted);font-size:15px}
+label{display:flex;gap:10px;align-items:flex-start;padding:7px 0;cursor:pointer}
+input[type=checkbox]{width:20px;height:20px;margin-top:3px;accent-color:var(--accent);flex:none}
+input:checked+span{color:var(--muted);text-decoration:line-through}
+.vocab{margin-top:10px;padding:10px 12px;background:var(--soft);border-radius:8px;font-size:15px}
+.zh{font-family:"Noto Sans SC","PingFang SC","Microsoft YaHei",sans-serif;font-weight:700}
+table{width:100%;border-collapse:collapse;background:var(--surface);border:1px solid var(--line);border-radius:10px;overflow:hidden;font-size:15px}
+th,td{padding:10px 14px;text-align:left;border-bottom:1px solid var(--line)}
+th{background:var(--soft)}
+tr:last-child td{border-bottom:0}
+.scroll{overflow-x:auto}
+ul.tips{padding-left:20px;margin:0}
+ul.tips li{margin-bottom:8px}
+.note{border-left:4px solid var(--warn);padding:10px 14px;background:var(--surface);border-radius:0 8px 8px 0;font-size:15px;color:var(--muted);margin-top:16px}
+button.reset{margin-top:24px;background:transparent;color:var(--muted);border:1px solid var(--line);border-radius:8px;padding:8px 14px;font:inherit;cursor:pointer}
+@media (prefers-reduced-motion:reduce){.bar i{transition:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="hero">
+  <p class="han" aria-hidden="true">你好</p>
+  <p class="py">nǐ hǎo</p>
+  <h1>Lộ trình HSK 1 đạt điểm giỏi trong 8 tuần</h1>
+  <p class="lead">Mỗi ngày học 45–60 phút theo thứ tự: phát âm, 150 từ vựng, ngữ pháp cơ bản, rồi luyện đề. Tick từng việc để theo dõi tiến độ, tiến độ được lưu lại trên trình duyệt của bạn.</p>
+  <div class="facts">
+    <div class="fact"><b>150 từ</b><span>từ vựng HSK 1 chuẩn</span></div>
+    <div class="fact"><b>40 câu · 200 điểm</b><span>Nghe 20 câu, Đọc 20 câu</span></div>
+    <div class="fact"><b>≥ 160 điểm</b><span>mục tiêu “giỏi” (80%)</span></div>
+  </div>
+</header>
+
+<div class="progress" role="status">
+  <div class="plabel"><span>Tiến độ của bạn</span><span id="pct">0%</span></div>
+  <div class="bar"><i id="fill"></i></div>
+</div>
+
+<h2>Kế hoạch 8 tuần</h2>
+<div id="weeks"></div>
+
+<h2>Cấu trúc bài thi và cách lấy điểm cao</h2>
+<div class="scroll"><table>
+<tr><th>Phần</th><th>Số câu</th><th>Thời gian</th><th>Chiến lược</th></tr>
+<tr><td>Nghe</td><td>20</td><td>~15 phút</td><td>Đọc trước đáp án, bắt số, thời gian, địa điểm. Nghe được 2 lần mỗi câu.</td></tr>
+<tr><td>Đọc</td><td>20</td><td>~17 phút</td><td>Nhận mặt chữ nhanh, ghép câu với tranh, điền từ vào chỗ trống.</td></tr>
+<tr><td>Tổng</td><td>40</td><td>~40 phút</td><td>Đạt 120 là đậu, từ 160 trở lên là mức giỏi.</td></tr>
+</table></div>
+
+<h2>7 bí quyết để lên điểm giỏi</h2>
+<ul class="tips">
+  <li><b>Học thanh điệu ngay từ đầu.</b> Nghe HSK 1 chủ yếu phân biệt thanh 1–4, sai thanh là sai nghĩa.</li>
+  <li><b>Học từ theo câu, không học từ lẻ.</b> Ví dụ học <span class="zh">我想喝水</span> thay vì chỉ <span class="zh">喝</span>.</li>
+  <li><b>Ôn bằng thẻ ghi nhớ lặp lại ngắt quãng</b> (Anki hoặc Pleco): 15 phút mỗi ngày hiệu quả hơn 2 tiếng mỗi tuần.</li>
+  <li><b>Tập viết tay 150 chữ Hán.</b> Đề HSK 1 không bắt viết, nhưng viết giúp nhớ mặt chữ lâu hơn.</li>
+  <li><b>Luyện nghe theo bóng (shadowing):</b> nghe một câu, dừng, đọc lại giống hệt giọng và nhịp.</li>
+  <li><b>Làm sổ lỗi sai.</b> Ghi mọi câu sai trong đề thử, cuối tuần làm lại đúng các câu đó.</li>
+  <li><b>Thi thử đúng giờ.</b> Ngồi đủ 40 phút, không tạm dừng, để quen áp lực phòng thi.</li>
+</ul>
+<p class="note">Lưu ý: HSK đang chuyển dần sang chuẩn 3.0 (HSK 1 có nhiều từ hơn). Hãy kiểm tra trên trang chính thức của kỳ thi hoặc hỏi trung tâm nơi bạn đăng ký xem bạn thi theo chuẩn nào để chọn đúng giáo trình và đề luyện.</p>
+
+<button class="reset" id="reset" type="button">Xóa tiến độ và bắt đầu lại</button>
+</div>
+
+<script>
+var W=[
+{t:"Phát âm và thanh điệu",s:"Nền móng quyết định điểm phần Nghe",d:"Chưa học chữ Hán nhiều, tập trung nghe và nhại lại chuẩn.",k:["Học bảng phiên âm: 21 thanh mẫu và 36 vận mẫu","Luyện 4 thanh điệu và thanh nhẹ: mā má mǎ mà","Nắm quy tắc biến điệu của 不 và 一, hai thanh 3 liền nhau","Học 6 câu chào hỏi và đọc to mỗi ngày"],v:"你好 · 谢谢 · 不客气 · 对不起 · 没关系 · 再见"},
+{t:"Số đếm, ngày tháng, thời gian",s:"Chủ đề xuất hiện rất nhiều trong phần Nghe",d:"Học số trước vì gần như đề nào cũng có câu nghe số.",k:["Đếm 1–100 và đọc số điện thoại bằng tiếng Trung","Học 月, 号, 星期, 今天, 明天, 昨天","Học cách hỏi: 几 và 多少","Nghe và chép lại 20 con số ngẫu nhiên"],v:"一 二 三 四 五 六 七 八 九 十 · 百 · 几 · 多少"},
+{t:"Đại từ, câu 是 và câu hỏi 吗",s:"Giới thiệu bản thân và gia đình",d:"Bắt đầu viết được câu hoàn chỉnh.",k:["Học 我/你/他/她/我们/你们 và mẫu A 是 B","Học 不 để phủ định và 吗 để hỏi","Học 叫 và 什么名字, tự giới thiệu 30 giây","Học từ về gia đình, 的 chỉ sở hữu"],v:"我 · 你 · 他 · 她 · 是 · 不 · 吗 · 叫 · 名字 · 爸爸 · 妈妈"},
+{t:"Câu 有, 在 và chỉ nơi chốn",s:"Hỏi đáp về đồ vật và địa điểm",d:"Ngữ pháp nền cho phần Đọc.",k:["Học 有 / 没有 và lượng từ 个","Học 在 và 哪儿 để hỏi nơi chốn","Học 这 / 那 và từ chỉ nghề nghiệp, trường học","Viết 5 câu mô tả căn phòng của bạn"],v:"有 · 没有 · 个 · 在 · 哪儿 · 这 · 那 · 家 · 学校 · 老师 · 学生"},
+{t:"Ăn uống và mua sắm",s:"Chủ đề đời sống hay gặp trong đề",d:"Học theo tình huống: gọi món và hỏi giá.",k:["Học 吃, 喝, 买, 想, 要","Hỏi giá: 多少钱, đơn vị 块","Học tên đồ ăn, đồ uống, hoa quả cơ bản","Đóng vai gọi món và trả tiền, ghi âm lại"],v:"吃 · 喝 · 买 · 想 · 要 · 多少钱 · 块 · 水 · 茶 · 苹果 · 米饭"},
+{t:"Thời gian và hoạt động hằng ngày",s:"Động từ và trạng ngữ thời gian",d:"Ghép câu theo thứ tự: chủ ngữ + thời gian + động từ.",k:["Học 现在几点 và cách nói giờ: 点, 分","Học 去, 来, 看, 听, 说, 读, 写","Học 会 và 能, 很 và 太, 都","Viết nhật ký 5 câu về một ngày của bạn"],v:"现在 · 点 · 去 · 来 · 看 · 听 · 说 · 读 · 写 · 会 · 能 · 很 · 太"},
+{t:"Hoàn thiện từ vựng và luyện kỹ năng",s:"Rà soát đủ 150 từ, luyện riêng Nghe và Đọc",d:"Chuyển từ học mới sang củng cố.",k:["Ôn đủ 150 từ bằng thẻ ghi nhớ, đạt 90% nhớ","Làm 2 bài luyện Nghe có chép lại (dictation)","Làm 2 bài luyện Đọc, bấm giờ","Thêm các từ hay nhầm vào sổ lỗi sai"],v:"Tập trung từ dễ nhầm: 听/看, 买/卖, 会/能, 做/作, 请/清"},
+{t:"Thi thử và chốt điểm",s:"Mô phỏng phòng thi thật",d:"Mục tiêu: 3 đề liên tiếp đạt từ 170 điểm.",k:["Thi thử đủ 40 phút, đề 1, chấm và sửa lỗi","Thi thử đề 2, so sánh lỗi sai với đề 1","Thi thử đề 3, đạt ít nhất 160 điểm","Ôn lại sổ lỗi sai và ngủ đủ trước ngày thi"],v:"Mang theo giấy báo thi, giấy tờ tùy thân, bút chì 2B và đến sớm 30 phút."}
+];
+var KEY="hsk1-progress-v1",state={};
+try{state=JSON.parse(localStorage.getItem(KEY)||"{}")}catch(e){state={}}
+var root=document.getElementById("weeks"),total=0;
+W.forEach(function(w,i){
+  var d=document.createElement("details"); if(i===0)d.open=true;
+  var items=w.k.map(function(k,j){total++;var id="w"+i+"_"+j;
+    return '<label><input type="checkbox" data-id="'+id+'"'+(state[id]?' checked':'')+'><span>'+k+'</span></label>'}).join("");
+  d.innerHTML='<summary><span class="wk">T'+(i+1)+'</span><span class="st">'+w.t+'<small>'+w.s+'</small></span><span class="cnt" data-w="'+i+'"></span></summary><div class="body"><p>'+w.d+'</p>'+items+'<div class="vocab"><b>Từ khóa tuần này:</b> <span class="zh">'+w.v+'</span></div></div>';
+  root.appendChild(d);
+});
+function update(){
+  var done=0;
+  W.forEach(function(w,i){var c=0;w.k.forEach(function(_,j){if(state["w"+i+"_"+j])c++});done+=c;
+    document.querySelector('[data-w="'+i+'"]').textContent=c+"/"+w.k.length});
+  var p=Math.round(done/total*100);
+  document.getElementById("pct").textContent=p+"%";
+  document.getElementById("fill").style.width=p+"%";
+}
+root.addEventListener("change",function(e){
+  var id=e.target.getAttribute("data-id"); if(!id)return;
+  if(e.target.checked)state[id]=1; else delete state[id];
+  try{localStorage.setItem(KEY,JSON.stringify(state))}catch(err){}
+  update();
+});
+document.getElementById("reset").addEventListener("click",function(){
+  if(!confirm("Xóa toàn bộ tiến độ đã tick?"))return;
+  state={};try{localStorage.removeItem(KEY)}catch(e){}
+  document.querySelectorAll("input[data-id]").forEach(function(c){c.checked=false});update();
+});
+update();
+</script>
+</body>
+</html>

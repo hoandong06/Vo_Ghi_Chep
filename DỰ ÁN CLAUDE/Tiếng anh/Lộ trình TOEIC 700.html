@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Lộ trình TOEIC 700</title>
+<style>
+:root{--bg:#f6f5f1;--card:#fff;--tx:#1d1d1b;--mut:#6b6a64;--bd:#e3e1d9;--ac:#1f6feb;--ok:#2a9d5c;--hl:#eef4ff;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#17171a;--card:#212126;--tx:#ececea;--mut:#9d9c96;--bd:#33333a;--ac:#5b9bff;--ok:#4cc17f;--hl:#1c2740;color-scheme:dark}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.6 -apple-system,"Segoe UI",Roboto,Arial,sans-serif}
+main{max-width:760px;margin:0 auto;padding:20px 16px 60px}
+h1{font-size:26px;margin:8px 0 4px}h2{font-size:22px;margin:6px 0 2px}
+.sub{color:var(--mut);margin:0 0 14px}
+.bar{height:10px;background:var(--bd);border-radius:6px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--ok);width:0;transition:width .3s}
+.stat{display:flex;justify-content:space-between;font-size:14px;color:var(--mut);margin:6px 0 14px}
+.box{background:var(--hl);border:1px solid var(--bd);border-radius:12px;padding:12px 14px;margin-bottom:16px;font-size:14.5px}
+.ph{margin:24px 0 8px;font-size:13px;letter-spacing:.04em;text-transform:uppercase;color:var(--ac);font-weight:700}
+.it{display:flex;gap:12px;align-items:center;background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:12px 14px;margin-bottom:8px;cursor:pointer}
+.it.lk{opacity:.5;cursor:not-allowed}
+.n{flex:none;width:32px;height:32px;border-radius:50%;background:var(--bd);display:grid;place-items:center;font-weight:700;font-size:14px}
+.it.dn .n{background:var(--ok);color:#fff}
+.tt{flex:1;font-weight:600}.tt small{display:block;font-weight:400;color:var(--mut);font-size:13px}
+.go{color:var(--ac);font-size:20px}
+.bk,.nx,#rs{font:inherit;background:none;border:1px solid var(--bd);color:var(--tx);border-radius:8px;padding:6px 12px;cursor:pointer}
+#rs{color:var(--mut);margin-top:24px}
+.nx{background:var(--ac);color:#fff;border-color:var(--ac);margin-top:16px}
+.th{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:6px 16px;margin:14px 0}
+.th p{margin:10px 0;font-size:15.5px}.th b{color:var(--ac)}
+h3{font-size:15px;margin:20px 0 6px}
+label.hw{display:flex;gap:10px;align-items:flex-start;padding:10px;border:1px solid var(--bd);border-radius:8px;margin:6px 0;cursor:pointer;background:var(--card)}
+label.hw input{margin-top:5px;width:18px;height:18px;flex:none}
+label.hw.on{background:var(--hl);color:var(--mut);text-decoration:line-through}
+</style>
+</head>
+<body>
+<main id="m"></main>
+<script>
+var L=[
+{ph:"Giai đoạn 0 · Tuần 0",t:"Cấu trúc đề & test đầu vào",wk:"Tuần 0",
+th:["Cấu trúc|200 câu, 120 phút. Nghe 100 câu / 45 phút (P1: 6, P2: 25, P3: 39, P4: 30). Đọc 100 câu / 75 phút (P5: 30, P6: 16, P7: 54).","Thang điểm|10–990, mỗi phần 5–495. Mục tiêu 700 ≈ Nghe 350 + Đọc 350, tức đúng khoảng 75% Nghe và 65% Đọc.","Quy tắc|Không trừ điểm câu sai nên không bỏ trống. Phần Nghe chỉ nghe một lần, không quay lại.","Sổ lỗi|Mỗi câu sai ghi: câu – đáp án đúng – lý do sai (thiếu kiến thức / thiếu từ vựng / nghe không ra / hết giờ)."],
+hw:["Làm 1 đề full test (ETS) bấm đúng 120 phút, không tra từ điển","Chấm điểm, ghi số câu đúng từng Part để biết Part yếu nhất","Tạo sổ lỗi và chép 10 câu sai đầu tiên"]},
+{ph:"Giai đoạn 1 · Tuần 1–3 · Ngữ pháp nền tảng",t:"Từ loại & vị trí trong câu",wk:"Tuần 1",
+th:["Danh từ|Hậu tố -tion, -ment, -ness, -ity, -er/-or, -ance/-ence, -ship. Đứng sau mạo từ, tính từ, sở hữu cách, giới từ; làm chủ ngữ/tân ngữ.","Động từ|Hậu tố -ize, -ify, -en, -ate. Sau chủ ngữ; sau modal (can, will, should…) dùng V nguyên mẫu.","Tính từ|-ful, -able/-ible, -ive, -ous, -al, -ic, -ent/-ant. Đứng trước danh từ hoặc sau be/become/seem.","Trạng từ|Thường = tính từ + -ly. Bổ nghĩa động từ, tính từ, cả câu; đứng giữa trợ động từ và V (have already finished).","Mẹo Part 5|Đáp án cùng gốc (succeed/success/successful/successfully): nhìn từ đứng trước và sau chỗ trống để chọn từ loại."],
+hw:["Chép và học thuộc 30 hậu tố kèm ví dụ","Làm 20 câu Part 5 dạng từ loại, đúng ≥14","Chép câu sai vào sổ lỗi kèm quy tắc bị quên"]},
+{ph:"",t:"Thì động từ & hòa hợp chủ vị",wk:"Tuần 1",
+th:["Hiện tại đơn / tiếp diễn|Thói quen, lịch (every, usually, always) / đang diễn ra (now, currently, at the moment).","Quá khứ đơn|yesterday, last, ago, in 2020. Quá khứ hoàn thành: had + V3, dùng với by the time + quá khứ.","Hiện tại hoàn thành|has/have + V3 với since, for, already, yet, so far, recently, over the past…","Tương lai|will / be going to; next, soon, tomorrow. Mệnh đề thời gian (when, after, before, as soon as, once) dùng hiện tại đơn thay tương lai.","Hòa hợp chủ vị|Each, every, one of + N số nhiều, anyone, everyone → động từ số ít. A number of → số nhiều; the number of → số ít. A and B → số nhiều; A or B / neither…nor → chia theo B.","Bẫy|Bỏ qua cụm xen giữa chủ ngữ và động từ: The manager, together with his staff, is…"],
+hw:["Lập bảng 6 thì kèm dấu hiệu nhận biết (viết tay)","Làm 20 câu Part 5 thì + hòa hợp chủ vị, đúng ≥14","Đặt 10 câu về công việc, dùng đúng các thì"]},
+{ph:"",t:"Câu bị động & dạng của động từ",wk:"Tuần 2",
+th:["Bị động|be + V3. Dùng khi chủ ngữ chịu tác động; sau chỗ trống không có tân ngữ, hoặc có by + người. Động từ nội động (arrive, happen, occur) không bị động.","Các dạng bị động|is/are + V3, was/were + V3, has/have been + V3, will be + V3, is being + V3.","V-ing|Sau giới từ; sau enjoy, avoid, consider, suggest, finish, mind, postpone, look forward to, be used to.","to V|Sau want, plan, decide, hope, expect, agree, refuse, afford, manage; chỉ mục đích (in order to); sau tính từ (ready/able/likely to).","Phân từ|V-ing (chủ động) và V3 (bị động) làm tính từ: an interesting report, a revised schedule."],
+hw:["Làm 20 câu Part 5 bị động + dạng động từ, đúng ≥14","Học thuộc 15 động từ + to V và 15 động từ + V-ing","Chuyển 10 câu chủ động ↔ bị động"]},
+{ph:"",t:"Danh từ, mạo từ, đại từ, lượng từ",wk:"Tuần 2",
+th:["Danh từ không đếm được|information, equipment, advice, furniture, luggage, news, access, feedback → không thêm -s, không dùng a/an.","Mạo từ|a/an (đếm được số ít, nhắc lần đầu); the (đã xác định, duy nhất); không mạo từ (số nhiều chung chung).","Lượng từ|many/few/several + N số nhiều; much/little + N không đếm được; most/all/some/any dùng cả hai; each/every/another + N số ít.","Đại từ|Chủ ngữ (he), tân ngữ (him), tính từ sở hữu (his), đại từ sở hữu (his), phản thân (himself). Phản thân khi chủ ngữ = tân ngữ hoặc nhấn mạnh (by oneself).","Danh từ ghép|sales figures, travel expenses, application form, safety regulations, job opening, office supplies."],
+hw:["Làm 20 câu Part 5 về danh từ/đại từ/lượng từ, đúng ≥14","Viết 15 danh từ không đếm được thường gặp và đặt câu","Làm lại sổ lỗi tuần 1"]},
+{ph:"",t:"Giới từ & liên từ",wk:"Tuần 3",
+th:["Thời gian|at (giờ), on (ngày), in (tháng/năm/mùa); for + khoảng, since + mốc, during + N, within + khoảng, by (trước hạn), until (đến khi).","Nơi chốn|at (điểm), in (khu vực lớn), on (bề mặt).","Cụm cố định|in charge of, in addition to, due to, because of, in spite of, regardless of, according to, as a result of, in response to.","Liên từ phụ thuộc|because, since, although, though, while, whereas, if, unless, once, as soon as, so that + S + V.","Liên từ kết hợp|for, and, nor, but, or, yet, so. Cặp: both…and, either…or, neither…nor, not only…but also.","Phân biệt|despite / because of / due to + cụm danh từ; although / because + S + V. Trạng từ nối (however, therefore, moreover) đứng sau dấu chấm hoặc chấm phẩy."],
+hw:["Làm 25 câu Part 5 giới từ + liên từ, đúng ≥17","Lập bảng 5 cặp dễ nhầm (although/despite, during/while, by/until…)","Học thuộc 20 cụm giới từ cố định"]},
+{ph:"",t:"Mệnh đề quan hệ, mệnh đề danh từ & rút gọn",wk:"Tuần 3",
+th:["Mệnh đề quan hệ|who/that (người), which/that (vật), whose + N (sở hữu), where (nơi), when (thời gian). Không dùng that sau dấu phẩy hoặc giới từ.","Rút gọn|Chủ động: V-ing (the man talking…); bị động: V3 (the report written by…). Bỏ who/which + be.","Mệnh đề danh từ|that, whether, if, what, how + S + V làm chủ ngữ/tân ngữ: We don't know whether the shipment will arrive.","Whoever, whatever|Whoever completes the survey will receive a gift.","Rút gọn trạng ngữ|While driving…, After finishing the report…, Having completed…"],
+hw:["Làm 25 câu Part 5 tổng hợp ngữ pháp, đúng ≥17","Viết 8 câu có mệnh đề quan hệ và 5 câu rút gọn","Liệt kê 5 lỗi ngữ pháp bạn hay mắc nhất"]},
+{ph:"",t:"So sánh & câu điều kiện",wk:"Tuần 3",
+th:["So sánh hơn|Tính từ ngắn + -er than; dài: more + adj than. Càng…càng: the + so sánh hơn, the + so sánh hơn.","So sánh nhất / bằng|the + -est / the most + adj (in/of). as + adj + as; twice as…as.","Bất quy tắc|good–better–best, bad–worse–worst, far–farther/further, little–less–least.","Điều kiện|Loại 1: If + hiện tại, will + V. Loại 2: If + quá khứ, would + V. Loại 3: If + had + V3, would have + V3.","Đảo ngữ điều kiện|Should you need… / Were I… / Had we known…: bỏ if, đưa trợ động từ lên đầu."],
+hw:["Làm 20 câu Part 5 so sánh + điều kiện, đúng ≥14","Viết 6 câu điều kiện (loại 1, 2, 3 mỗi loại 2 câu)","Làm 1 bài kiểm tra ngữ pháp 30 câu bấm giờ, đúng ≥21"]},
+{ph:"Giai đoạn 2 · Từ vựng & Đọc Part 5–6",t:"Từ vựng TOEIC theo chủ đề",wk:"Tuần 4 (song song cả lộ trình)",
+th:["Chủ đề chính|Tuyển dụng – lương thưởng (candidate, résumé, benefits, promotion); văn phòng (supervisor, agenda, deadline); hợp đồng – thương mại (contract, invoice, warranty); du lịch – sân bay, nhà hàng, y tế, ngân hàng, bất động sản, sản xuất.","Cách học|Học theo collocation (meet a deadline, place an order, submit a proposal), word family (decide–decision–decisive–decisively) và từ đồng nghĩa (purchase = buy, assist = help).","Dễ nhầm|raise/rise, lend/borrow, affect/effect, price/cost/fee/fare, economic/economical.","Phương pháp|10 từ mỗi ngày kèm câu ví dụ; ôn flashcard sau 1–3–7–14 ngày."],
+hw:["Học 100 từ đầu tiên (10 từ/ngày), mỗi từ có câu ví dụ","Làm 20 câu Part 5 dạng từ vựng, đúng ≥14","Lập bảng 20 collocation và tự kiểm tra"]},
+{ph:"",t:"Part 5: chiến thuật điền từ",wk:"Tuần 4",
+th:["Dạng câu|Từ loại; ngữ pháp (thì, bị động, giới từ, liên từ); từ vựng (nghĩa, collocation); đại từ/mệnh đề.","Quy trình|Nhìn 4 đáp án → xác định dạng → đọc câu → chọn. Đáp án khác đuôi = từ loại; khác hẳn = từ vựng.","Thời gian|30 câu trong 10–12 phút, ≤25 giây mỗi câu. Câu từ vựng khó thì loại trừ, qua câu khác."],
+hw:["Làm 30 câu Part 5 bấm 12 phút, đúng ≥21","Phân loại từng câu sai: từ loại / thì / giới từ / từ vựng","Học 30 từ vựng mới chủ đề văn phòng"]},
+{ph:"",t:"Part 6: điền vào đoạn văn",wk:"Tuần 4",
+th:["Dạng bài|4 đoạn × 4 câu (email, thông báo, thư, bản tin): 3 câu điền từ, 1 câu điền cả câu.","Điền câu|Đọc câu trước và sau chỗ trống; tìm đại từ (this, they), mốc thời gian, từ nối (However, As a result).","Điền từ|Giống Part 5 nhưng thì và từ nối phụ thuộc cả đoạn.","Thời gian|Khoảng 6–8 phút cho 16 câu."],
+hw:["Làm 4 bài Part 6 (16 câu), đúng ≥11","Gạch chân manh mối của mọi câu điền câu","Cập nhật sổ lỗi"]},
+{ph:"Giai đoạn 3 · Tuần 5–7 · Nghe",t:"Part 1: Mô tả tranh",wk:"Tuần 5",
+th:["Dạng ảnh|1 người, nhiều người, vật/cảnh. 6 câu, mỗi câu 4 mô tả (A–D).","Mẹo|Nhìn trước hành động, đồ vật, vị trí. Câu hay dùng: hiện tại tiếp diễn (is -ing), bị động (has been placed). Loại câu có từ nghe đúng nhưng không đúng ảnh, hoặc nói điều không thấy được.","Từ vựng|lean against, hold, wear, push, load, line up, stack, unpack, be parked, be displayed."],
+hw:["Làm 20 câu Part 1, đúng ≥16","Nghe lại câu sai với transcript, shadowing 3 lần","Học 20 từ chỉ hành động/vị trí trong Part 1"]},
+{ph:"",t:"Part 2: Hỏi – đáp",wk:"Tuần 5–6",
+th:["Câu hỏi WH|Who (tên/chức vụ), When, Where, Why (because/to…), How (long, much, often), What/Which.","Yes/No, hỏi đuôi|Trả lời gián tiếp rất hay gặp: I think so, Not yet, Let me check.","Hỏi lựa chọn (A or B)|Chọn một, hoặc đáp án thứ ba (Either is fine). Câu đề nghị/gợi ý: Sure, Why not, I would love to.","Bẫy|Từ giống âm (sound-alike), lặp từ trong câu hỏi, trả lời sai thì."],
+hw:["Làm 30 câu Part 2, đúng ≥21","Nghe lại câu sai, ghi bẫy vào sổ lỗi","Shadowing 10 cặp hỏi–đáp mỗi ngày trong 5 ngày"]},
+{ph:"",t:"Part 3 & 4: Hội thoại và bài nói",wk:"Tuần 6–7",
+th:["Part 3|13 hội thoại × 3 câu (2–3 người, có thể kèm biểu đồ). Đọc trước câu hỏi trong lúc chờ; đáp án theo thứ tự câu hỏi.","Câu hỏi Part 3|Mục đích, nơi chốn/nghề, vấn đề, đề nghị, bước tiếp theo (What will the man do next?), ý hàm ý (Why does the woman say…?).","Part 4|10 bài nói × 3 câu: thông báo, voicemail, quảng cáo, bản tin, tour. Câu 1 hỏi người nói/mục đích, câu cuối hỏi việc cần làm.","Kỹ năng|Đoán từ khóa và paraphrase; tận dụng phần hướng dẫn để đọc trước; lỡ câu nào thì bỏ, đừng dừng lại."],
+hw:["Làm 5 hội thoại Part 3 (15 câu), đúng ≥10","Làm 5 bài Part 4 (15 câu), đúng ≥10","Chép chính tả 1 hội thoại và 1 bài nói bất kỳ"]},
+{ph:"Giai đoạn 4 · Tuần 8–9 · Đọc Part 7",t:"Part 7: Đoạn đơn",wk:"Tuần 8",
+th:["Dạng văn bản|Email, thư, quảng cáo, thông báo, bài báo, tin nhắn/chat, form, biểu đồ. 29 câu.","Loại câu hỏi|Chi tiết (What/Who/When); NOT true; suy luận (implied); từ vựng trong ngữ cảnh (closest in meaning); ý hàm ý của người nói (chat); điền câu (where best belongs).","Chiến lược|Đọc câu hỏi trước, tìm từ khóa và paraphrase; câu NOT thì loại 3 đáp án đúng."],
+hw:["Làm 4 bài Part 7 đoạn đơn (~15 câu), đúng ≥10","Gạch chân câu chứa đáp án của mỗi câu sai","Học 30 từ vựng email công việc"]},
+{ph:"",t:"Part 7: Đoạn đôi & đoạn ba",wk:"Tuần 9",
+th:["Cấu trúc|2 bộ đoạn đôi (10 câu), 3 bộ đoạn ba (15 câu).","Câu liên kết|Cần thông tin từ 2 văn bản (ví dụ email đặt hàng + hóa đơn). Xác định văn bản nào trả lời trước.","Thời gian|Cả Part 7 khoảng 55 phút. Làm đoạn đơn trước, để đoạn ba sau; không bỏ trống."],
+hw:["Làm 3 bộ đoạn đôi + 2 bộ đoạn ba, đúng ≥60%","Bấm giờ từng bộ, mục tiêu ≤8 phút/bộ","Tự kiểm tra từ vựng 2 tuần qua"]},
+{ph:"Giai đoạn 5 · Tuần 10–12 · Tổng ôn",t:"Full test & chốt mục tiêu 700",wk:"Tuần 10–12",
+th:["Quy trình|Làm đủ 120 phút, Nghe rồi Đọc, không dừng giữa chừng. Phân tích lỗi: thiếu kiến thức / từ vựng / thời gian.","Phân bổ giờ Đọc|Part 5: 10–12 phút, Part 6: 6–8 phút, Part 7: ~55 phút.","Trước ngày thi|Dời giờ ngủ sớm dần 2–3 tuần; mang giấy tờ, bút chì 2B, tẩy."],
+hw:["Full test #1, ghi điểm Nghe/Đọc và so với test đầu vào","Full test #2 đạt ≥600 (ước tính), rồi vá lỗ hổng 1 tuần","Full test #3 đạt ≥700 (ước tính)","Đăng ký thi thật (IIG Việt Nam), ghi ngày thi vào lịch"]}
+];
+var S={},cur=-1,m=document.getElementById("m");
+try{S=JSON.parse(localStorage.getItem("toeic700v2")||"{}")}catch(e){}
+function sv(){try{localStorage.setItem("toeic700v2",JSON.stringify(S))}catch(e){}}
+function full(i){return L[i].hw.every(function(_,j){return S[i+"-"+j]})}
+function unl(i){for(var k=0;k<i;k++)if(!full(k))return false;return true}
+function render(){
+ var h="";
+ if(cur<0){
+  var tot=0,dn=0,d=0,nxt=-1;
+  L.forEach(function(l,i){l.hw.forEach(function(_,j){tot++;if(S[i+"-"+j])dn++});if(full(i))d++;else if(nxt<0)nxt=i});
+  var p=Math.round(dn/tot*100);
+  h='<h1>Lộ trình TOEIC 700</h1><p class="sub">'+L.length+' bài · ~12 tuần · bấm vào bài để xem lý thuyết và bài tập</p><div class="bar"><i style="width:'+p+'%"></i></div><div class="stat"><span>'+d+'/'+L.length+' bài hoàn thành'+(nxt>=0?' · đang học bài '+(nxt+1):' · Xong lộ trình!')+'</span><span>'+p+'%</span></div><div class="box">Bài tập là <b>BẮT BUỘC</b>: tick hết bài tập của bài hiện tại thì bài sau mới mở. Mỗi ngày song song: 10 từ vựng + 15 phút nghe. Mỗi câu sai ghi vào sổ lỗi.</div>';
+  L.forEach(function(l,i){
+   if(l.ph)h+='<div class="ph">'+l.ph+'</div>';
+   var c=full(i),k=!unl(i),cn=l.hw.filter(function(_,j){return S[i+"-"+j]}).length;
+   h+='<div class="it'+(c?" dn":"")+(k?" lk":"")+'" data-i="'+i+'"><div class="n">'+(c?"✓":k?"🔒":i+1)+'</div><div class="tt">'+l.t+'<small>'+l.wk+' · bài tập '+cn+'/'+l.hw.length+'</small></div>'+(k?"":'<span class="go">›</span>')+'</div>';
+  });
+  h+='<button id="rs">Đặt lại tiến độ</button>';
+ }else{
+  var l=L[cur];
+  h='<button class="bk" data-a="bk">← Danh sách bài</button><h2>Bài '+(cur+1)+': '+l.t+'</h2><p class="sub">'+l.wk+'</p><h3>1. Lý thuyết cần nắm</h3><div class="th">'+l.th.map(function(x){var a=x.split("|");return'<p><b>'+a[0]+':</b> '+a[1]+'</p>'}).join("")+'</div><h3>2. Bài tập bắt buộc (tick khi làm xong)</h3>'+l.hw.map(function(x,j){var k=cur+"-"+j;return'<label class="hw'+(S[k]?" on":"")+'"><input type="checkbox" data-k="'+k+'"'+(S[k]?" checked":"")+'><span>'+x+'</span></label>'}).join("");
+  if(full(cur))h+=cur<L.length-1?'<button class="nx" data-a="nx">Bài tiếp theo →</button>':'<p class="box">Hoàn thành lộ trình! Chúc bạn thi tốt 🎉</p>';
+ }
+ m.innerHTML=h;
+}
+m.addEventListener("click",function(e){
+ var cb=e.target.closest("input[data-k]");
+ if(cb){S[cb.dataset.k]=cb.checked;sv();var y=scrollY;render();scrollTo(0,y);return}
+ if(e.target.id==="rs"){if(confirm("Xóa toàn bộ tiến độ?")){S={};sv();render()}return}
+ var a=e.target.closest("[data-a]");
+ if(a){cur=a.dataset.a==="nx"?cur+1:-1;render();scrollTo(0,0);return}
+ var it=e.target.closest(".it");
+ if(it&&!it.classList.contains("lk")){cur=+it.dataset.i;render();scrollTo(0,0)}
+});
+render();
+</script>
+</body>
+</html>

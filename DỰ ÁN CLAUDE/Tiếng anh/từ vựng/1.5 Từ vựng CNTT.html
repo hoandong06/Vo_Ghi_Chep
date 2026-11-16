@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Ôn tập từ vựng – Buổi 8</title>
+<style>
+:root{--bg:#f6f5f1;--card:#fff;--tx:#1d1d1b;--mut:#6b6a66;--bd:#ddd9cf;--ac:#2d5be3;--ok:#1f9d55;--no:#d6403a;--okb:#e0f4e8;--nob:#fbe4e2;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#17171a;--card:#222226;--tx:#f0efea;--mut:#9a9992;--bd:#3a3a40;--ac:#7b9cff;--ok:#4cc98a;--no:#ff7b74;--okb:#173a28;--nob:#41201e;color-scheme:dark}}
+*{box-sizing:border-box}html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+.wrap{max-width:720px;margin:0 auto;padding:16px}
+h1{font-size:20px;margin:4px 0 12px}
+nav{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px}
+nav button{flex:1 1 auto}
+button{font:inherit;cursor:pointer;border:1px solid var(--bd);background:var(--card);color:var(--tx);border-radius:10px;padding:9px 14px}
+button:hover{border-color:var(--ac)}
+button.on{background:var(--ac);color:#fff;border-color:var(--ac)}
+button.pri{background:var(--ac);color:#fff;border-color:var(--ac);font-weight:600}
+.opt{display:flex;align-items:center;gap:10px;margin:0 0 12px;color:var(--mut);font-size:14px}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:20px}
+.prog{color:var(--mut);font-size:14px;margin-bottom:8px}
+.big{font-size:26px;font-weight:700;margin:6px 0 14px;word-break:break-word}
+.lt{font-size:28px;letter-spacing:4px;font-weight:700;color:var(--ac);margin:6px 0 14px;word-break:break-word}
+input[type=text]{width:100%;font:inherit;font-size:20px;padding:11px 14px;border-radius:10px;border:2px solid var(--bd);background:var(--bg);color:var(--tx);margin-bottom:12px}
+input[type=text]:focus{outline:none;border-color:var(--ac)}
+.fb{padding:10px 12px;border-radius:10px;margin-bottom:12px}
+.fb.ok{background:var(--okb);color:var(--ok)}.fb.no{background:var(--nob);color:var(--no)}
+.row{display:flex;gap:8px;flex-wrap:wrap}
+.opts{display:grid;gap:8px;margin-bottom:12px}
+.opts button{text-align:left}
+.opts button.ok,.col button.ok{background:var(--okb);border-color:var(--ok);color:var(--ok)}
+.opts button.no,.col button.no{background:var(--nob);border-color:var(--no);color:var(--no)}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px}
+.col{display:grid;gap:8px;align-content:start}
+.col button{text-align:left}.col button.sel{border-color:var(--ac);border-width:2px}
+.col button.done{opacity:.45}
+.list{display:grid;gap:6px;margin:10px 0}
+.li{display:flex;justify-content:space-between;gap:10px;padding:8px 12px;border:1px solid var(--bd);border-radius:10px}
+.mut{color:var(--mut)}
+kbd{border:1px solid var(--bd);border-radius:5px;padding:0 5px;font-size:12px}
+</style>
+</head>
+<body>
+<div class="wrap">
+<h1>Ôn tập từ vựng – Buổi 8</h1>
+<nav id="nav"></nav>
+<label class="opt"><input type="checkbox" id="ow"> Chỉ luyện các từ sai</label>
+<div id="app" class="card"></div>
+<p class="mut" style="font-size:13px">Phím <kbd>Enter</kbd> = nút chính (Kiểm tra / Tiếp). Trắc nghiệm: bấm phím <kbd>1</kbd>–<kbd>4</kbd> để chọn.</p>
+</div>
+<script>
+const W=[["straightforward","dễ hiểu"],["circumstance","hoàn cảnh"],["eliminate","loại bỏ"],["defence","phòng thủ"],["outage","ngừng hoạt động"],["witness","chứng kiến"],["exceed","vượt quá"],["leverage","tận dụng"],["breach","vi phạm"],["exceptionally","đặc biệt"],["outcome","kết quả"],["impact","ảnh hưởng"],["trivial","tầm thường, không ảnh hưởng"],["intervention","sự can thiệp"],["irrespective of","không phân biệt"],["consecutive","liên tiếp"],["implication","hàm ý, ngụ ý"],["significant","có ý nghĩa"],["preliminary","sơ bộ, ban đầu"],["surrounding","xung quanh"],["flounder","lúng túng"],["overwhelming","áp đảo"],["obstacle","trở ngại"],["intensive","cường độ cao"]];
+const MODES=[["1","Nghe & gõ"],["2","Nối từ"],["3","Trắc nghiệm"],["4","Bài tập đảo chữ"],["5","Từ sai"]];
+const $=s=>document.querySelector(s);
+const sh=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+let wrong={};try{wrong=JSON.parse(localStorage.getItem("wrongW")||"{}")}catch(e){}
+const saveW=()=>{try{localStorage.setItem("wrongW",JSON.stringify(wrong))}catch(e){}};
+const addW=w=>{wrong[w]=(wrong[w]||0)+1;saveW()};
+const okW=w=>{if(wrong[w]){delete wrong[w];saveW()}};
+const speak=t=>{try{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.lang="en-US";u.rate=.9;speechSynthesis.speak(u)}catch(e){}};
+const esc=s=>s.replace(/[&<>]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));
+let mode="1",q=[],i=0,score=0,ans=false;
+
+function nav(){$("#nav").innerHTML=MODES.map(m=>`<button class="${m[0]===mode?"on":""}" data-m="${m[0]}">${m[0]}. ${m[1]}</button>`).join("")}
+$("#nav").onclick=e=>{const b=e.target.closest("button");if(b)start(b.dataset.m)};
+function start(m,force){
+  mode=m;nav();i=0;score=0;window.qpick=null;
+  if(m==="5")return wrongPage();
+  const ow=force||$("#ow").checked;
+  const pool=ow?W.filter(w=>wrong[w[0]]):W;
+  if(!pool.length){$("#app").innerHTML=`<p>Chưa có từ sai nào để luyện. Hãy làm các bài khác trước.</p>`;return}
+  q=sh(pool);
+  ({1:typing,2:match,3:quiz,4:typing})[m]();
+}
+function end(){
+  window.qpick=null;
+  $("#app").innerHTML=`<div class="big">Hoàn thành!</div><p>Đúng ${score}/${q.length}. Từ sai hiện có: ${Object.keys(wrong).length}.</p><button class="pri" id="main">Làm lại</button>`;
+  $("#main").onclick=()=>start(mode);
+}
+function scr(w){let o;do{o=w.split(" ").map(x=>sh(x.split("")).join("")).join(" ")}while(o===w&&w.length>1);return o.toUpperCase()}
+function typing(){
+  if(i>=q.length)return end();
+  const [w,m]=q[i];ans=false;
+  const head=mode==="1"?`<div class="row" style="margin-bottom:8px"><button id="pl">🔊 Nghe lại</button></div><div class="big">${esc(m)}</div>`:`<div class="big">${esc(m)}</div><div class="lt">${esc(scr(w))}</div>`;
+  $("#app").innerHTML=`<div class="prog">Câu ${i+1}/${q.length}</div>${head}<input type="text" id="in" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="Gõ từ tiếng Anh…"><div id="fb"></div><button class="pri" id="main">Kiểm tra</button>`;
+  if($("#pl")){$("#pl").onclick=()=>{speak(w);$("#in").focus()};speak(w)}
+  $("#in").focus();
+  $("#main").onclick=()=>{
+    if(ans){i++;return typing()}
+    const v=$("#in").value.trim().toLowerCase().replace(/\s+/g," ");
+    if(!v)return;ans=true;$("#in").disabled=true;
+    if(v===w){score++;okW(w);$("#fb").innerHTML=`<div class="fb ok">✔ Chính xác: <b>${w}</b></div>`}
+    else{addW(w);$("#fb").innerHTML=`<div class="fb no">✘ Đáp án đúng: <b>${w}</b></div>`}
+    speak(w);$("#main").textContent="Tiếp";
+  };
+}
+function match(){
+  if(i>=q.length)return end();
+  const g=q.slice(i,i+6);let L=null,R=null,n=0;
+  $("#app").innerHTML=`<div class="prog">Nối ${i+1}–${i+g.length}/${q.length}</div><div class="cols"><div class="col" id="cl">${sh(g).map(x=>`<button data-w="${x[0]}">${x[0]}</button>`).join("")}</div><div class="col" id="cr">${sh(g).map(x=>`<button data-w="${x[0]}">${esc(x[1])}</button>`).join("")}</div></div><div id="fb"></div>`;
+  const bind=side=>$("#"+side).addEventListener("click",e=>{
+    const b=e.target.closest("button");if(!b||b.classList.contains("done"))return;
+    if(side==="cl"){speak(b.dataset.w);if(L)L.classList.remove("sel");L=b}else{if(R)R.classList.remove("sel");R=b}
+    b.classList.add("sel");
+    if(L&&R){
+      const a=L,c=R;L=R=null;
+      if(a.dataset.w===c.dataset.w){a.className=c.className="ok done";n++;score++;okW(a.dataset.w);
+        if(n===g.length){const last=i+6>=q.length;$("#fb").innerHTML=`<button class="pri" id="main">${last?"Xem kết quả":"Vòng tiếp"}</button>`;$("#main").onclick=()=>{i+=6;match()}}}
+      else{addW(a.dataset.w);a.className=c.className="no";setTimeout(()=>{a.className="";c.className=""},500)}
+    }
+  });
+  bind("cl");bind("cr");
+}
+function quiz(){
+  if(i>=q.length)return end();
+  const [w,m]=q[i];ans=false;const rev=Math.random()<.5;
+  const opts=sh([[w,m],...sh(W.filter(x=>x[0]!==w)).slice(0,3)]);
+  $("#app").innerHTML=`<div class="prog">Câu ${i+1}/${q.length} · ${rev?"Chọn từ tiếng Anh":"Chọn nghĩa"}</div><div class="big">${esc(rev?m:w)}</div>${rev?"":`<div class="row" style="margin-bottom:10px"><button id="pl">🔊 Nghe</button></div>`}<div class="opts" id="op">${opts.map((o,k)=>`<button data-w="${o[0]}">${k+1}. ${esc(rev?o[0]:o[1])}</button>`).join("")}</div><div id="fb"></div>`;
+  if(!rev){$("#pl").onclick=()=>speak(w);speak(w)}
+  const pick=b=>{
+    if(ans||!b)return;ans=true;
+    const good=b.dataset.w===w;
+    [...$("#op").children].forEach(x=>{if(x.dataset.w===w)x.classList.add("ok")});
+    if(good){score++;okW(w)}else{b.classList.add("no");addW(w)}
+    if(rev)speak(w);
+    $("#fb").innerHTML=`<div class="fb ${good?"ok":"no"}">${good?"✔ Đúng":"✘ Sai"}: <b>${w}</b> = ${esc(m)}</div><button class="pri" id="main">Tiếp</button>`;
+    $("#main").onclick=()=>{i++;quiz()};
+  };
+  $("#op").onclick=e=>pick(e.target.closest("button"));
+  window.qpick=k=>pick($("#op").children[k]);
+}
+function wrongPage(){
+  const ks=Object.keys(wrong);
+  const rows=ks.map(k=>`<div class="li"><span><b>${k}</b> <span class="mut">– ${esc(W.find(x=>x[0]===k)[1])}</span></span><span class="mut">sai ${wrong[k]} lần</span></div>`).join("");
+  $("#app").innerHTML=ks.length?`<div class="big">Từ sai (${ks.length})</div><div class="list">${rows}</div><div class="row">${MODES.slice(0,4).map(m=>`<button data-f="${m[0]}">Luyện: ${m[1]}</button>`).join("")}<button id="clr">Xóa danh sách</button></div>`:`<p>Chưa có từ sai nào. Từ làm sai sẽ tự động xuất hiện ở đây; làm đúng thì được xóa khỏi danh sách.</p>`;
+  document.querySelectorAll("[data-f]").forEach(b=>b.onclick=()=>start(b.dataset.f,true));
+  if($("#clr"))$("#clr").onclick=()=>{wrong={};saveW();wrongPage()};
+}
+document.addEventListener("keydown",e=>{
+  if(e.key==="Enter"){const b=$("#main");if(b){e.preventDefault();b.click()}}
+  else if(mode==="3"&&/^[1-4]$/.test(e.key)&&window.qpick)window.qpick(+e.key-1);
+});
+start("1");
+</script>
+</body>
+</html>

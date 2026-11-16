@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Lộ trình tự làm chatbot AI + CSDL</title>
+<style>
+:root{--bg:#f5f7fb;--card:#fff;--tx:#1b2433;--mu:#5f6b7f;--bd:#dde3ee;--ac:#2f5fd0;--acbg:#e8eefc;--ok:#1a7a46;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#111723;--card:#1a2232;--tx:#e6ebf5;--mu:#97a3ba;--bd:#2b364b;--ac:#7aa2ff;--acbg:#1f2c4a;--ok:#4cc283}}
+:root[data-theme="dark"]{--bg:#111723;--card:#1a2232;--tx:#e6ebf5;--mu:#97a3ba;--bd:#2b364b;--ac:#7aa2ff;--acbg:#1f2c4a;--ok:#4cc283}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+.w{max-width:860px;margin:0 auto;padding:20px 16px 60px}
+h1{font-size:1.5rem;margin:6px 0 4px}
+.sub{color:var(--mu);margin:0 0 14px}
+.flow{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:0 0 14px;font-size:.82rem}
+.flow a{background:var(--acbg);color:var(--ac);padding:3px 10px;border-radius:99px;text-decoration:none;white-space:nowrap}
+.flow span{color:var(--mu)}
+.pg{background:var(--bd);border-radius:99px;height:10px;overflow:hidden}
+.pg i{display:block;height:100%;background:var(--ac);width:0;transition:width .3s}
+.pt{font-size:.85rem;color:var(--mu);margin:6px 0 14px}
+.ph{background:var(--card);border:1px solid var(--bd);border-radius:14px;margin-bottom:12px;overflow:hidden}
+.ph>button{all:unset;box-sizing:border-box;width:100%;display:flex;justify-content:space-between;align-items:center;gap:8px;padding:14px 16px;cursor:pointer}
+.ph h2{font-size:1.05rem;margin:0}
+.ph h2 small{display:block;font-weight:400;color:var(--mu);font-size:.85rem}
+.cnt{font-size:.8rem;color:var(--mu);white-space:nowrap}
+.ph.dn .cnt{color:var(--ok);font-weight:600}
+.bd{display:none;padding:0 16px 12px}
+.ph.op .bd{display:block}
+.t{display:flex;gap:10px;padding:10px 0;border-top:1px solid var(--bd)}
+.t input{margin-top:4px;width:18px;height:18px;flex:none;accent-color:var(--ac)}
+.t b{display:block}
+.t.c b{text-decoration:line-through;color:var(--mu)}
+.t em{display:block;font-style:normal;font-size:.88rem;color:var(--mu)}
+.rs{border:1px solid var(--bd);background:var(--card);color:var(--tx);font:inherit;font-size:.8rem;padding:8px 14px;border-radius:10px;cursor:pointer;margin-top:6px}
+</style>
+</head>
+<body>
+<div class="w">
+<h1>🛠️ Lộ trình tự làm chatbot AI + CSDL</h1>
+<p class="sub">Làm lần lượt từ trên xuống: mỗi task có “xong khi” để biết đã đạt chưa. Đi hết 9 giai đoạn là bạn có một chatbot hoàn chỉnh: có CSDL, backend, AI biết tra tài liệu (RAG), giao diện chat và đã được kiểm thử, triển khai. Chủ đề chatbot do bạn chọn (ví dụ hỏi đáp cách dùng Excel).</p>
+<div class="flow" id="flow"></div>
+<div class="pg"><i id="bar"></i></div>
+<div class="pt" id="pt"></div>
+<div id="main"></div>
+<button class="rs" id="rs">Xóa tiến độ</button>
+</div>
+<script>
+var P=[
+["Chuẩn bị & chốt ý tưởng","Biết mình làm gì trước khi viết code",[
+["Chọn chủ đề và người dùng","Viết được 1 câu: “Chatbot giúp ai làm gì” (ví dụ: giúp người mới học cách dùng Excel)."],
+["Chốt chức năng tối thiểu (MVP)","Có danh sách 5–8 chức năng bắt buộc, phần còn lại ghi vào mục “làm sau”."],
+["Cài môi trường","Git, Python hoặc Node, trình soạn code, hệ quản trị CSDL; chạy được chương trình “hello world”."],
+["Tạo repo và cấu trúc thư mục","Có thư mục backend/, frontend/, db/, docs/ và README; đã commit đầu tiên."],
+["Lấy API key của LLM","Key nằm trong file .env (không đẩy lên Git); gọi thử 1 câu và nhận được trả lời."]]],
+["CSDL","Nền dữ liệu cho mọi phần phía sau",[
+["Thiết kế ERD","Có sơ đồ các bảng: users, conversations, messages, documents, chunks, feedback và quan hệ giữa chúng."],
+["Viết schema.sql và tạo DB","Chạy file là tạo đủ bảng, có khóa chính, khóa ngoại, ràng buộc NOT NULL."],
+["Nhập dữ liệu mẫu","Có ít nhất 10 tài liệu mẫu trong bảng documents."],
+["Viết các câu SQL cần dùng","Có truy vấn thêm, lấy, lọc, xóa; chạy thử đúng trong công cụ quản lý DB."]]],
+["Backend cơ bản","Server chạy được và nói chuyện với DB",[
+["Dựng server","Gọi GET /health trả về “ok”."],
+["Kết nối DB","Backend đọc được dữ liệu từ bảng documents."],
+["Viết API CRUD cho documents","Thêm, xem, sửa, xóa tài liệu qua API; thử bằng Postman hoặc curl."],
+["Kiểm tra dữ liệu và xử lý lỗi","Dữ liệu sai trả mã 422, không tìm thấy trả 404, lỗi server trả 500 có thông báo rõ."]]],
+["AI cơ bản","Chatbot trả lời được dù chưa biết tài liệu của bạn",[
+["Viết hàm gọi LLM","Hàm nhận câu hỏi, trả về câu trả lời; có bắt lỗi và timeout."],
+["Viết system prompt","Prompt nêu rõ vai trò, ngôn ngữ trả lời (tiếng Việt), giọng điệu, giới hạn."],
+["Tạo endpoint POST /chat (chưa RAG)","Gửi câu hỏi vào, nhận câu trả lời dạng JSON."]]],
+["RAG","Cho AI tra tài liệu của bạn trước khi trả lời",[
+["Chuẩn bị và làm sạch tài liệu","Văn bản gọn, không trùng, mỗi tài liệu có nhóm hoặc nguồn."],
+["Chia chunk","Mỗi chunk dài khoảng 300–500 từ, có overlap; lưu vào bảng chunks."],
+["Tạo embedding và lưu","Mỗi chunk có vector trong DB (pgvector, Chroma hoặc FAISS)."],
+["Truy xuất top-k","Nhập câu hỏi thì lấy ra 3–5 chunk liên quan nhất; xem thử bằng mắt thấy hợp lý."],
+["Ghép ngữ cảnh vào prompt","/chat trả lời dựa trên chunk tìm được và kèm nguồn trích dẫn."],
+["Xử lý trường hợp không có thông tin","Câu hỏi ngoài phạm vi thì bot nói chưa có thông tin, không bịa."]]],
+["Lưu hội thoại","Chat nhiều lượt, có lịch sử",[
+["Lưu mỗi lượt hỏi–đáp","Mỗi tin nhắn được ghi vào messages theo conversation_id."],
+["Đưa lịch sử vào prompt","Hỏi tiếp “còn cách nào khác không?” bot hiểu được ý."],
+["Viết API hội thoại","Có API tạo hội thoại mới, lấy danh sách và lấy nội dung một hội thoại."],
+["Lưu feedback 👍/👎","Mỗi câu trả lời có thể được đánh giá và lưu vào bảng feedback."]]],
+["Frontend","Giao diện để người dùng thật sự dùng được",[
+["Dựng khung dự án","Chạy được trang trống, gọi thử API /health thành công."],
+["Làm giao diện chat","Có ô nhập, nút gửi, khung hiển thị tin nhắn người dùng và bot."],
+["Nối với /chat","Gửi câu hỏi, nhận trả lời và hiển thị cùng nguồn trích dẫn."],
+["Xử lý chờ và lỗi","Có trạng thái “đang trả lời…”, thông báo khi lỗi mạng hoặc server."],
+["Thanh lịch sử và nút feedback","Chọn lại hội thoại cũ được; bấm 👍/👎 lưu được."],
+["Responsive","Dùng tốt trên điện thoại lẫn máy tính."]]],
+["Kiểm thử","Biết chắc hệ thống chạy đúng",[
+["Lập bộ 20 câu hỏi chuẩn","Mỗi câu có đáp án mong đợi; dùng lại ở mọi lần kiểm tra."],
+["Test API","Test các endpoint chính, mỗi endpoint có ca đúng và ca sai."],
+["Chấm chất lượng RAG","Có điểm tỷ lệ trả lời đúng và có nguồn; ghi lại làm mốc."],
+["Cải thiện rồi chấm lại","Thử đổi kích thước chunk, giá trị k hoặc prompt; điểm tăng hoặc ghi rõ lý do không tăng."],
+["Test toàn luồng","Hỏi nhiều lượt, tải lại trang, lịch sử vẫn còn, feedback lưu được."]]],
+["Hoàn thiện & triển khai","Đưa lên chạy thật và trình bày",[
+["Bảo mật cơ bản","API key không lộ ra frontend, có giới hạn số câu hỏi, bật CORS đúng nguồn."],
+["Đóng gói bằng Docker","Một lệnh chạy được cả backend và DB."],
+["Triển khai lên server","Có đường link công khai truy cập được."],
+["Viết README","Có hướng dẫn cài, chạy, cấu hình .env, sơ đồ kiến trúc."],
+["Chuẩn bị demo","Kịch bản 5–7 phút: hỏi → trả lời có nguồn → lịch sử → feedback."]]]
+];
+var K="chatbot-ai-csdl-v1",st={},op={0:1},$=function(i){return document.getElementById(i)};
+try{st=JSON.parse(localStorage.getItem(K)||"{}")}catch(e){st={}}
+function sv(){try{localStorage.setItem(K,JSON.stringify(st))}catch(e){}}
+function cnt(i){var d=0;P[i][2].forEach(function(_,j){if(st[i+"-"+j])d++});return d}
+function render(){
+ var h="",f="",D=0,T=0;
+ P.forEach(function(p,i){var n=p[2].length,d=cnt(i);D+=d;T+=n;
+  f+=(i?'<span>→</span>':'')+'<a href="#g'+i+'" data-o="'+i+'">'+(i+1)+'. '+p[0]+'</a>';
+  h+='<div class="ph'+(d==n?" dn":"")+(op[i]?" op":"")+'" id="g'+i+'"><button data-o="'+i+'"><h2>Giai đoạn '+(i+1)+': '+p[0]+'<small>'+p[1]+'</small></h2><span class="cnt">'+(d==n?"✓ Xong":d+"/"+n)+'</span></button><div class="bd">';
+  p[2].forEach(function(t,j){var id=i+"-"+j;
+   h+='<label class="t'+(st[id]?" c":"")+'"><input type="checkbox" data-id="'+id+'"'+(st[id]?" checked":"")+'><span><b>'+(j+1)+'. '+t[0]+'</b><em>Xong khi: '+t[1]+'</em></span></label>'});
+  h+='</div></div>'});
+ $("flow").innerHTML=f;$("main").innerHTML=h;
+ $("bar").style.width=D/T*100+"%";$("pt").textContent="Hoàn thành "+D+"/"+T+" task ("+Math.round(D/T*100)+"%)"}
+document.addEventListener("click",function(e){var t=e.target,b=t.closest("[data-o]");
+ if(t.dataset.id){st[t.dataset.id]=t.checked;sv();render();return}
+ if(b){var i=b.dataset.o;if(b.tagName=="A"){op[i]=1}else{op[i]=op[i]?0:1}render()}
+ else if(t.id=="rs"&&confirm("Xóa toàn bộ tiến độ?")){st={};sv();render()}});
+render();
+</script>
+</body>
+</html>

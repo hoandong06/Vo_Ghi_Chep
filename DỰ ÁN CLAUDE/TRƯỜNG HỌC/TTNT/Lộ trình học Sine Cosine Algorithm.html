@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Lộ trình học Sine Cosine Algorithm</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700;800&family=Source+Serif+4:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f2f5f8;--surface:#fff;--ink:#14263b;--muted:#5a6b7d;--line:#d5dde6;--sin:#2a57c8;--cos:#d98a12;--code:#eaf0f6;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0f1a27;--surface:#16263a;--ink:#e6edf5;--muted:#9fb0c2;--line:#2a3d55;--sin:#7ea2ff;--cos:#f0b64a;--code:#0c1522}}
+:root[data-theme="dark"]{--bg:#0f1a27;--surface:#16263a;--ink:#e6edf5;--muted:#9fb0c2;--line:#2a3d55;--sin:#7ea2ff;--cos:#f0b64a;--code:#0c1522}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:18px/1.7 "Source Serif 4",Georgia,serif}
+h1,h2,h3{font-family:"Bricolage Grotesque",system-ui,sans-serif;line-height:1.15;margin:0}
+.wrap{max-width:860px;margin:0 auto;padding:0 20px}
+header{padding:56px 0 24px}
+header svg{width:100%;height:90px;display:block;margin-bottom:18px}
+h1{font-size:clamp(2.2rem,6vw,3.6rem);font-weight:800;letter-spacing:-.02em}
+.lead{color:var(--muted);max-width:60ch;margin:14px 0 0}
+.formula{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:16px 20px;margin:20px 0;overflow-x:auto;font-family:"Source Serif 4",serif;font-size:1.05rem;line-height:1.9}
+.s{color:var(--sin);font-weight:600}.c{color:var(--cos);font-weight:600}
+ol.road{list-style:none;margin:32px 0;padding:0;border-left:3px solid var(--line)}
+ol.road>li{position:relative;padding:0 0 38px 28px}
+ol.road>li::before{content:counter(step);counter-increment:step;position:absolute;left:-17px;top:0;width:31px;height:31px;border-radius:50%;background:var(--sin);color:#fff;font:700 15px/31px "Bricolage Grotesque",sans-serif;text-align:center}
+ol.road{counter-reset:step}
+ol.road>li:nth-child(even)::before{background:var(--cos);color:#1d1403}
+h2{font-size:1.5rem;font-weight:700}
+.time{color:var(--muted);font-size:.9rem;margin:2px 0 8px}
+li ul{margin:8px 0;padding-left:20px}
+li li{margin:4px 0}
+pre{background:var(--code);border:1px solid var(--line);border-radius:10px;padding:16px;overflow-x:auto;font:14px/1.55 ui-monospace,Menlo,Consolas,monospace;margin:14px 0}
+code{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.9em;background:var(--code);padding:1px 5px;border-radius:4px}
+pre code{background:none;padding:0}
+.demo{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px;margin:16px 0}
+.demo canvas{width:100%;max-width:420px;aspect-ratio:1;display:block;border-radius:8px;margin:0 auto 12px;background:var(--code)}
+.ctl{display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-family:"Bricolage Grotesque",sans-serif;font-size:.95rem}
+button,select{font:inherit;padding:8px 14px;border-radius:8px;border:1px solid var(--line);background:var(--bg);color:var(--ink);cursor:pointer}
+button.go{background:var(--sin);border-color:var(--sin);color:#fff}
+button:focus-visible,select:focus-visible,a:focus-visible{outline:3px solid var(--cos);outline-offset:2px}
+.stat{margin-left:auto;color:var(--muted)}
+table{width:100%;border-collapse:collapse;font-size:.95rem;margin:12px 0}
+th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+.scroll{overflow-x:auto}
+footer{padding:20px 0 60px;color:var(--muted);font-size:.9rem}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+<svg viewBox="0 0 800 90" preserveAspectRatio="none" aria-hidden="true"><path d="M0 45 Q50 -15 100 45 T200 45 T300 45 T400 45 T500 45 T600 45 T700 45 T800 45" fill="none" stroke="var(--sin)" stroke-width="3"/><path d="M0 15 Q50 75 100 15 T200 15 T300 15 T400 15 T500 15 T600 15 T700 15 T800 15" fill="none" stroke="var(--cos)" stroke-width="3" transform="translate(0,30)"/></svg>
+<h1>Lộ trình học Sine Cosine Algorithm</h1>
+<p class="lead">Dành cho môn Trí tuệ nhân tạo: từ tối ưu hóa metaheuristic đến tự cài đặt SCA, chạy thử và so sánh với các thuật toán khác. Khoảng 2–3 tuần, mỗi ngày 1–2 giờ.</p>
+</header>
+
+<main>
+<h2>SCA là gì?</h2>
+<p>SCA (Mirjalili, 2016) là thuật toán tối ưu dựa trên quần thể. Mỗi cá thể là một lời giải, và nó dao động quanh lời giải tốt nhất hiện tại P theo hàm sin hoặc cos. Biên độ dao động giảm dần: giai đoạn đầu thăm dò rộng (exploration), giai đoạn sau tinh chỉnh quanh nghiệm tốt (exploitation).</p>
+<div class="formula">
+X<sub>i</sub><sup>t+1</sup> = X<sub>i</sub><sup>t</sup> + r<sub>1</sub> · <span class="s">sin(r<sub>2</sub>)</span> · |r<sub>3</sub>·P<sup>t</sup> − X<sub>i</sub><sup>t</sup>| &nbsp;&nbsp; nếu r<sub>4</sub> &lt; 0,5<br>
+X<sub>i</sub><sup>t+1</sup> = X<sub>i</sub><sup>t</sup> + r<sub>1</sub> · <span class="c">cos(r<sub>2</sub>)</span> · |r<sub>3</sub>·P<sup>t</sup> − X<sub>i</sub><sup>t</sup>| &nbsp;&nbsp; nếu r<sub>4</sub> ≥ 0,5<br>
+r<sub>1</sub> = a − t·a/T (a = 2) &nbsp; r<sub>2</sub> ∈ [0, 2π] &nbsp; r<sub>3</sub> ∈ [0, 2] &nbsp; r<sub>4</sub> ∈ [0, 1]
+</div>
+
+<ol class="road">
+<li>
+<h3>Nền tảng tối ưu hóa</h3>
+<p class="time">2–3 ngày</p>
+<ul>
+<li>Bài toán tối ưu: hàm mục tiêu, miền tìm kiếm, cực tiểu cục bộ và toàn cục.</li>
+<li>Metaheuristic là gì, vì sao dùng khi không có đạo hàm hoặc không gian quá lớn.</li>
+<li>Cân bằng thăm dò và khai thác; khái niệm quần thể, vòng lặp, điều kiện dừng.</li>
+<li>Hàm benchmark: Sphere, Rastrigin, Rosenbrock, Ackley.</li>
+</ul>
+</li>
+<li>
+<h3>Chuẩn bị toán và lập trình</h3>
+<p class="time">1–2 ngày</p>
+<ul>
+<li>Hàm sin, cos: giá trị trong [−1, 1], chu kỳ 2π.</li>
+<li>Sinh số ngẫu nhiên đều, vector hóa với NumPy.</li>
+<li>Vẽ đồ thị hội tụ bằng Matplotlib.</li>
+</ul>
+</li>
+<li>
+<h3>Hiểu cơ chế SCA</h3>
+<p class="time">2 ngày</p>
+<ul>
+<li><b>r1</b> giảm tuyến tính từ 2 về 0: quyết định đang thăm dò hay khai thác.</li>
+<li><b>r2</b> quyết định bước đi tiến về hay vượt qua P, theo hướng nào.</li>
+<li><b>r3</b> đặt trọng số ngẫu nhiên cho vị trí tốt nhất P (nhấn mạnh khi &gt; 1, giảm khi &lt; 1).</li>
+<li><b>r4</b> chọn ngẫu nhiên giữa sin và cos.</li>
+<li>Khi |r1·sin(r2)| &gt; 1 cá thể có thể nhảy xa P (thăm dò); khi ≤ 1 nó ở gần P (khai thác).</li>
+</ul>
+</li>
+<li>
+<h3>Tự cài đặt bằng Python</h3>
+<p class="time">2–3 ngày</p>
+<pre><code>import numpy as np
+
+def sca(f, dim, lb, ub, n=30, T=200, a=2):
+    X = np.random.uniform(lb, ub, (n, dim))
+    fit = np.apply_along_axis(f, 1, X)
+    best = X[fit.argmin()].copy(); best_f = fit.min()
+    curve = []
+    for t in range(T):
+        r1 = a - t * a / T
+        r2 = np.random.uniform(0, 2*np.pi, (n, dim))
+        r3 = np.random.uniform(0, 2, (n, dim))
+        r4 = np.random.rand(n, dim)
+        step = np.where(r4 &lt; 0.5, np.sin(r2), np.cos(r2))
+        X = X + r1 * step * np.abs(r3 * best - X)
+        X = np.clip(X, lb, ub)
+        fit = np.apply_along_axis(f, 1, X)
+        if fit.min() &lt; best_f:
+            best_f = fit.min(); best = X[fit.argmin()].copy()
+        curve.append(best_f)
+    return best, best_f, curve
+
+sphere = lambda x: np.sum(x**2)
+print(sca(sphere, 10, -100, 100)[1])</code></pre>
+<p>Chạy thử bên dưới: các chấm là quần thể, chấm vàng là lời giải tốt nhất P. Đổi hàm và số bước để quan sát.</p>
+<div class="demo">
+<canvas id="cv" width="420" height="420" aria-label="Mô phỏng quần thể SCA trên mặt hàm số 2 chiều"></canvas>
+<div class="ctl">
+<select id="fn" aria-label="Hàm mục tiêu"><option value="sphere">Sphere</option><option value="rast">Rastrigin</option></select>
+<button class="go" id="run">Chạy</button><button id="step">1 bước</button><button id="reset">Khởi tạo lại</button>
+<span class="stat" id="st"></span>
+</div>
+</div>
+</li>
+<li>
+<h3>Thí nghiệm và đánh giá</h3>
+<p class="time">2–3 ngày</p>
+<ul>
+<li>Chạy 30 lần độc lập, ghi trung bình, độ lệch chuẩn, tốt nhất, tệ nhất.</li>
+<li>Thay đổi số cá thể, số vòng lặp, giá trị a; vẽ đường hội tụ.</li>
+<li>Thử trên hàm đơn đỉnh (Sphere) và đa đỉnh (Rastrigin, Ackley), nhận xét khả năng thoát cực tiểu cục bộ.</li>
+</ul>
+</li>
+<li>
+<h3>So sánh với thuật toán khác</h3>
+<p class="time">2–3 ngày</p>
+<div class="scroll"><table>
+<tr><th>Thuật toán</th><th>Ý tưởng</th><th>Điểm cần để ý</th></tr>
+<tr><td>PSO</td><td>Vận tốc theo cá thể tốt nhất và nhóm</td><td>Có bộ nhớ vị trí tốt riêng</td></tr>
+<tr><td>GWO</td><td>Sói theo 3 thủ lĩnh α, β, δ</td><td>Dùng nhiều lời giải dẫn đường</td></tr>
+<tr><td>WOA</td><td>Vòng vây và xoắn ốc</td><td>Cũng có cơ chế giảm tham số tuyến tính</td></tr>
+<tr><td>SCA</td><td>Dao động sin/cos quanh P</td><td>Ít tham số, chỉ một lời giải dẫn đường, dễ kẹt ở bài đa đỉnh</td></tr>
+</table></div>
+</li>
+<li>
+<h3>Mở rộng và ứng dụng</h3>
+<p class="time">Tự chọn</p>
+<ul>
+<li>Cải tiến: hỗn loạn (chaotic), Lévy flight, opposition-based learning, kết hợp với PSO hoặc DE.</li>
+<li>Bản rời rạc/nhị phân cho chọn đặc trưng (feature selection).</li>
+<li>Ứng dụng: tinh chỉnh siêu tham số mạng nơ-ron, thiết kế kỹ thuật, lập lịch.</li>
+</ul>
+</li>
+</ol>
+
+<h2>Tài liệu</h2>
+<ul>
+<li>Mirjalili, S. (2016). SCA: A Sine Cosine Algorithm for solving optimization problems. <i>Knowledge-Based Systems</i>, 96, 120–133. Bài báo gốc, nên đọc đầu tiên.</li>
+<li>Rajwar, K. et al. (2023). An exhaustive review of the metaheuristic algorithms for search and optimization. <i>Artificial Intelligence Review</i>. Tổng quan để đặt SCA vào bối cảnh.</li>
+<li>Thư viện Python: <code>mealpy</code> và <code>opfunu</code> có sẵn SCA và các hàm benchmark để đối chiếu kết quả.</li>
+</ul>
+</main>
+<footer>Nên đối chiếu công thức với bài báo gốc trước khi dùng trong báo cáo.</footer>
+</div>
+
+<script>
+(function(){
+var cv=document.getElementById('cv'),ctx=cv.getContext('2d'),N=20,L=-5,U=5,W=420;
+var fns={sphere:function(x,y){return x*x+y*y},rast:function(x,y){return 20+x*x-10*Math.cos(2*Math.PI*x)+y*y-10*Math.cos(2*Math.PI*y)}};
+var X,best,bf,t,T=100,timer=null,bg=null;
+function f(p){return fns[document.getElementById('fn').value](p[0],p[1])}
+function px(v){return (v-L)/(U-L)*W}
+function mkBg(){
+ var fn=fns[document.getElementById('fn').value],img=ctx.createImageData(W,W),mx=1;
+ var s=document.getElementById('fn').value==='sphere'?50:80;
+ for(var j=0;j<W;j++)for(var i=0;i<W;i++){
+  var v=fn(L+i/W*(U-L),L+j/W*(U-L)),k=Math.min(v/s,1),o=(j*W+i)*4;
+  var dark=matchMedia('(prefers-color-scheme: dark)').matches;
+  var a=dark?[12,21,34]:[234,240,246],b=dark?[60,95,170]:[150,175,225];
+  img.data[o]=a[0]+(b[0]-a[0])*k;img.data[o+1]=a[1]+(b[1]-a[1])*k;img.data[o+2]=a[2]+(b[2]-a[2])*k;img.data[o+3]=255}
+ bg=img}
+function reset(){
+ stop();t=0;X=[];
+ for(var i=0;i<N;i++)X.push([L+Math.random()*(U-L),L+Math.random()*(U-L)]);
+ mkBg();best=X[0].slice();bf=f(best);upd();draw()}
+function upd(){X.forEach(function(p){var v=f(p);if(v<bf){bf=v;best=p.slice()}})}
+function step(){
+ if(t>=T){stop();return}
+ var r1=2-t*2/T;
+ X.forEach(function(p){for(var d=0;d<2;d++){
+  var r2=Math.random()*2*Math.PI,r3=Math.random()*2,tr=Math.random()<.5?Math.sin(r2):Math.cos(r2);
+  p[d]=Math.max(L,Math.min(U,p[d]+r1*tr*Math.abs(r3*best[d]-p[d])))}});
+ t++;upd();draw()}
+function draw(){
+ ctx.putImageData(bg,0,0);
+ X.forEach(function(p){ctx.beginPath();ctx.arc(px(p[0]),px(p[1]),5,0,7);ctx.fillStyle=getComputedStyle(document.documentElement).getPropertyValue('--sin')||'#2a57c8';ctx.fill();ctx.strokeStyle='#fff';ctx.lineWidth=1.5;ctx.stroke()});
+ ctx.beginPath();ctx.arc(px(best[0]),px(best[1]),8,0,7);ctx.fillStyle='#e8a317';ctx.fill();ctx.strokeStyle='#14263b';ctx.lineWidth=2;ctx.stroke();
+ document.getElementById('st').textContent='Bước '+t+'/'+T+' · f(P) = '+bf.toFixed(4)}
+function stop(){if(timer){clearInterval(timer);timer=null}document.getElementById('run').textContent='Chạy'}
+document.getElementById('run').onclick=function(){if(timer){stop();return}this.textContent='Dừng';timer=setInterval(step,80)};
+document.getElementById('step').onclick=function(){stop();step()};
+document.getElementById('reset').onclick=reset;
+document.getElementById('fn').onchange=reset;
+reset();
+})();
+</script>
+</body>
+</html>

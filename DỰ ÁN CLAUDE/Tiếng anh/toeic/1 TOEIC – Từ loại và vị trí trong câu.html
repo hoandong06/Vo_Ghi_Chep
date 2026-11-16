@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="vi"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>TOEIC – Từ loại và vị trí trong câu</title>
+<style>
+:root{--bg:#f3f6f4;--sf:#fff;--tx:#1b2a24;--mu:#5d6d66;--ac:#0f6b57;--ac2:#e3f1ec;--ok:#1f8a4c;--okb:#dff3e6;--no:#c0392b;--nob:#fbe4e1;--bd:#d5dfda;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#101a16;--sf:#18251f;--tx:#e6efe9;--mu:#9bb0a6;--ac:#4cc3a4;--ac2:#1d3a31;--ok:#5ad08a;--okb:#1b3a28;--no:#ff8a7a;--nob:#43211d;--bd:#2c3f37}}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.65 "Be Vietnam Pro",system-ui,-apple-system,"Segoe UI",sans-serif}
+header{padding:18px 16px 0;max-width:860px;margin:auto}
+h1{font:700 22px/1.3 Georgia,"Times New Roman",serif;margin:0 0 4px}
+header p{margin:0;color:var(--mu);font-size:14px}
+nav{display:flex;gap:8px;max-width:860px;margin:14px auto 0;padding:0 16px;overflow-x:auto}
+nav button{flex:1;min-width:130px;padding:10px 12px;border:1px solid var(--bd);background:var(--sf);color:var(--tx);border-radius:10px;font:600 14px inherit;cursor:pointer}
+nav button.on{background:var(--ac);color:#fff;border-color:var(--ac)}
+main{max-width:860px;margin:auto;padding:16px}
+.card{background:var(--sf);border:1px solid var(--bd);border-radius:10px;padding:16px;margin-bottom:14px}
+h2{font:700 19px/1.3 Georgia,serif;margin:0 0 8px;color:var(--ac)}
+h3{font-size:15px;margin:14px 0 4px}
+.tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
+.tabs button{padding:6px 12px;border:1px solid var(--bd);background:var(--sf);color:var(--tx);border-radius:20px;cursor:pointer;font:14px inherit}
+.tabs button.on{background:var(--ac2);border-color:var(--ac);color:var(--ac);font-weight:600}
+table{border-collapse:collapse;width:100%;font-size:14px;display:block;overflow-x:auto}
+td,th{border:1px solid var(--bd);padding:6px 8px;text-align:left;vertical-align:top}
+th{background:var(--ac2)}
+.ex{color:var(--mu);font-style:italic}
+.tip{background:var(--ac2);border-left:4px solid var(--ac);padding:8px 12px;border-radius:6px;margin:10px 0;font-size:15px}
+.warn{background:var(--nob);border-left:4px solid var(--no);padding:8px 12px;border-radius:6px;margin:10px 0;font-size:15px}
+ul{margin:4px 0;padding-left:20px}
+.opt{display:block;width:100%;text-align:left;margin:6px 0;padding:9px 12px;border:1px solid var(--bd);background:var(--sf);color:var(--tx);border-radius:8px;cursor:pointer;font:15px inherit}
+.opt:focus-visible,button:focus-visible{outline:2px solid var(--ac);outline-offset:2px}
+.opt.ok{background:var(--okb);border-color:var(--ok)}
+.opt.no{background:var(--nob);border-color:var(--no)}
+.fb{display:none;margin-top:8px;font-size:14px;padding:8px 12px;background:var(--ac2);border-radius:8px}
+.q.done .fb{display:block}
+.q.done .opt{pointer-events:none}
+.score{position:sticky;top:0;background:var(--bg);padding:6px 0;font-weight:600;color:var(--ac);z-index:2}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.it,.cat{padding:9px 10px;border:1px solid var(--bd);background:var(--sf);color:var(--tx);border-radius:8px;cursor:pointer;margin:5px 0;width:100%;text-align:left;font:14px inherit}
+.it.sel{border-color:var(--ac);background:var(--ac2)}
+.it.ok{background:var(--okb);border-color:var(--ok);pointer-events:none}
+.it.no,.cat.no{background:var(--nob);border-color:var(--no)}
+.btn{padding:8px 16px;border:0;background:var(--ac);color:#fff;border-radius:8px;cursor:pointer;font:600 14px inherit;margin-top:8px}
+</style></head><body>
+<header><h1>TOEIC · Từ loại và vị trí trong câu</h1><p>Part 5 &amp; 6: nhìn vị trí chỗ trống, đoán từ loại, chọn đáp án.</p></header>
+<nav id="nav"></nav><main id="app"></main>
+<script>
+const $=s=>document.querySelector(s),app=$("#app");
+const T=[
+["Tổng quan 4 từ loại",`<p>Đề TOEIC hỏi từ loại bằng cách đưa <b>cùng một gốc từ</b> với 4 đuôi khác nhau. Việc cần làm: <b>xác định chỗ trống cần loại từ nào</b>, rồi chọn từ có đuôi đúng.</p>
+<table><tr><th>Từ loại</th><th>Vai trò</th><th>Ví dụ</th></tr>
+<tr><td>Danh từ (N)</td><td>Chỉ người, vật, việc; làm chủ ngữ, tân ngữ</td><td>decision (quyết định)</td></tr>
+<tr><td>Động từ (V)</td><td>Chỉ hành động, trạng thái</td><td>decide (quyết định)</td></tr>
+<tr><td>Tính từ (Adj)</td><td>Bổ nghĩa cho danh từ</td><td>decisive (quyết đoán)</td></tr>
+<tr><td>Trạng từ (Adv)</td><td>Bổ nghĩa cho động từ, tính từ, trạng từ, cả câu</td><td>decisively (một cách quyết đoán)</td></tr></table>
+<div class="tip"><b>Mẹo:</b> Bỏ từ cần điền ra, hỏi “chỗ này thiếu thành phần gì?”. Thiếu chủ ngữ/tân ngữ → N. Thiếu hành động → V. Thiếu từ mô tả danh từ → Adj. Thiếu từ mô tả hành động/mức độ → Adv.</div>
+<p class="ex">The company made a quick decision. = Công ty đã đưa ra một quyết định nhanh chóng.</p>`],
+["Danh từ (Noun)",`<h3>1. Đuôi nhận biết</h3>
+<table><tr><th>Đuôi</th><th>Ví dụ</th></tr>
+<tr><td>-tion, -sion</td><td>information (thông tin), decision (quyết định)</td></tr>
+<tr><td>-ment</td><td>payment (khoản thanh toán), equipment (thiết bị)</td></tr>
+<tr><td>-ness</td><td>business (kinh doanh), awareness (nhận thức)</td></tr>
+<tr><td>-ity, -ty</td><td>quality (chất lượng), security (an ninh)</td></tr>
+<tr><td>-ance, -ence</td><td>performance (hiệu suất), experience (kinh nghiệm)</td></tr>
+<tr><td>-er, -or, -ist, -ant, -ee (người)</td><td>manager, director, specialist, applicant (ứng viên), employee (nhân viên)</td></tr>
+<tr><td>-ship, -ism, -age, -al</td><td>relationship, tourism, damage, proposal (đề xuất)</td></tr></table>
+<h3>2. Vị trí của danh từ</h3><ul>
+<li><b>Sau mạo từ</b> a/an/the (có thể có tính từ ở giữa): <i>the <u>installation</u></i></li>
+<li><b>Sau tính từ sở hữu</b> my, your, his, her, our, their, its và sở hữu cách ’s: <i>our <u>success</u></i></li>
+<li><b>Sau tính từ</b>: <i>a successful <u>launch</u></i></li>
+<li><b>Sau giới từ</b> (in, on, of, for, with, by…): <i>for <u>approval</u></i></li>
+<li><b>Sau lượng từ</b> some, any, many, much, few, little, several, all: <i>several <u>applications</u></i></li>
+<li><b>Làm chủ ngữ</b> (đầu câu, trước động từ) và <b>tân ngữ</b> (sau động từ thường)</li></ul>
+<h3>3. Danh từ ghép (rất hay ra)</h3>
+<p>Danh từ + danh từ: <i>sales figures</i> (số liệu doanh thu), <i>safety regulations</i>, <i>job application</i>, <i>customer satisfaction</i>, <i>production schedule</i>.</p>
+<div class="warn"><b>Lưu ý:</b> Hai danh từ cùng gốc khác nghĩa: <i>applicant</i> (người nộp đơn) ≠ <i>application</i> (đơn). Danh từ đếm được số ít phải có mạo từ hoặc từ hạn định đi trước.</div>`],
+["Động từ (Verb)",`<h3>1. Đuôi nhận biết</h3>
+<table><tr><th>Đuôi</th><th>Ví dụ</th></tr>
+<tr><td>-ize / -ise</td><td>organize (tổ chức), finalize (hoàn tất)</td></tr>
+<tr><td>-ify</td><td>verify (xác minh), modify (chỉnh sửa)</td></tr>
+<tr><td>-ate</td><td>operate (vận hành), indicate (cho thấy)</td></tr>
+<tr><td>-en</td><td>widen (mở rộng), strengthen (tăng cường)</td></tr>
+<tr><td>en-, be-, re-</td><td>enable, ensure, rebuild</td></tr></table>
+<h3>2. Vị trí của động từ</h3><ul>
+<li><b>Sau chủ ngữ</b>: <i>The report <u>shows</u>…</i> (chia theo chủ ngữ và thì)</li>
+<li><b>Sau trạng từ tần suất</b> always, usually, often, never: <i>She always <u>submits</u>…</i></li>
+<li><b>Sau to</b> (to V): <i>decided to <u>extend</u></i></li>
+<li><b>Sau modal</b> will, can, must, should, may + V nguyên mẫu</li>
+<li><b>Sau Please</b> (câu mệnh lệnh): <i>Please <u>review</u>…</i></li>
+<li><b>Sau have/has/had</b> + V3; <b>sau be</b> + V-ing/V3 (tiếp diễn, bị động)</li></ul>
+<div class="tip"><b>Mẹo:</b> Câu chưa có động từ chính (chủ ngữ + … + ?) thì chỗ trống thường là động từ đã chia. Chú ý chủ ngữ số ít/nhiều và thì.</div>`],
+["Tính từ (Adjective)",`<h3>1. Đuôi nhận biết</h3>
+<table><tr><th>Đuôi</th><th>Ví dụ</th></tr>
+<tr><td>-ful, -less</td><td>helpful (hữu ích), useless (vô dụng)</td></tr>
+<tr><td>-ous, -ious</td><td>numerous (nhiều), various (đa dạng)</td></tr>
+<tr><td>-ive</td><td>effective (hiệu quả), competitive (cạnh tranh)</td></tr>
+<tr><td>-able, -ible</td><td>available (có sẵn), responsible (chịu trách nhiệm)</td></tr>
+<tr><td>-al, -ic, -ical</td><td>financial (tài chính), economic (thuộc kinh tế)</td></tr>
+<tr><td>-ent, -ant</td><td>efficient (hiệu quả), important (quan trọng)</td></tr>
+<tr><td>-ed, -ing, -y</td><td>qualified (đủ trình độ), promising, busy</td></tr></table>
+<h3>2. Vị trí của tính từ</h3><ul>
+<li><b>Trước danh từ</b>: <i>a <u>reliable</u> supplier</i></li>
+<li><b>Sau be, become, seem, remain, look, feel…</b>: <i>The price is <u>reasonable</u>.</i></li>
+<li><b>Sau trạng từ chỉ mức độ</b> very, so, too, quite, extremely: <i>very <u>impressive</u></i></li>
+<li><b>Sau make/keep/find/consider + tân ngữ</b>: <i>keep the files <u>confidential</u></i></li>
+<li><b>Trong so sánh</b>: more/most + adj, adj-er</li></ul>
+<div class="warn"><b>Phân biệt:</b> economy (n, nền kinh tế) / economic (adj, thuộc kinh tế) / economical (adj, tiết kiệm). V-ed: cảm nhận của người (<i>interested</i>); V-ing: tính chất của vật (<i>interesting</i>).</div>`],
+["Trạng từ (Adverb)",`<h3>1. Nhận biết</h3>
+<p>Thường là <b>tính từ + -ly</b>: quickly (nhanh), carefully (cẩn thận), significantly (đáng kể). Ngoại lệ không đổi dạng: fast, hard, late, early, well.</p>
+<div class="warn"><b>Bẫy:</b> hard (chăm chỉ) ≠ hardly (hầu như không); late (muộn) ≠ lately (gần đây); high (cao) ≠ highly (rất, đánh giá cao). Từ tận cùng -ly nhưng là tính từ: friendly, costly, likely, timely.</div>
+<h3>2. Vị trí của trạng từ</h3><ul>
+<li><b>Trước tính từ</b>: <i>extremely <u>useful</u></i></li>
+<li><b>Giữa trợ động từ và động từ chính</b>: <i>has <u>steadily</u> increased</i>; <i>will <u>officially</u> announce</i></li>
+<li><b>Sau động từ thường hoặc sau tân ngữ</b>: <i>completed <u>successfully</u></i></li>
+<li><b>Giữa be và V3/V-ing</b>: <i>was <u>carefully</u> reviewed</i></li>
+<li><b>Đầu câu</b> (trước dấu phẩy) bổ nghĩa cả câu: <i><u>Unfortunately</u>, the flight…</i></li>
+<li><b>Trước trạng từ khác</b>, và trong so sánh: <i>considerably better</i></li></ul>
+<div class="tip"><b>Mẹo:</b> Nếu bỏ chỗ trống mà câu vẫn đủ nghĩa và đủ ngữ pháp thì đa số là trạng từ.</div>`],
+["Mẹo làm bài TOEIC",`<ul>
+<li><b>Bước 1:</b> Đọc các đáp án, thấy cùng gốc, khác đuôi → bài từ loại.</li>
+<li><b>Bước 2:</b> Nhìn từ đứng ngay trước và sau chỗ trống để xác định vị trí.</li>
+<li><b>Bước 3:</b> Chọn đúng từ loại, rồi mới xét nghĩa (nếu còn 2 đáp án cùng từ loại).</li>
+<li>Chỗ trống sau <b>a/an/the</b> mà không có danh từ phía sau → danh từ. Có danh từ phía sau → tính từ.</li>
+<li>Chỗ trống giữa <b>to</b> và tân ngữ → động từ nguyên mẫu.</li>
+<li>Sau giới từ nếu là động từ phải ở dạng V-ing: <i>by <u>reducing</u> costs</i>.</li></ul>
+<div class="tip"><b>Công thức nhanh:</b> N: sau mạo từ/sở hữu/giới từ. V: sau chủ ngữ/to/modal. Adj: trước N hoặc sau be. Adv: trước adj hoặc giữa trợ động từ và V.</div>
+<div class="warn"><b>Sai lầm phổ biến:</b> chọn từ vì thấy quen nghĩa mà không nhìn vị trí; quên chia động từ theo chủ ngữ số ít/số nhiều; nhầm hard/hardly, late/lately.</div>`]];
+const QZ=[["Đuôi -tion thường là từ loại nào?",["Danh từ","Động từ","Tính từ","Trạng từ"],0,"Information, decision… đều là danh từ."],
+["Sau tính từ sở hữu (your, our…) cần điền loại từ nào?",["Động từ","Danh từ","Trạng từ","Giới từ"],1,"Sau your/our/his/her… là danh từ (có thể có tính từ ở giữa)."],
+["Sau “very” cần loại từ nào?",["Danh từ","Động từ","Tính từ","Mạo từ"],2,"very + adj/adv. Ví dụ: very impressive."],
+["Trạng từ thường đứng ở đâu trong “has ___ increased”?",["Giữa have và V3","Sau mạo từ","Sau giới từ","Trước danh từ"],0,"Trạng từ nằm giữa trợ động từ và động từ chính."],
+["Đuôi -ize, -ify, -en thường là từ loại nào?",["Danh từ","Tính từ","Trạng từ","Động từ"],3,"organize, verify, widen đều là động từ."],
+["“keep/find/make + tân ngữ + ___”: điền loại từ nào?",["Tính từ","Danh từ","Trạng từ","Động từ chia"],0,"Ví dụ: keep the files confidential."],
+["“hardly” có nghĩa là gì?",["Chăm chỉ","Hầu như không","Rất khó","Nhanh chóng"],1,"hard = chăm chỉ; hardly = hầu như không."],
+["Sau “to” trong “decided to ___” dùng dạng nào?",["V-ing","V3","V nguyên mẫu","Danh từ"],2,"to + V nguyên mẫu (khi to là một phần của động từ nguyên mẫu)."]];
+const MT=[["-tion",0],["-ment",0],["-ness",0],["-ize",1],["-ify",1],["-en (widen)",1],["-ful",2],["-ous",2],["-able",2],["-ly",3],["Sau the/a/your",0],["Sau to / will / can",1],["Trước danh từ",2],["Giữa have và V3",3]];
+const CAT=["Danh từ","Động từ","Tính từ","Trạng từ"];
+const EX=[["Bài 1: Danh từ",[
+["The ___ of the new software will begin next week.","install|installation|installing|installed",1,"Việc cài đặt phần mềm mới sẽ bắt đầu vào tuần sau.","Sau “The” và trước “of” cần danh từ làm chủ ngữ → installation."],
+["Please submit your ___ before the deadline.","apply|applicant|application|applicable",2,"Vui lòng nộp đơn của bạn trước hạn chót.","Sau “your” cần danh từ. Application = đơn; applicant = người nộp đơn (không hợp nghĩa)."],
+["Ms. Lee is a successful ___ in the fashion industry.","design|designer|designing|designed",1,"Cô Lee là một nhà thiết kế thành công trong ngành thời trang.","Sau a + tính từ cần danh từ chỉ người → designer."],
+["The company’s ___ has increased by 20% this year.","profitable|profit|profitably|profiting",1,"Lợi nhuận của công ty đã tăng 20% trong năm nay.","Sau sở hữu cách ’s cần danh từ làm chủ ngữ → profit."],
+["We appreciate your ___ with this project.","cooperate|cooperative|cooperation|cooperatively",2,"Chúng tôi trân trọng sự hợp tác của bạn trong dự án này.","Sau “your” cần danh từ; đuôi -tion là danh từ."],
+["Employees must show their ___ at the entrance.","identify|identification|identifiable|identified",1,"Nhân viên phải xuất trình giấy tờ nhận dạng ở lối vào.","Sau tính từ sở hữu “their” cần danh từ → identification."],
+["The manager gave detailed ___ about the new policy.","explain|explanations|explanatory|explanatorily",1,"Quản lý đã đưa ra những lời giải thích chi tiết về chính sách mới.","Sau tính từ “detailed” cần danh từ; số nhiều nên không cần mạo từ."],
+["There is a growing ___ for electric vehicles.","demand|demanding|demanded|demandingly",0,"Nhu cầu về xe điện đang ngày càng tăng.","a + adj (growing) + danh từ → demand (demand for = nhu cầu về)."],
+["Thanks to his ___, the team won the contract.","persuade|persuasive|persuasion|persuasively",2,"Nhờ khả năng thuyết phục của anh ấy, nhóm đã giành được hợp đồng.","Sau “his” cần danh từ → persuasion."],
+["The ___ of the building was completed in May.","construct|construction|constructive|constructively",1,"Việc xây dựng tòa nhà đã hoàn thành vào tháng Năm.","Sau “The” cần danh từ làm chủ ngữ → construction."]]],
+["Bài 2: Động từ",[
+["All staff are required to ___ the safety rules.","obedient|obey|obedience|obediently",1,"Mọi nhân viên bắt buộc phải tuân thủ quy định an toàn.","Sau “to” cần động từ nguyên mẫu → obey."],
+["The new system will ___ our efficiency.","improvement|improve|improved|improving",1,"Hệ thống mới sẽ cải thiện hiệu quả của chúng ta.","Sau modal “will” dùng V nguyên mẫu."],
+["She always ___ her reports on time.","submit|submits|submitting|submitted",1,"Cô ấy luôn nộp báo cáo đúng hạn.","Chủ ngữ số ít, hiện tại đơn, đứng sau trạng từ tần suất → submits."],
+["The board decided to ___ the contract.","extension|extend|extensive|extensively",1,"Hội đồng quản trị quyết định gia hạn hợp đồng.","decided to + V nguyên mẫu → extend."],
+["We need to ___ the office before the clients arrive.","clean|cleanly|cleanliness|cleaner",0,"Chúng ta cần dọn dẹp văn phòng trước khi khách hàng đến.","need to + V nguyên mẫu → clean."],
+["The manager has ___ the meeting to Friday.","postpone|postponed|postponing|postponement",1,"Quản lý đã hoãn cuộc họp sang thứ Sáu.","has + V3 (thì hiện tại hoàn thành) → postponed."],
+["Please ___ us if you cannot attend.","notify|notification|notifying|notifiable",0,"Vui lòng thông báo cho chúng tôi nếu bạn không thể tham dự.","Please + V nguyên mẫu (câu mệnh lệnh) → notify."],
+["Our team can ___ this problem quickly.","solution|solve|solvable|solving",1,"Nhóm chúng tôi có thể giải quyết vấn đề này nhanh chóng.","Sau modal “can” cần V nguyên mẫu → solve."],
+["The factory will ___ production next month.","expansion|expand|expansive|expanded",1,"Nhà máy sẽ mở rộng sản xuất vào tháng tới.","will + V nguyên mẫu → expand."],
+["The report ___ that sales fell sharply.","indicates|indication|indicative|indicating",0,"Báo cáo cho thấy doanh số giảm mạnh.","Câu thiếu động từ chính, chủ ngữ số ít → indicates."]]],
+["Bài 3: Tính từ",[
+["The company offers a ___ salary.","compete|competitive|competitively|competition",1,"Công ty đưa ra mức lương có tính cạnh tranh.","Giữa mạo từ a và danh từ salary cần tính từ → competitive."],
+["The new model is more ___ than the old one.","reliable|reliably|rely|reliability",0,"Mẫu mới đáng tin cậy hơn mẫu cũ.","be + more + adj → reliable."],
+["Mr. Kim is ___ for managing the sales team.","responsible|responsibly|responsibility|respond",0,"Ông Kim chịu trách nhiệm quản lý nhóm bán hàng.","be + adj; cấu trúc be responsible for."],
+["It is ___ to arrive early on the interview day.","advise|advisable|advisably|advice",1,"Nên đến sớm vào ngày phỏng vấn.","It is + adj + to V → advisable."],
+["The hotel provides ___ service.","excellence|excellently|excellent|excel",2,"Khách sạn cung cấp dịch vụ xuất sắc.","Trước danh từ service cần tính từ → excellent."],
+["We found the instructions ___.","confuse|confusing|confusion|confusingly",1,"Chúng tôi thấy hướng dẫn gây khó hiểu.","find + tân ngữ + adj; hướng dẫn (vật) gây khó hiểu → V-ing."],
+["Her presentation was very ___.","impress|impression|impressive|impressively",2,"Bài thuyết trình của cô ấy rất ấn tượng.","was very + adj → impressive."],
+["This software is ___ with most devices.","compatibility|compatible|compatibly|compete",1,"Phần mềm này tương thích với hầu hết thiết bị.","be + adj; compatible with = tương thích với."],
+["Please keep the documents ___.","confidence|confidential|confidentially|confide",1,"Vui lòng giữ tài liệu ở chế độ bảo mật.","keep + tân ngữ + adj → confidential."],
+["The ___ results surprised the analysts.","preliminary|preliminarily|preliminaries|prelim",0,"Kết quả sơ bộ đã làm các nhà phân tích bất ngờ.","Trước danh từ results cần tính từ → preliminary."]]],
+["Bài 4: Trạng từ",[
+["The project was completed ___.","success|successful|successfully|succeed",2,"Dự án đã được hoàn thành thành công.","Cuối câu, bổ nghĩa cho động từ → successfully."],
+["Sales have ___ increased this quarter.","steady|steadily|steadiness|steadier",1,"Doanh số đã tăng đều đặn trong quý này.","Giữa have và V3 cần trạng từ → steadily."],
+["The new phone is ___ expensive.","extreme|extremely|extremity|extremes",1,"Chiếc điện thoại mới cực kỳ đắt.","Trước tính từ expensive cần trạng từ → extremely."],
+["Please read the instructions ___.","care|careful|carefully|caring",2,"Vui lòng đọc hướng dẫn một cách cẩn thận.","Sau động từ + tân ngữ, bổ nghĩa cho hành động → carefully."],
+["___, the meeting has been cancelled.","Unfortunate|Unfortunately|Unfortunateness|Fortune",1,"Thật không may, cuộc họp đã bị hủy.","Đầu câu, trước dấu phẩy, bổ nghĩa cả câu → Unfortunately."],
+["Ms. Tran ___ attends the weekly meeting.","regular|regularly|regularity|regulate",1,"Cô Trần tham dự cuộc họp hằng tuần một cách đều đặn.","Trước động từ chính attends cần trạng từ → regularly."],
+["The team worked ___ to meet the deadline.","hard|hardly|harden|hardness",0,"Nhóm đã làm việc chăm chỉ để kịp hạn chót.","hard (chăm chỉ) là trạng từ; hardly = hầu như không (sai nghĩa)."],
+["The results were ___ better than expected.","consider|considerable|considerably|consideration",2,"Kết quả tốt hơn đáng kể so với dự kiến.","Trạng từ bổ nghĩa cho từ so sánh better → considerably."],
+["The CEO will ___ announce the new plan.","official|officially|officiate|office",1,"Giám đốc điều hành sẽ chính thức công bố kế hoạch mới.","Giữa will và V cần trạng từ → officially."],
+["She answered the questions ___ and confidently.","clear|clearly|clarity|clarify",1,"Cô ấy trả lời các câu hỏi một cách rõ ràng và tự tin.","Song song với trạng từ confidently → clearly."]]],
+["Bài 5: Tổng hợp",[
+["Our main ___ is to reduce costs.","object|objective|objectively|objectify",1,"Mục tiêu chính của chúng tôi là cắt giảm chi phí.","Sau tính từ main, làm chủ ngữ → danh từ objective."],
+["The applicants were ___ interviewed by the panel.","individual|individually|individuality|individualize",1,"Các ứng viên được hội đồng phỏng vấn riêng từng người.","Giữa be và V3 cần trạng từ → individually."],
+["Prices are ___ to change without notice.","subject|subjective|subjectively|subjection",0,"Giá có thể thay đổi mà không báo trước.","be subject to = có thể bị, tùy thuộc vào."],
+["A ___ increase in sales surprised everyone.","sharp|sharply|sharpen|sharpness",0,"Mức tăng mạnh về doanh số làm mọi người bất ngờ.","Giữa a và danh từ increase cần tính từ → sharp."],
+["Please ___ the attached file.","review|reviews|reviewing|reviewer",0,"Vui lòng xem lại tập tin đính kèm.","Please + V nguyên mẫu."],
+["The firm is known for its ___ products.","innovate|innovation|innovative|innovatively",2,"Công ty nổi tiếng với các sản phẩm sáng tạo.","Sau “its” và trước danh từ products cần tính từ → innovative."],
+["Mr. Cho speaks English very ___.","fluent|fluently|fluency|fluence",1,"Ông Cho nói tiếng Anh rất trôi chảy.","very + trạng từ, bổ nghĩa cho speaks → fluently."],
+["The ___ of the survey will be announced soon.","resulting|results|resultant|resultantly",1,"Kết quả khảo sát sẽ sớm được công bố.","Sau The, làm chủ ngữ → danh từ results."],
+["It is ___ important to back up your files.","high|highly|height|highest",1,"Việc sao lưu tệp của bạn là cực kỳ quan trọng.","Trước tính từ important cần trạng từ → highly."],
+["We were ___ with the speed of delivery.","please|pleased|pleasing|pleasure",1,"Chúng tôi hài lòng với tốc độ giao hàng.","be pleased with: người cảm thấy hài lòng → V-ed."]]]];
+const NEW=[[
+["Mr. Han received an ___ to speak at the conference.","invite|invitation|invited|inviting",1,"Ông Han nhận được lời mời phát biểu tại hội nghị.","Sau “an” cần danh từ → invitation."],
+["The ___ for this position must have two years of experience.","apply|applicant|applicable|applied",1,"Ứng viên cho vị trí này phải có hai năm kinh nghiệm.","Sau The, làm chủ ngữ, chỉ người → applicant."],
+["Regular ___ of the machines prevents breakdowns.","maintain|maintenance|maintained|maintainable",1,"Việc bảo trì máy móc thường xuyên giúp ngăn hỏng hóc.","Sau tính từ Regular cần danh từ → maintenance."],
+["We value the ___ of our long-term clients.","loyal|loyalty|loyally|loyalize",1,"Chúng tôi coi trọng lòng trung thành của khách hàng lâu năm.","Sau the, trước of → danh từ loyalty."],
+["Mr. Lim was promoted in ___ of his outstanding work.","recognize|recognition|recognizable|recognized",1,"Ông Lim được thăng chức để ghi nhận công việc xuất sắc.","Sau giới từ in, trước of → danh từ recognition."],
+["The ___ between the two firms ended last year.","partner|partnership|partnered|partnering",1,"Quan hệ đối tác giữa hai công ty đã kết thúc năm ngoái.","Sau The, làm chủ ngữ → partnership (-ship)."],
+["Please send us your ___ of the new design.","evaluate|evaluation|evaluative|evaluated",1,"Vui lòng gửi cho chúng tôi đánh giá của bạn về thiết kế mới.","Sau your cần danh từ → evaluation."],
+["Good ___ is essential for a successful team.","communicate|communicative|communication|communicatively",2,"Giao tiếp tốt là điều thiết yếu cho một đội thành công.","Sau tính từ Good, làm chủ ngữ → communication."],
+["The company is looking for a new ___ of marketing.","direct|directly|directive|director",3,"Công ty đang tìm giám đốc tiếp thị mới.","Sau a + new, chỉ người → director (-or)."],
+["He gave a short ___ on safety.","present|presentation|presentational|presented",1,"Anh ấy có một bài thuyết trình ngắn về an toàn.","Sau a + tính từ short → danh từ presentation."]],[
+["The firm plans to ___ a new branch in Hanoi.","opening|open|opened|opens",1,"Công ty dự định mở chi nhánh mới ở Hà Nội.","plans to + V nguyên mẫu → open."],
+["Employees should ___ their badges at all times.","wearing|worn|wear|wears",2,"Nhân viên nên đeo thẻ mọi lúc.","Sau modal should dùng V nguyên mẫu → wear."],
+["The software ___ users to track expenses easily.","enable|enables|enabling|enablement",1,"Phần mềm cho phép người dùng theo dõi chi phí dễ dàng.","Chủ ngữ số ít, hiện tại đơn → enables."],
+["The package was ___ to the wrong address.","deliver|delivering|delivered|delivery",2,"Gói hàng đã bị giao nhầm địa chỉ.","was + V3 (bị động) → delivered."],
+["Mr. Nam is ___ a report for tomorrow’s meeting.","prepare|preparing|prepared|preparation",1,"Ông Nam đang chuẩn bị báo cáo cho cuộc họp ngày mai.","is + V-ing (thì tiếp diễn) → preparing."],
+["We will ___ you of any schedule changes.","inform|information|informative|informed",0,"Chúng tôi sẽ thông báo cho bạn mọi thay đổi lịch.","will + V nguyên mẫu → inform."],
+["The committee ___ the proposal last week.","approve|approved|approving|approval",1,"Ủy ban đã phê duyệt đề xuất vào tuần trước.","last week → quá khứ đơn → approved."],
+["Please ___ your password every three months.","change|changes|changing|changed",0,"Vui lòng đổi mật khẩu ba tháng một lần.","Please + V nguyên mẫu → change."],
+["Before ___ the contract, read every clause.","sign|signing|signed|signs",1,"Trước khi ký hợp đồng, hãy đọc kỹ từng điều khoản.","Sau giới từ before dùng V-ing → signing."],
+["The new rule ___ all staff from using personal phones.","prohibit|prohibits|prohibition|prohibitive",1,"Quy định mới cấm mọi nhân viên dùng điện thoại cá nhân.","Thiếu động từ chính, chủ ngữ số ít → prohibits."]],[
+["Ms. Cruz is a very ___ negotiator.","skill|skilled|skillfully|skills",1,"Cô Cruz là nhà đàm phán rất có kỹ năng.","very + adj, đứng trước danh từ → skilled."],
+["The meeting room is ___ from 9 a.m. to 5 p.m.","available|availability|avail|availably",0,"Phòng họp có sẵn từ 9 giờ sáng đến 5 giờ chiều.","be + adj → available (-able)."],
+["We offer ___ prices for bulk orders.","afford|affordable|affordably|affordability",1,"Chúng tôi đưa ra giá phải chăng cho đơn hàng số lượng lớn.","Trước danh từ prices → tính từ affordable."],
+["The ___ staff helped me find a seat.","help|helpful|helpfully|helpfulness",1,"Nhân viên nhiệt tình đã giúp tôi tìm chỗ ngồi.","Trước danh từ staff → tính từ helpful (-ful)."],
+["This report is ___ to all board members.","access|accessible|accessibly|accessing",1,"Báo cáo này mở cho mọi thành viên hội đồng quản trị.","be + adj; accessible to = có thể tiếp cận bởi."],
+["The ___ weather delayed the flight.","severe|severely|severity|severed",0,"Thời tiết khắc nghiệt đã làm chuyến bay bị hoãn.","Trước danh từ weather → tính từ severe."],
+["Mr. Park seems ___ about the merger.","concern|concerned|concernedly|concerns",1,"Ông Park có vẻ lo ngại về vụ sáp nhập.","seems + adj; cảm nhận của người → V-ed."],
+["It is ___ that all forms be signed.","essence|essentially|essential|essentials",2,"Điều thiết yếu là mọi biểu mẫu phải được ký.","It is + adj + that → essential."],
+["The training was ___ for new staff.","benefit|beneficial|beneficially|beneficiary",1,"Khóa đào tạo có ích cho nhân viên mới.","was + adj → beneficial."],
+["She submitted a ___ report on sales.","comprehend|comprehensive|comprehensively|comprehension",1,"Cô ấy nộp báo cáo toàn diện về doanh số.","Trước danh từ report → comprehensive (-ive)."]],[
+["The train arrived ___ at the station.","punctual|punctually|punctuality|punctualize",1,"Tàu đến ga đúng giờ.","Sau động từ, bổ nghĩa hành động → punctually."],
+["Sales rose ___ in the third quarter.","significant|significantly|significance|signify",1,"Doanh số tăng đáng kể trong quý ba.","Sau động từ rose → significantly."],
+["The staff is ___ trained.","high|highly|height|heighten",1,"Nhân viên được đào tạo bài bản.","Giữa be và V3 → highly."],
+["The new policy is ___ accepted by staff.","wide|widely|width|widen",1,"Chính sách mới được nhân viên chấp nhận rộng rãi.","Giữa be và V3 → widely."],
+["He ___ checks his email before meetings.","usual|usually|usage|use",1,"Anh ấy thường kiểm tra email trước các cuộc họp.","Trước động từ chính → usually."],
+["The product is ___ available online.","exclusive|exclusively|exclusion|exclude",1,"Sản phẩm chỉ có bán trực tuyến.","Trước adj available → trạng từ exclusively."],
+["We have ___ received your application.","recent|recently|recency|recentness",1,"Gần đây chúng tôi đã nhận được đơn của bạn.","Giữa have và V3 → recently."],
+["The seminar ended ___ than planned.","early|earlier|earliest|earliness",1,"Hội thảo kết thúc sớm hơn dự kiến.","Có than → so sánh hơn → earlier."],
+["Ms. Ito responded ___ to the complaint.","prompt|promptly|promptness|prompting",1,"Cô Ito phản hồi khiếu nại một cách nhanh chóng.","Sau động từ responded → promptly."],
+["The device is ___ designed for outdoor use.","special|specially|specialty|specialize",1,"Thiết bị được thiết kế đặc biệt cho việc dùng ngoài trời.","Giữa be và V3 → specially."]],[
+["The ___ of the new policy surprised us.","announce|announcement|announced|announcing",1,"Việc công bố chính sách mới làm chúng tôi bất ngờ.","Sau The, làm chủ ngữ → announcement (-ment)."],
+["The report was ___ written and easy to follow.","clear|clearly|clarity|clarify",1,"Báo cáo được viết rõ ràng và dễ theo dõi.","Giữa was và V3 → clearly."],
+["We need a more ___ solution.","effect|effective|effectively|effectiveness",1,"Chúng ta cần giải pháp hiệu quả hơn.","more + adj + danh từ → effective."],
+["Staff must ___ with safety rules.","comply|compliance|compliant|compliantly",0,"Nhân viên phải tuân thủ quy định an toàn.","must + V nguyên mẫu → comply."],
+["Her ___ to the team was invaluable.","contribute|contribution|contributory|contributively",1,"Đóng góp của cô ấy cho đội là vô giá.","Sau Her → danh từ contribution."],
+["The store is ___ open on holidays.","rare|rarely|rarity|rareness",1,"Cửa hàng hiếm khi mở cửa vào ngày lễ.","Trước tính từ open → trạng từ rarely."],
+["Ms. Vo is ___ for the marketing budget.","accountable|accountably|accountability|account",0,"Cô Võ chịu trách nhiệm về ngân sách tiếp thị.","be + adj → accountable."],
+["Please ___ the receipt for your records.","retain|retention|retentive|retaining",0,"Vui lòng giữ lại biên lai làm hồ sơ.","Please + V nguyên mẫu → retain."],
+["A ___ review of the data is needed.","thorough|thoroughly|thoroughness|thoroughfare",0,"Cần xem xét kỹ lưỡng dữ liệu.","a + adj + danh từ → thorough."],
+["They ___ completed the audit.","successful|success|successfully|succeed",2,"Họ đã hoàn thành cuộc kiểm toán thành công.","Trước động từ chính → trạng từ successfully."]]];
+NEW.forEach((a,i)=>EX[i][1].push(...a));
+T.push(["V-ing / V-ed (phân từ)",`<p>Phân từ hoạt động như <b>tính từ</b>, rất hay xuất hiện trong bài từ loại.</p>
+<table><tr><th>Dạng</th><th>Nghĩa</th><th>Ví dụ</th></tr>
+<tr><td>V-ing</td><td>Chủ động, gây ra cảm giác (thường đi với vật/việc)</td><td>an <u>interesting</u> offer (lời đề nghị thú vị)</td></tr>
+<tr><td>V-ed / V3</td><td>Bị động, cảm nhận (thường đi với người)</td><td>an <u>experienced</u> manager (quản lý giàu kinh nghiệm)</td></tr></table>
+<div class="tip"><b>Mẹo:</b> Danh từ phía sau chủ động tạo ra hành động → V-ing; bị tác động → V-ed. <i>the <u>increasing</u> demand</i> (nhu cầu đang tăng), <i>the <u>attached</u> file</i> (tệp được đính kèm).</div>`],
+["Từ dễ nhầm",`<table><tr><th>Cặp từ</th><th>Phân biệt</th></tr>
+<tr><td>economy / economic / economical</td><td>nền kinh tế / thuộc kinh tế / tiết kiệm</td></tr>
+<tr><td>success / successful / successfully</td><td>sự thành công / thành công / một cách thành công</td></tr>
+<tr><td>applicant / application</td><td>người nộp đơn / đơn</td></tr>
+<tr><td>hard / hardly</td><td>chăm chỉ / hầu như không</td></tr>
+<tr><td>late / lately</td><td>muộn / gần đây</td></tr>
+<tr><td>high / highly</td><td>cao / rất, đánh giá cao</td></tr>
+<tr><td>consider / considerable / considerate</td><td>cân nhắc / đáng kể / ân cần</td></tr></table>
+<div class="warn"><b>Lưu ý:</b> Cùng từ loại nhưng khác nghĩa thì mới xét nghĩa; còn khác từ loại thì chỉ cần nhìn vị trí.</div>`]);
+const WD=[["installation",0,"-tion","cài đặt"],["payment",0,"-ment","thanh toán"],["awareness",0,"-ness","nhận thức"],["quality",0,"-ity","chất lượng"],["performance",0,"-ance","hiệu suất"],["experience",0,"-ence","kinh nghiệm"],["manager",0,"-er","quản lý"],["director",0,"-or","giám đốc"],["applicant",0,"-ant","ứng viên"],["employee",0,"-ee","nhân viên"],["relationship",0,"-ship","mối quan hệ"],
+["organize",1,"-ize","tổ chức"],["finalize",1,"-ize","hoàn tất"],["verify",1,"-ify","xác minh"],["modify",1,"-ify","chỉnh sửa"],["operate",1,"-ate","vận hành"],["indicate",1,"-ate","cho thấy"],["widen",1,"-en","mở rộng"],["strengthen",1,"-en","tăng cường"],["enable",1,"en-","cho phép"],["ensure",1,"en-","đảm bảo"],
+["helpful",2,"-ful","hữu ích"],["useless",2,"-less","vô dụng"],["numerous",2,"-ous","nhiều"],["effective",2,"-ive","hiệu quả"],["available",2,"-able","có sẵn"],["responsible",2,"-ible","chịu trách nhiệm"],["financial",2,"-al","thuộc tài chính"],["efficient",2,"-ent","hiệu quả"],["economic",2,"-ic","thuộc kinh tế"],["friendly",2,"-ly (nhưng là tính từ)","thân thiện"],
+["quickly",3,"-ly","nhanh"],["carefully",3,"-ly","cẩn thận"],["significantly",3,"-ly","đáng kể"],["successfully",3,"-ly","thành công"],["steadily",3,"-ly","đều đặn"],["officially",3,"-ly","chính thức"],["extremely",3,"-ly","cực kỳ"],["considerably",3,"-ly","đáng kể"],["regularly",3,"-ly","thường xuyên"],["fluently",3,"-ly","trôi chảy"]];
+const LS=["Danh từ","Động từ","Tính từ","Trạng từ","Tổng hợp"];
+const nav=$("#nav");let cur=0,sub=0,md=0,sc={};
+const sh=a=>[...a].sort(()=>Math.random()-.5);
+["1. Lý thuyết","2. Bài học nhỏ","3. Bài tập"].forEach((n,i)=>{const b=document.createElement("button");b.textContent=n;b.onclick=()=>{cur=i;sub=0;md=0;render()};nav.append(b)});
+function tabs(list,v,f){return`<div class="tabs">${list.map((n,i)=>`<button class="${i==v?"on":""}" onclick="${f}=${i};render()">${n}</button>`).join("")}</div>`}
+function qblock(q,i,pre){const[t,o,a,vi,ex]=q;return`<div class="card q" id="${pre}${i}"><b>${i+1}. ${t}</b>${o.map((x,k)=>`<button class="opt" onclick="pick('${pre}${i}',${k},${a})">${"ABCD"[k]}. ${x}</button>`).join("")}<div class="fb">${vi?`<b>Dịch:</b> ${vi}<br>`:""}<b>${vi?"Giải thích":"Đáp án"}:</b> ${ex}</div></div>`}
+function pick(id,k,a){const el=document.getElementById(id);if(el.classList.contains("done"))return;el.classList.add("done");const bs=el.querySelectorAll(".opt");bs[a].classList.add("ok");if(k!=a)bs[k].classList.add("no");sc[id]=k==a;const ks=Object.keys(sc);$("#sc").textContent="Đúng "+ks.filter(x=>sc[x]).length+"/"+ks.length+" câu đã làm"}
+const pool=i=>i<4?WD.filter(w=>w[1]==i).concat(sh(WD.filter(w=>w[1]!=i)).slice(0,6)):WD;
+const redo=`<button class="btn" onclick="render()">Làm lại</button>`;
+function render(){[...nav.children].forEach((b,i)=>b.classList.toggle("on",i==cur));sc={};
+if(cur==0)app.innerHTML=tabs(T.map(t=>t[0]),sub,"sub")+`<div class="card"><h2>${T[sub][0]}</h2>${T[sub][1]}</div>`;
+else if(cur==1){app.innerHTML=tabs(LS,sub,"sub")+tabs(["Quiz nhận biết đuôi","Nối từ loại"],md,"md");md?match():quiz()}
+else{app.innerHTML=tabs(EX.map(e=>e[0]),sub,"sub");exer()}
+scrollTo(0,0)}
+function quiz(){const it=sh(pool(sub)).slice(0,8);app.innerHTML+=`<div class="score" id="sc">Chọn đáp án để xem kết quả ngay</div>`+it.map((w,i)=>qblock([`Từ “${w[0]}” (${w[3]}) thuộc từ loại nào?`,CAT,w[1],"",`Đuôi <b>${w[2]}</b> → ${CAT[w[1]]}.`],i,"mq")).join("")+redo}
+function exer(){const bank=EX[sub][1],ch=sh(bank).slice(0,10);app.innerHTML+=`<div class="score" id="sc">Ngân hàng ${bank.length} câu, chọn ngẫu nhiên 10 câu</div>`+ch.map((q,i)=>{const o=q[1].split("|"),s=sh(o);return qblock([q[0],s,s.indexOf(o[q[2]]),q[3],q[4]],i,"ex"+sub+"_")}).join("")+`<button class="btn" onclick="render()">Tạo bài mới (đảo câu)</button>`}
+function match(){const M=sh(pool(sub)).slice(0,10);let sel=null,left=M.length;app.innerHTML+=`<div class="card"><p>Bấm một từ bên trái, rồi bấm từ loại tương ứng bên phải.</p><div class="grid"><div>${M.map((m,i)=>`<button class="it" data-i="${i}">${m[0]}</button>`).join("")}</div><div>${CAT.map((c,i)=>`<button class="cat it" data-c="${i}">${c}</button>`).join("")}</div></div><div class="score" id="ms"></div>${redo}</div>`;
+app.querySelectorAll("[data-i]").forEach(b=>b.onclick=()=>{app.querySelectorAll("[data-i]").forEach(x=>x.classList.remove("sel"));b.classList.add("sel");sel=+b.dataset.i});
+app.querySelectorAll("[data-c]").forEach(b=>b.onclick=()=>{if(sel==null)return;const it=app.querySelector(`[data-i="${sel}"]`);if(M[sel][1]==+b.dataset.c){it.classList.remove("sel");it.classList.add("ok");it.textContent+=" → "+CAT[M[sel][1]]+" ("+M[sel][2]+")";sel=null;if(!--left)$("#ms").textContent="Hoàn thành, bạn nối đúng hết."}else{b.classList.add("no");setTimeout(()=>b.classList.remove("no"),500)}})}
+render();
+</script></body></html>

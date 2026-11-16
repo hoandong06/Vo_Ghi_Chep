@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Học Responsive &amp; Media Query</title>
+<style>
+:root{--bg:#faf7f2;--card:#fff;--tx:#2b2118;--mut:#6b5d50;--ac:#b4561f;--bd:#e6dccf;--code:#2b2118;--codetx:#f6e9da;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#1c1713;--card:#272019;--tx:#f3ebe1;--mut:#b5a796;--ac:#e8925a;--bd:#3d342a;--code:#120e0b;--codetx:#f6e9da}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.6 system-ui,-apple-system,"Segoe UI",sans-serif}
+header,main{max-width:920px;margin:0 auto;padding:16px}
+h1{font-size:1.6rem;margin:.4em 0}
+h2{font-size:1.25rem;margin:0 0 8px;color:var(--ac)}
+section{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:16px;margin:16px 0}
+p{margin:.5em 0}
+code{background:var(--code);color:var(--codetx);padding:1px 6px;border-radius:4px;font-size:.9em}
+pre{background:var(--code);color:var(--codetx);padding:12px;border-radius:8px;overflow-x:auto;font-size:.85rem;line-height:1.5}
+pre code{padding:0;background:none}
+.tbl{overflow-x:auto}
+table{border-collapse:collapse;width:100%;min-width:460px}
+th,td{border:1px solid var(--bd);padding:6px 10px;text-align:left}
+th{background:var(--bd)}
+button{font:inherit;background:var(--ac);color:#fff;border:0;border-radius:8px;padding:8px 14px;margin:2px;cursor:pointer}
+button.o{background:transparent;color:var(--ac);border:1px solid var(--ac)}
+.demo{border:2px dashed var(--bd);border-radius:10px;padding:10px;overflow:hidden}
+.frame{margin:0 auto;width:375px;max-width:100%;transition:width .3s;border:1px solid var(--bd);border-radius:8px;overflow:hidden;background:#fff;color:#222}
+.cafe{display:grid;grid-template-columns:1fr;gap:8px;padding:10px}
+.cafe div{background:#f3dfc9;padding:12px;border-radius:6px;text-align:center;font-weight:600}
+.frame.m600 .cafe{grid-template-columns:repeat(2,1fr)}
+.frame.m900 .cafe{grid-template-columns:repeat(3,1fr)}
+.lbl{font-size:.9rem;color:var(--mut)}
+label.ck{display:block;padding:6px 0;cursor:pointer}
+.q{border-top:1px solid var(--bd);padding:10px 0}
+.q .r{font-size:.9rem;color:var(--mut);margin-top:4px}
+.ok{color:#2e8b57;font-weight:600}.no{color:#c0392b;font-weight:600}
+@media (min-width:700px){header,main{padding:24px}h1{font-size:2rem}}
+</style>
+</head>
+<body>
+<header>
+<h1>📱💻 Responsive &amp; Media Query</h1>
+<p class="lbl">Mục tiêu: trang web đẹp trên cả điện thoại lẫn máy tính. Học theo thứ tự từ trên xuống, mỗi phần ngắn thôi.</p>
+</header>
+<main>
+
+<section>
+<h2>1. Từ khóa tiếng Anh cần nhớ</h2>
+<div class="tbl"><table>
+<tr><th>Từ</th><th>Nghĩa đơn giản</th></tr>
+<tr><td><b>responsive</b></td><td>Trang tự co giãn, đổi bố cục theo màn hình</td></tr>
+<tr><td><b>viewport</b></td><td>Khung nhìn: vùng màn hình mà trình duyệt hiển thị trang</td></tr>
+<tr><td><b>breakpoint</b></td><td>Mốc chiều rộng mà tại đó bố cục đổi (vd 600px, 900px)</td></tr>
+<tr><td><b>media query</b></td><td>Câu điều kiện trong CSS: "nếu màn hình rộng ≥ ... thì áp dụng ..."</td></tr>
+<tr><td><b>mobile first</b></td><td>Viết CSS cho điện thoại trước, rồi mở rộng dần cho màn lớn</td></tr>
+</table></div>
+</section>
+
+<section>
+<h2>2. Viewport: dòng bắt buộc phải có</h2>
+<p>Thiếu dòng này, điện thoại sẽ hiển thị trang như màn hình máy tính bị thu nhỏ, chữ bé tí. Đặt trong <code>&lt;head&gt;</code>:</p>
+<pre><code>&lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt;</code></pre>
+</section>
+
+<section>
+<h2>3. Media query và mobile first</h2>
+<p>Viết CSS mặc định cho điện thoại, rồi dùng <code>min-width</code> để bổ sung cho màn lớn:</p>
+<pre><code>.menu { display: grid; grid-template-columns: 1fr; gap: 12px; }
+
+@media (min-width: 600px) {
+  .menu { grid-template-columns: repeat(2, 1fr); }
+}
+@media (min-width: 900px) {
+  .menu { grid-template-columns: repeat(3, 1fr); }
+}</code></pre>
+<p><b>Mẹo nhớ:</b> mobile first dùng <code>min-width</code> ("từ ... trở lên"). Breakpoint phổ biến: 600px, 900px, 1200px. Đây là mốc gợi ý, quan trọng là kéo trình duyệt thấy chỗ nào xấu thì thêm mốc.</p>
+<p>Các đơn vị nên dùng cho responsive: <code>%</code>, <code>rem</code>, <code>vw</code>, <code>max-width</code>. Ảnh: <code>img { max-width: 100%; height: auto; }</code></p>
+</section>
+
+<section>
+<h2>4. Thử ngay: đổi chiều rộng màn hình</h2>
+<p class="lbl">Bấm nút để xem 6 ô menu đổi từ 1 → 2 → 3 cột (đúng như đoạn CSS ở trên).</p>
+<button onclick="sz(375)">📱 375px</button><button onclick="sz(650)">📲 650px</button><button onclick="sz(1000)">💻 1000px</button>
+<p id="info" class="lbl"></p>
+<div class="demo"><div class="frame" id="fr">
+<div class="cafe"><div>☕ Cà phê sữa</div><div>🥛 Bạc xỉu</div><div>🍵 Trà đào</div><div>🧋 Trà sữa</div><div>🍋 Cam vắt</div><div>🍰 Bánh ngọt</div></div>
+</div></div>
+</section>
+
+<section>
+<h2>5. Bài tập bắt buộc: Landing page quán cà phê</h2>
+<p>Yêu cầu: có <b>menu</b>, <b>giờ mở cửa</b>, <b>liên hệ</b>, đẹp trên điện thoại, đưa lên GitHub. Tick từng bước (lưu lại trên trình duyệt của bạn):</p>
+<div id="todo"></div>
+<p class="lbl" id="prog"></p>
+<p><b>Khung HTML để bắt đầu</b> (copy rồi tự thêm nội dung và CSS):</p>
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="vi"&gt;
+&lt;head&gt;
+  &lt;meta charset="utf-8"&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt;
+  &lt;title&gt;Quán Cà Phê ...&lt;/title&gt;
+  &lt;link rel="stylesheet" href="style.css"&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;header&gt;&lt;h1&gt;Tên quán&lt;/h1&gt;&lt;/header&gt;
+  &lt;main&gt;
+    &lt;section id="menu"&gt;&lt;h2&gt;Menu&lt;/h2&gt; ... &lt;/section&gt;
+    &lt;section id="gio-mo-cua"&gt;&lt;h2&gt;Giờ mở cửa&lt;/h2&gt; ... &lt;/section&gt;
+    &lt;section id="lien-he"&gt;&lt;h2&gt;Liên hệ&lt;/h2&gt; ... &lt;/section&gt;
+  &lt;/main&gt;
+  &lt;footer&gt;...&lt;/footer&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+<p><b>Đưa lên GitHub (cách dễ nhất, không cần dùng lệnh):</b></p>
+<pre><code>1. Vào github.com → New repository → đặt tên: cafe-landing
+2. Bấm "uploading an existing file" → kéo thả index.html, style.css
+3. Commit changes
+4. (Tuỳ chọn) Settings → Pages → Branch: main → Save
+   → có link web chạy thật để gửi thầy/cô</code></pre>
+<p class="lbl">Lưu ý: đặt tên file chính là <code>index.html</code> thì GitHub Pages mới tự mở.</p>
+</section>
+
+<section>
+<h2>6. Tự kiểm tra nhanh</h2>
+<div id="quiz"></div>
+</section>
+
+<section>
+<h2>7. Cách kiểm tra trang của bạn</h2>
+<p>Mở trang bằng Chrome → bấm <b>F12</b> → bấm biểu tượng điện thoại/máy tính bảng (Toggle device toolbar, hoặc Ctrl+Shift+M) → chọn iPhone/Pixel hoặc kéo chiều rộng. Kiểm tra: không bị cuộn ngang, chữ đọc được, nút bấm đủ lớn.</p>
+</section>
+
+</main>
+<script>
+function sz(w){var f=document.getElementById('fr');f.style.width=w+'px';
+f.classList.toggle('m600',w>=600);f.classList.toggle('m900',w>=900);
+document.getElementById('info').textContent='Chiều rộng: '+w+'px → '+(w>=900?'3 cột (≥900px)':w>=600?'2 cột (≥600px)':'1 cột (mặc định, mobile first)');}
+sz(375);
+
+var items=["Tạo thư mục cafe-landing, file index.html và style.css","Thêm thẻ viewport trong <head>","Viết HTML: header, menu, giờ mở cửa, liên hệ, footer","CSS mobile first: 1 cột, chữ dễ đọc, nút/số điện thoại đủ lớn","Thêm media query min-width: 600px (menu 2 cột)","Thêm media query min-width: 900px (menu 3 cột, nội dung căn giữa)","Ảnh có max-width: 100%","Kiểm tra bằng F12 → chế độ điện thoại, không bị cuộn ngang","Đưa lên GitHub (và bật Pages nếu muốn)"];
+var KEY='resp-todo',st={};
+try{st=JSON.parse(localStorage.getItem(KEY)||'{}')}catch(e){st={}}
+var td=document.getElementById('todo');
+items.forEach(function(t,i){var l=document.createElement('label');l.className='ck';var c=document.createElement('input');c.type='checkbox';c.checked=!!st[i];
+c.onchange=function(){st[i]=c.checked;try{localStorage.setItem(KEY,JSON.stringify(st))}catch(e){}up()};
+l.appendChild(c);l.appendChild(document.createTextNode(' '+t));td.appendChild(l)});
+function up(){var n=items.filter(function(_,i){return st[i]}).length;document.getElementById('prog').textContent='Tiến độ: '+n+'/'+items.length}
+up();
+
+var Q=[
+["Dòng nào giúp trang hiển thị đúng trên điện thoại?",["<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">","<meta charset=\"utf-8\">","<title>Trang</title>"],0,"Đó là thẻ viewport."],
+["Mobile first thường dùng loại media query nào?",["max-width","min-width","orientation"],1,"Viết cho mobile trước, màn lớn dùng min-width để bổ sung."],
+["Breakpoint là gì?",["Mốc chiều rộng nơi bố cục đổi","Một lỗi CSS","Tên một thẻ HTML"],0,"Ví dụ 600px, 900px."],
+["Để ảnh không tràn màn hình điện thoại, dùng:",["width: 2000px","max-width: 100%","float: left"],1,"max-width: 100% (kèm height: auto)."]
+];
+var qz=document.getElementById('quiz');
+Q.forEach(function(q,qi){var d=document.createElement('div');d.className='q';
+var p=document.createElement('div');p.textContent=(qi+1)+'. '+q[0];d.appendChild(p);
+var r=document.createElement('div');r.className='r';
+q[1].forEach(function(o,oi){var b=document.createElement('button');b.className='o';b.textContent=o;
+b.onclick=function(){r.innerHTML=(oi===q[2]?'<span class="ok">Đúng!</span> ':'<span class="no">Chưa đúng.</span> ');r.appendChild(document.createTextNode(q[3]))};
+d.appendChild(b)});d.appendChild(r);qz.appendChild(d)});
+</script>
+</body>
+</html>

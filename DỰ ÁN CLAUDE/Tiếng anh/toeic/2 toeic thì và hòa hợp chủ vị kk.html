@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TOEIC Grammar Lab — Verb Tenses & Subject–Verb Agreement</title>
+<style>
+:root{--bg:#f4f6fb;--panel:#fff;--ink:#172033;--muted:#657089;--line:#e4e8f1;--brand:#5546d7;--brand2:#eeeaff;--good:#13845b;--bad:#c13d4b;--shadow:0 12px 32px #26345b12}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.6 Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif}
+header{background:linear-gradient(115deg,#211b62,#5546d7 60%,#8879f4);color:white;padding:28px max(22px,calc((100% - 1180px)/2)) 25px}
+header .eyebrow{opacity:.8;font-size:12px;letter-spacing:2px;text-transform:uppercase;font-weight:700}h1{font-size:clamp(25px,4vw,38px);line-height:1.2;margin:8px 0}header p{margin:8px 0 0;color:#e5e1ff;max-width:720px}
+.shell{max-width:1180px;margin:22px auto;padding:0 18px;display:grid;grid-template-columns:245px 1fr;gap:20px}
+aside,.content{background:var(--panel);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow)}
+aside{padding:15px;height:max-content;position:sticky;top:16px}.navlabel{font-size:11px;color:var(--muted);font-weight:800;letter-spacing:1.3px;padding:8px 10px}
+.nav{display:flex;gap:10px;align-items:center;width:100%;border:0;background:transparent;padding:11px 12px;text-align:left;border-radius:11px;color:#46516a;font-weight:650;cursor:pointer;margin:2px 0}
+.nav:hover,.nav.active{background:var(--brand2);color:var(--brand)}.nav span:first-child{width:25px;text-align:center}
+.content{padding:clamp(18px,3vw,30px);min-height:680px}.view{display:none}.view.active{display:block}
+h2{font-size:25px;margin:0 0 6px;line-height:1.25}h3{font-size:18px;margin:22px 0 8px}h4{margin:0 0 6px}.sub{color:var(--muted);margin:0 0 20px}.pill{display:inline-block;background:#f0efff;color:#5144c6;border-radius:99px;padding:3px 10px;font-size:12px;font-weight:750;margin:2px}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.card{border:1px solid var(--line);border-radius:14px;padding:15px;background:#fff}.card p{margin:5px 0}.note{border-left:4px solid #7568e8;background:#f5f3ff;padding:12px 14px;border-radius:8px;margin:12px 0}.warn{border-left-color:#e5a12d;background:#fff8e9}.good{border-left-color:#20a477;background:#edfaf4}
+table{width:100%;border-collapse:collapse;margin:10px 0 16px;font-size:14px}th,td{border:1px solid var(--line);padding:9px 10px;text-align:left;vertical-align:top}th{background:#f5f6fb}
+button,select{font:inherit}button{cursor:pointer}.primary,.secondary,.choice{border:0;border-radius:10px;padding:10px 15px;font-weight:700}.primary{background:var(--brand);color:#fff}.primary:hover{background:#4033b6}.secondary{background:#f0efff;color:#5144c6;border:1px solid #e0dcff}.small{padding:7px 11px;font-size:13px}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin:15px 0}.tab{border:1px solid var(--line);background:white;border-radius:10px;padding:9px 12px;color:#566078;font-weight:650}.tab.active{background:var(--brand2);border-color:#c9c1ff;color:var(--brand)}
+.lesson{display:none}.lesson.active{display:block}.question{font-size:20px;font-weight:750;margin:14px 0}.muted{color:var(--muted)}.choices{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin:15px 0}.choice{border:1px solid var(--line);background:white;text-align:left;color:var(--ink)}.choice:hover{border-color:var(--brand);background:#faf9ff}.choice.correct{border-color:#69c7a0;background:#edfaf4;color:#086a48}.choice.wrong{border-color:#e8a0a8;background:#fff1f2;color:#a52c3c}
+.feedback{padding:13px 15px;border-radius:11px;background:#f5f6fb;margin:13px 0}.feedback.ok{background:#edfaf4;border:1px solid #bce8d3}.feedback.no{background:#fff1f2;border:1px solid #f2c6cb}.bar{height:7px;background:#eceef5;border-radius:10px;overflow:hidden;margin:12px 0}.bar>div{height:100%;background:var(--brand);width:0;transition:.2s}.row{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:15px}
+input[type=text]{width:100%;border:1px solid var(--line);border-radius:10px;padding:11px;font:inherit}.hidden{display:none!important}.tag{font-size:12px;color:#6b7290;font-weight:750}.translation{color:#46516a;font-style:italic;margin-top:7px}.explain{font-size:14px}.footerhint{font-size:12px;color:#7c8498;margin-top:18px}
+@media(max-width:800px){.shell{grid-template-columns:1fr}aside{position:static;display:flex;flex-wrap:wrap;gap:3px}.navlabel{width:100%}.nav{width:auto;flex:1}.grid{grid-template-columns:1fr}.content{min-height:500px}}
+@media(max-width:480px){.choices{grid-template-columns:1fr}header{padding:23px 18px}}
+</style>
+</head>
+<body>
+<header><div class="eyebrow">TOEIC Grammar Lab · Study room</div><h1>Verb Tenses & Subject–Verb Agreement</h1><p>Học lý thuyết có hệ thống · Luyện nhận diện dấu hiệu · Làm bài và xem giải thích ngay. Có thể dùng phím <b>Enter</b> để sang câu tiếp theo.</p></header>
+<div class="shell">
+<aside>
+ <div class="navlabel">KHU VỰC HỌC TẬP</div>
+ <button class="nav active" data-view="theory"><span>📘</span> M1 · Lý thuyết đầy đủ</button>
+ <button class="nav" data-view="learn"><span>🧠</span> M2 · 5 bài ghi nhớ</button>
+ <button class="nav" data-view="practice"><span>✍️</span> M3 · Bài tập TOEIC</button>
+ <div class="navlabel">MẸO HỌC</div><div class="note" style="font-size:13px;margin:5px">Đừng chọn thì chỉ vì thấy một từ khóa. Hãy xác định <b>mốc thời gian + ý nghĩa câu + cấu trúc</b>.</div>
+</aside>
+<main class="content">
+<section id="theory" class="view active">
+<h2>M1 · Full lý thuyết</h2><p class="sub">Công thức, cách dùng, dấu hiệu, ví dụ dịch và những bẫy thường gặp trong TOEIC.</p>
+<div class="tabs"><button class="tab active" data-theory="tense">12 thì động từ</button><button class="tab" data-theory="agreement">Hòa hợp chủ–vị</button><button class="tab" data-theory="tips">Mẹo & bẫy TOEIC</button></div>
+<div class="theorypart active" id="tense">
+<h3>1. Cách hiểu nhanh về thì</h3><p>Thì động từ cho biết hành động xảy ra <b>khi nào</b> và nhìn hành động theo cách nào: thói quen/sự thật, đang diễn ra, đã hoàn tất hay kéo dài đến một mốc.</p>
+<div class="note"><b>Khung tư duy:</b> Xác định mốc (hiện tại / quá khứ / tương lai) → hành động thường xuyên, đang diễn ra, đã hoàn tất hay kéo dài → kiểm tra dấu hiệu thời gian và ngữ cảnh.</div>
+<h3>2. Bảng 12 thì thường học</h3>
+<table><thead><tr><th>Thì</th><th>Công thức khẳng định</th><th>Cách dùng & dấu hiệu thường gặp</th><th>Ví dụ + dịch</th></tr></thead><tbody>
+<tr><td><b>Hiện tại đơn</b><br>Present Simple</td><td>S + V(s/es)<br>be: am/is/are</td><td>Thói quen, lịch trình, sự thật. always, usually, often, every day, once a week.</td><td>She <b>works</b> in accounting.<br>Cô ấy làm việc ở bộ phận kế toán.</td></tr>
+<tr><td><b>Hiện tại tiếp diễn</b><br>Present Continuous</td><td>S + am/is/are + V-ing</td><td>Đang diễn ra quanh hiện tại, tình huống tạm thời. now, right now, at the moment, currently.</td><td>They <b>are reviewing</b> the contract now.<br>Họ đang xem lại hợp đồng.</td></tr>
+<tr><td><b>Hiện tại hoàn thành</b><br>Present Perfect</td><td>S + have/has + V3</td><td>Đã xảy ra, có liên hệ hiện tại; kinh nghiệm/kết quả; since, for, already, yet, just, recently, so far.</td><td>We <b>have received</b> your order.<br>Chúng tôi đã nhận được đơn hàng của bạn.</td></tr>
+<tr><td><b>Hiện tại hoàn thành tiếp diễn</b><br>Present Perfect Continuous</td><td>S + have/has been + V-ing</td><td>Bắt đầu trong quá khứ và còn tiếp diễn/nhấn mạnh quá trình. for, since, all morning, lately.</td><td>He <b>has been working</b> here for five years.<br>Anh ấy đã và đang làm ở đây được 5 năm.</td></tr>
+<tr><td><b>Quá khứ đơn</b><br>Past Simple</td><td>S + V2/ed<br>be: was/were</td><td>Việc đã kết thúc tại thời điểm quá khứ. yesterday, last…, …ago, in 2022.</td><td>The manager <b>approved</b> the budget yesterday.<br>Quản lý đã duyệt ngân sách hôm qua.</td></tr>
+<tr><td><b>Quá khứ tiếp diễn</b><br>Past Continuous</td><td>S + was/were + V-ing</td><td>Đang diễn ra tại một thời điểm quá khứ; hành động nền bị hành động khác xen vào. while, when, at 8 yesterday.</td><td>I <b>was attending</b> a meeting when she called.<br>Tôi đang dự họp thì cô ấy gọi.</td></tr>
+<tr><td><b>Quá khứ hoàn thành</b><br>Past Perfect</td><td>S + had + V3</td><td>Xảy ra trước một hành động/mốc quá khứ khác. before, after, by the time, already.</td><td>The train <b>had left</b> before we arrived.<br>Tàu đã rời đi trước khi chúng tôi đến.</td></tr>
+<tr><td><b>Quá khứ hoàn thành tiếp diễn</b><br>Past Perfect Continuous</td><td>S + had been + V-ing</td><td>Nhấn mạnh quá trình kéo dài trước một mốc quá khứ. for, since, before, until then.</td><td>She <b>had been waiting</b> for an hour before the bus came.<br>Cô ấy đã chờ một tiếng trước khi xe buýt đến.</td></tr>
+<tr><td><b>Tương lai đơn</b><br>Future Simple</td><td>S + will + V nguyên mẫu</td><td>Dự đoán, quyết định tức thời, lời hứa. tomorrow, next…, soon, in the future.</td><td>We <b>will contact</b> you tomorrow.<br>Chúng tôi sẽ liên hệ bạn ngày mai.</td></tr>
+<tr><td><b>Tương lai tiếp diễn</b><br>Future Continuous</td><td>S + will be + V-ing</td><td>Đang diễn ra tại một thời điểm tương lai. this time tomorrow, at 9 next Monday.</td><td>At 10 a.m., I <b>will be meeting</b> a client.<br>Lúc 10 giờ, tôi sẽ đang gặp khách hàng.</td></tr>
+<tr><td><b>Tương lai hoàn thành</b><br>Future Perfect</td><td>S + will have + V3</td><td>Hoàn tất trước một mốc tương lai. by, by the time, before + mốc tương lai.</td><td>They <b>will have finished</b> by Friday.<br>Họ sẽ hoàn thành trước thứ Sáu.</td></tr>
+<tr><td><b>Tương lai hoàn thành tiếp diễn</b><br>Future Perfect Continuous</td><td>S + will have been + V-ing</td><td>Nhấn mạnh độ dài quá trình tính đến một mốc tương lai. for + khoảng thời gian + by…</td><td>By June, he <b>will have been working</b> here for ten years.<br>Đến tháng Sáu, anh ấy sẽ làm ở đây được 10 năm.</td></tr>
+</tbody></table>
+<h3>3. Cách chia động từ cần thuộc</h3><div class="grid">
+<div class="card"><h4>V nguyên mẫu (V1)</h4><p>go, work, study. Sau modal verbs (will, can, must, should), do/does/did trong câu hỏi/phủ định.</p></div>
+<div class="card"><h4>V-s / V-es</h4><p>Hiện tại đơn với chủ ngữ ngôi 3 số ít: he, she, it, danh từ số ít. Thêm -es sau ch, sh, s, x, z, o thường gặp; phụ âm + y → ies.</p></div>
+<div class="card"><h4>V-ing</h4><p>Động từ + ing: work → working; make → making; run → running; lie → lying.</p></div>
+<div class="card"><h4>V2 / V3</h4><p>Động từ có quy tắc thường thêm -ed; bất quy tắc phải học bảng: go–went–gone, write–wrote–written, see–saw–seen.</p></div>
+</div>
+<div class="note warn"><b>Lưu ý:</b> Không dùng hiện tại hoàn thành với mốc quá khứ đã kết thúc như yesterday, last year, in 2020. Dùng quá khứ đơn. Không phải cứ có <i>for</i> là hiện tại hoàn thành; phải xét mốc và ngữ cảnh.</div>
+</div>
+<div class="theorypart" id="agreement">
+<h3>1. Nguyên tắc cốt lõi</h3><p>Động từ phải phù hợp với <b>chủ ngữ chính</b> về số và ngôi. Chủ ngữ số ít → động từ số ít; chủ ngữ số nhiều → động từ số nhiều.</p>
+<table><tr><th>Chủ ngữ</th><th>Hiện tại đơn với động từ thường</th><th>Động từ be</th></tr><tr><td>I</td><td>work</td><td>am</td></tr><tr><td>He / She / It / danh từ số ít</td><td>works</td><td>is</td></tr><tr><td>You / We / They / danh từ số nhiều</td><td>work</td><td>are</td></tr></table>
+<h3>2. Các quy tắc hay xuất hiện trong TOEIC</h3>
+<table><tr><th>Cấu trúc</th><th>Quy tắc</th><th>Ví dụ + dịch</th></tr>
+<tr><td>A and B</td><td>Thường dùng động từ số nhiều.</td><td>The manager and the assistant <b>are</b> here.<br>Quản lý và trợ lý đang ở đây.</td></tr>
+<tr><td>Each / Every + N số ít</td><td>Động từ số ít. Each of + N số nhiều cũng đi với động từ số ít.</td><td>Each employee <b>receives</b> a badge.<br>Mỗi nhân viên nhận một thẻ.</td></tr>
+<tr><td>Either…or / Neither…nor</td><td>Động từ hòa hợp với chủ ngữ gần nó nhất (trong cấu trúc chuẩn).</td><td>Neither the staff nor the manager <b>is</b> available.<br>Cả nhân viên lẫn quản lý đều không rảnh.</td></tr>
+<tr><td>Not only…but also</td><td>Thường hòa hợp với chủ ngữ gần động từ nhất khi hai chủ ngữ nối cấu trúc này.</td><td>Not only the director but also the employees <b>are</b> attending.<br>Không chỉ giám đốc mà nhân viên cũng tham dự.</td></tr>
+<tr><td>As well as / along with / together with</td><td>Động từ theo chủ ngữ đứng trước, không bị cụm chen vào chi phối.</td><td>The CEO, along with two assistants, <b>is</b> arriving.<br>CEO cùng hai trợ lý sẽ đến.</td></tr>
+<tr><td>There is / There are</td><td>Động từ hòa hợp với danh từ thật đứng sau.</td><td>There <b>are</b> several options.<br>Có một vài lựa chọn.</td></tr>
+<tr><td>Danh từ tập hợp</td><td>Thường xem là số ít khi coi nhóm là một đơn vị (team, committee, staff trong cách dùng Mỹ); tùy nghĩa và biến thể Anh-Anh.</td><td>The committee <b>has</b> reached a decision.<br>Ủy ban đã đi đến quyết định.</td></tr>
+<tr><td>Danh từ không đếm được</td><td>Thường dùng động từ số ít: information, equipment, furniture, advice, luggage.</td><td>The equipment <b>is</b> new.<br>Thiết bị còn mới.</td></tr>
+<tr><td>Thời gian / tiền / khoảng cách như một tổng thể</td><td>Thường dùng số ít.</td><td>Ten dollars <b>is</b> enough.<br>10 đô là đủ.</td></tr>
+<tr><td>One of + N số nhiều</td><td>Động từ chính số ít vì chủ ngữ là one.</td><td>One of the reports <b>is</b> missing.<br>Một trong các báo cáo bị thiếu.</td></tr>
+<tr><td>The number of / A number of</td><td>The number of + N số nhiều → số ít. A number of + N số nhiều → số nhiều.</td><td>The number of applicants <b>is</b> rising. / A number of applicants <b>are</b> waiting.</td></tr>
+<tr><td>Danh từ có hình thức số nhiều</td><td>News, mathematics, economics (môn học/ngành) thường số ít. Scissors, trousers thường số nhiều; a pair of… → số ít.</td><td>The news <b>is</b> encouraging. / These scissors <b>are</b> sharp.</td></tr>
+<tr><td>Who / which / that</td><td>Động từ trong mệnh đề quan hệ hòa hợp với danh từ mà đại từ quan hệ thay thế.</td><td>She is one of the employees who <b>work</b> remotely. (who = employees)</td></tr></table>
+<h3>3. Cách tìm chủ ngữ chính</h3><div class="note good"><b>Quy trình 3 bước:</b> (1) Tìm động từ cần chia. (2) Hỏi “Ai/cái gì thực hiện hoặc ở trạng thái đó?” (3) Bỏ qua cụm giới từ/cụm chen giữa như of…, with…, along with…, as well as… để tìm danh từ trung tâm.</div>
+<p><b>Ví dụ:</b> The list of available rooms <u>is</u> on the website.</p><p class="muted">Chủ ngữ chính là <i>the list</i> (số ít), không phải <i>rooms</i> (số nhiều) → is.</p>
+</div>
+<div class="theorypart" id="tips">
+<h3>Mẹo làm câu TOEIC nhanh</h3>
+<div class="card"><h4>1 · Nhìn vị trí chỗ trống</h4><p>Nếu chỗ trống là động từ chính, tìm chủ ngữ trước. Nếu có trợ động từ/modal, kiểm tra dạng động từ theo sau: will + V1; have/has/had + V3; be + V-ing hoặc V3.</p></div>
+<div class="card"><h4>2 · Khoanh vùng chủ ngữ</h4><p>Gạch bỏ cụm giới từ (of, in, on, with, for…), mệnh đề quan hệ và cụm chen giữa. Danh từ sát động từ chưa chắc là chủ ngữ.</p></div>
+<div class="card"><h4>3 · Dùng dấu hiệu thời gian đúng cách</h4><p>yesterday / last / ago → thường quá khứ đơn; since / so far / up to now → thường hiện tại hoàn thành; by + mốc tương lai → có thể tương lai hoàn thành. Luôn đọc cả câu.</p></div>
+<div class="card"><h4>4 · Nhớ bẫy từ loại</h4><p>Modal + V1; do/does/did + V1; has/have/had + V3; be + V-ing (tiếp diễn) hoặc V3 (bị động); giới từ + N/V-ing.</p></div>
+<div class="note warn"><b>Đừng học máy móc:</b> từ khóa chỉ là manh mối, không phải đáp án tự động. Ví dụ <i>since</i> có thể xuất hiện trong nhiều cấu trúc; phải xét hành động kéo dài đến hiện tại hay đã kết thúc ở quá khứ.</div>
+<h3>Checklist trước khi chọn</h3><ol><li>Động từ cần điền là động từ chính hay dạng theo sau trợ động từ?</li><li>Chủ ngữ chính là ai/cái gì? Số ít hay số nhiều?</li><li>Câu nói về mốc thời gian nào?</li><li>Hành động đang diễn ra, hoàn tất, thói quen hay kéo dài?</li><li>Đáp án có đúng cấu trúc ngữ pháp và nghĩa câu không?</li></ol>
+</div>
+</section>
+
+<section id="learn" class="view">
+<h2>M2 · 5 bài ghi nhớ</h2><p class="sub">Mỗi bài có câu hỏi nhận diện, phân loại hoặc chọn dạng đúng. Bấm “Đảo bài” để đổi thứ tự.</p>
+<div class="tabs" id="lessonTabs">
+<button class="tab active" data-lesson="0">1. Nhận diện đuôi</button><button class="tab" data-lesson="1">2. Dấu hiệu thì</button><button class="tab" data-lesson="2">3. Tìm chủ ngữ</button><button class="tab" data-lesson="3">4. Chia số ít/nhiều</button><button class="tab" data-lesson="4">5. Phân loại cấu trúc</button>
+</div>
+<div id="lessonArea"></div>
+</section>
+
+<section id="practice" class="view">
+<h2>M3 · Luyện đề TOEIC</h2><p class="sub">Chọn đáp án, xem giải thích và bản dịch ngay. Enter để sang câu tiếp theo sau khi đã trả lời.</p>
+<div class="row"><span class="pill" id="practiceCount">Câu 1 / 12</span><button class="secondary small" id="newSet">↻ Tạo bài mới / đảo câu</button></div><div class="bar"><div id="progress"></div></div>
+<div id="practiceArea"></div>
+</section>
+</main></div>
+<script>
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+function shuffle(a){let b=[...a];for(let i=b.length-1;i>0;i--){let j=Math.floor(Math.random()*(i+1));[b[i],b[j]]=[b[j],b[i]]}return b}
+$$('.nav').forEach(b=>b.onclick=()=>{$$('.nav').forEach(x=>x.classList.remove('active'));b.classList.add('active');$$('.view').forEach(x=>x.classList.remove('active'));$('#'+b.dataset.view).classList.add('active')});
+$$('[data-theory]').forEach(b=>b.onclick=()=>{$$('[data-theory]').forEach(x=>x.classList.toggle('active',x===b));$$('.theorypart').forEach(x=>x.classList.toggle('active',x.id===b.dataset.theory))});
+
+const lessons=[
+{title:'Nhận diện đuôi động từ',desc:'Nhìn cấu trúc để nhận ra dạng động từ, không cần dịch toàn câu.',items:[
+['She usually ____ to work by bus.','go','goes','going','gone',1,'Usually diễn tả thói quen; she là ngôi 3 số ít → V-s/es.','Cô ấy thường đi làm bằng xe buýt.'],
+['The documents have been ____ by the director.','approve','approved','approving','approves',1,'Have been + V3 tạo thể bị động hiện tại hoàn thành.','Các tài liệu đã được giám đốc phê duyệt.'],
+['Employees must ____ their ID cards.','wears','wore','wear','wearing',2,'Sau modal must dùng động từ nguyên mẫu V1.','Nhân viên phải đeo thẻ ID.'],
+['The company is ____ a new branch.','open','opened','opens','opening',3,'Be + V-ing diễn tả hành động đang diễn ra.','Công ty đang mở một chi nhánh mới.'],
+['The manager did not ____ the proposal.','accepts','accepted','accept','accepting',2,'Sau did/did not dùng V1.','Quản lý đã không chấp nhận đề xuất.']]},
+{title:'Dấu hiệu nhận biết thì',desc:'Ghép dấu hiệu thời gian với cách nhìn hành động; dấu hiệu chỉ là gợi ý.',items:[
+['yesterday / last month / two days ago','Hiện tại hoàn thành','Quá khứ đơn','Tương lai đơn','Hiện tại tiếp diễn',1,'Các mốc quá khứ đã kết thúc thường đi với quá khứ đơn.','Hôm qua / tháng trước / hai ngày trước.'],
+['since 2021 / so far / up to now','Quá khứ đơn','Tương lai hoàn thành','Hiện tại hoàn thành','Hiện tại đơn',2,'Since + mốc bắt đầu và so far/up to now thường gợi hiện tại hoàn thành.','Từ năm 2021 / cho đến nay.'],
+['at the moment / currently','Quá khứ hoàn thành','Hiện tại tiếp diễn','Quá khứ đơn','Tương lai đơn',1,'At the moment/currently thường chỉ tình huống đang diễn ra.','Ngay lúc này / hiện tại.'],
+['by the time + mốc tương lai','Tương lai hoàn thành','Quá khứ đơn','Hiện tại đơn','Quá khứ tiếp diễn',0,'Nhấn mạnh việc sẽ hoàn tất trước mốc tương lai → will have + V3.','Trước khi/đến lúc… trong tương lai.'],
+['while + hành động nền trong quá khứ','Quá khứ tiếp diễn','Tương lai đơn','Hiện tại hoàn thành','Hiện tại đơn',0,'While thường giới thiệu hành động đang diễn ra làm nền trong quá khứ.','Trong khi…'] ]},
+{title:'Tìm chủ ngữ chính',desc:'Bỏ qua cụm chen giữa để tìm danh từ trung tâm điều khiển động từ.',items:[
+['The list of new employees ____ on the desk.','are','is','were','have',1,'Chủ ngữ là list (số ít); of new employees chỉ bổ nghĩa.','Danh sách nhân viên mới ở trên bàn.'],
+['The manager, along with two assistants, ____ arriving.','are','were','is','have',2,'Along with không làm chủ ngữ thành số nhiều; chủ ngữ chính manager.','Quản lý cùng hai trợ lý đang đến.'],
+['The quality of these products ____ improved.','have','are','has','were',2,'Chủ ngữ chính là quality (số ít), không phải products.','Chất lượng của những sản phẩm này đã được cải thiện.'],
+['One of the applicants ____ fluent in French.','are','is','have','were',1,'One of + danh từ số nhiều → động từ số ít.','Một trong các ứng viên thông thạo tiếng Pháp.'],
+['There ____ several reasons for the delay.','is','was','are','has',2,'There is/are hòa hợp với danh từ thật phía sau: reasons (số nhiều).','Có một vài lý do cho sự chậm trễ.']]},
+{title:'Hòa hợp số ít / số nhiều',desc:'Chọn động từ theo chủ ngữ và cấu trúc nối chủ ngữ.',items:[
+['Each employee ____ required to attend.','are','is','have','were',1,'Each + danh từ số ít → động từ số ít.','Mỗi nhân viên được yêu cầu tham dự.'],
+['A number of customers ____ complained.','has','is','have','was',2,'A number of + danh từ số nhiều → động từ số nhiều.','Một số khách hàng đã phàn nàn.'],
+['The number of complaints ____ increasing.','are','have','is','were',2,'The number of + N số nhiều có chủ ngữ là number → số ít.','Số lượng khiếu nại đang tăng.'],
+['Neither the supervisor nor the workers ____ available.','is','was','are','has',2,'Neither…nor: động từ theo chủ ngữ gần nhất (workers).','Cả giám sát viên lẫn công nhân đều không có mặt.'],
+['The information ____ confidential.','are','is','have','were',1,'Information là danh từ không đếm được, dùng số ít.','Thông tin này là bảo mật.']]},
+{title:'Phân loại cấu trúc',desc:'Nhớ công thức sau trợ động từ, modal và be.',items:[
+['will + ____','V2','V3','V-ing','V1',3,'Sau will dùng động từ nguyên mẫu.','Sẽ làm gì.'],
+['has / have + ____','V1','V2','V3','V-ing',2,'Hiện tại hoàn thành: have/has + past participle (V3).','Đã làm gì.'],
+['am / is / are + ____ (tiếp diễn)','V-ing','V2','V1','V-s',0,'Thì tiếp diễn: be + V-ing.','Đang làm gì.'],
+['did + ____','V3','V1','V-ing','V-s',1,'Did là trợ động từ quá khứ; động từ chính trở về V1.','Đã làm gì (câu hỏi/phủ định).'],
+['be + ____ trong câu bị động','V-ing','V-s','V3','V1',2,'Câu bị động: be + V3.','Được/bị làm gì.']]
+}
+];
+let lessonIndex=0, lessonDeck=[], lessonPos=0;
+function startLesson(i){lessonIndex=i;lessonDeck=shuffle(lessons[i].items);lessonPos=0;renderLesson();$$('[data-lesson]').forEach(b=>b.classList.toggle('active',+b.dataset.lesson===i))}
+function renderLesson(){let d=lessons[lessonIndex],q=lessonDeck[lessonPos];$('#lessonArea').innerHTML=`<div class="row"><div><span class="tag">BÀI ${lessonIndex+1} / 5</span><h3>${d.title}</h3><p class="muted">${d.desc}</p></div><button class="secondary small" id="shuffleLesson">↻ Đảo bài</button></div><div class="bar"><div style="width:${(lessonPos+1)/lessonDeck.length*100}%"></div></div><div class="tag">CÂU ${lessonPos+1} / ${lessonDeck.length}</div><div class="question">${q[0]}</div><div class="choices">${q.slice(1,5).map((v,i)=>`<button class="choice" data-answer="${i}">${String.fromCharCode(65+i)}. ${v}</button>`).join('')}</div><div id="lessonFeedback"></div><div class="actions"><button class="primary" id="lessonNext" disabled>${lessonPos===lessonDeck.length-1?'Hoàn thành bài':'Câu tiếp theo'} ↵</button></div><p class="footerhint">Phím Enter: kiểm tra đáp án nếu chưa chọn; sang câu tiếp theo nếu đã trả lời.</p>`;
+let answered=false;$$('[data-answer]').forEach(b=>b.onclick=()=>{if(answered)return;answered=true;let n=+b.dataset.answer,ok=n===q[5];$$('[data-answer]').forEach(x=>{x.disabled=true;if(+x.dataset.answer===q[5])x.classList.add('correct')});if(!ok)b.classList.add('wrong');$('#lessonFeedback').innerHTML=`<div class="feedback ${ok?'ok':'no'}"><b>${ok?'Chính xác!':'Chưa đúng.'}</b> ${q[6]}<div class="translation">${q[7]}</div></div>`;$('#lessonNext').disabled=false});$('#shuffleLesson').onclick=()=>startLesson(lessonIndex);$('#lessonNext').onclick=()=>{if(lessonPos<lessonDeck.length-1){lessonPos++;renderLesson()}else $('#lessonArea').innerHTML=`<div class="feedback ok"><b>Hoàn thành ${d.title}!</b><p>Bạn đã đi hết ${lessonDeck.length} câu.</p><button class="primary" id="repeatLesson">Luyện lại với thứ tự mới</button></div>`;$('#repeatLesson')?.addEventListener('click',()=>startLesson(lessonIndex))}}
+$$('[data-lesson]').forEach(b=>b.onclick=()=>startLesson(+b.dataset.lesson));startLesson(0);
+
+const bank=[
+{q:'The marketing department ____ a monthly report every Friday.',a:['submit','submits','is submitting','have submitted'],c:1,t:'Hiện tại đơn diễn tả lịch làm việc thường lệ. Chủ ngữ department là danh từ tập hợp được xem là số ít trong cách dùng này → submits.',tr:'Bộ phận tiếp thị nộp báo cáo hằng tháng vào mỗi thứ Sáu.',why:['Sai: chủ ngữ số ít nên không dùng submit ở hiện tại đơn.','Đúng: department số ít + V-s.','Không có ngữ cảnh hành động tạm thời đang diễn ra.','Have không hòa hợp với chủ ngữ số ít; cũng không phù hợp nghĩa thói quen.']},
+{q:'All invoices ____ before the end of the month.',a:['process','are processed','has processed','processing'],c:1,t:'Câu bị động: hóa đơn được xử lý. All invoices là số nhiều → are + V3.',tr:'Tất cả hóa đơn được xử lý trước cuối tháng.',why:['Thiếu trợ động từ bị động và V3.','Đúng: are + processed, bị động hiện tại đơn.','Has không hòa hợp với invoices; cấu trúc cũng sai.','Thiếu động từ chính.']},
+{q:'Ms. Carter ____ the proposal two days ago.',a:['approves','has approved','approved','is approving'],c:2,t:'Two days ago là mốc quá khứ đã kết thúc → quá khứ đơn, approved.',tr:'Bà Carter đã phê duyệt đề xuất hai ngày trước.',why:['Hiện tại đơn không hợp mốc quá khứ.','Hiện tại hoàn thành không dùng với mốc quá khứ xác định đã kết thúc.','Đúng: quá khứ đơn.','Tiếp diễn hiện tại không phù hợp.']},
+{q:'The list of conference speakers ____ available online.',a:['are','is','have','were'],c:1,t:'Chủ ngữ chính là list (số ít); of conference speakers chỉ là cụm bổ nghĩa → is.',tr:'Danh sách diễn giả hội nghị có sẵn trên mạng.',why:['Speakers không phải chủ ngữ chính.','Đúng: list số ít → is.','Have không phù hợp cấu trúc.','Were là quá khứ, không có dấu hiệu quá khứ.']},
+{q:'We ____ your payment and will ship the items shortly.',a:['receive','received','have received','are receiving'],c:2,t:'Việc nhận thanh toán đã hoàn tất và có kết quả liên quan hiện tại (sẽ gửi hàng) → hiện tại hoàn thành.',tr:'Chúng tôi đã nhận được khoản thanh toán của bạn và sẽ sớm gửi hàng.',why:['Hiện tại đơn không nhấn mạnh kết quả vừa hoàn tất.','Quá khứ đơn cần mốc quá khứ xác định/ngữ cảnh quá khứ.','Đúng: have + V3.','Tiếp diễn không diễn tả kết quả đã nhận xong.']},
+{q:'Each of the applicants ____ a confirmation email.',a:['receive','receives','are receiving','have received'],c:1,t:'Each of + danh từ số nhiều vẫn đi với động từ số ít → receives.',tr:'Mỗi ứng viên nhận được một email xác nhận.',why:['Each không đi với V nguyên mẫu ở hiện tại đơn.','Đúng: each số ít → receives.','Are không hòa hợp với each.','Have không hòa hợp với each.']},
+{q:'The technicians ____ the new equipment at the moment.',a:['install','installed','are installing','has installed'],c:2,t:'At the moment báo hiệu hành động đang diễn ra → hiện tại tiếp diễn; technicians số nhiều → are installing.',tr:'Các kỹ thuật viên đang lắp đặt thiết bị mới ngay lúc này.',why:['Hiện tại đơn không nhấn mạnh đang diễn ra.','Quá khứ đơn không phù hợp.','Đúng: are + V-ing.','Has sai hòa hợp chủ vị và sai ý nghĩa.']},
+{q:'A number of employees ____ requested additional training.',a:['has','is','have','was'],c:2,t:'A number of + danh từ số nhiều → động từ số nhiều. Requested là V3; have requested là hiện tại hoàn thành.',tr:'Một số nhân viên đã yêu cầu được đào tạo bổ sung.',why:['A number of không đi với has trong cấu trúc này.','Is không phù hợp cấu trúc.','Đúng: have + V3, chủ ngữ số nhiều.','Was sai hòa hợp và sai cấu trúc.']},
+{q:'By the time the guests arrive, the staff ____ the room.',a:['prepare','prepared','will have prepared','has prepared'],c:2,t:'By the time + hiện tại đơn nói về mốc tương lai; hành động chuẩn bị hoàn tất trước mốc đó → tương lai hoàn thành.',tr:'Trước khi khách đến, nhân viên sẽ chuẩn bị xong căn phòng.',why:['Không diễn tả việc hoàn tất trước mốc tương lai.','Quá khứ đơn không phù hợp.','Đúng: will have + V3.','Has prepared không phù hợp mốc tương lai.']},
+{q:'Neither the director nor the assistants ____ attending the briefing.',a:['is','was','are','has'],c:2,t:'Neither…nor: động từ hòa hợp với chủ ngữ gần nhất là assistants (số nhiều) → are attending.',tr:'Cả giám đốc lẫn các trợ lý đều không tham dự buổi phổ biến thông tin.',why:['Chủ ngữ gần nhất là assistants số nhiều.','Was vừa sai số vừa sai thời.','Đúng: assistants số nhiều → are.','Has không đi với V-ing trong cấu trúc này.']},
+{q:'The company ____ three new branches since January.',a:['opens','opened','has opened','is opening'],c:2,t:'Since January (từ tháng Một đến nay) → hiện tại hoàn thành; company số ít → has opened.',tr:'Công ty đã mở ba chi nhánh mới kể từ tháng Một.',why:['Hiện tại đơn không diễn tả kết quả tích lũy đến nay.','Quá khứ đơn cần mốc đã kết thúc.','Đúng: has + V3.','Tiếp diễn không phù hợp với kết quả số lượng đã mở.']},
+{q:'The information in these files ____ confidential.',a:['are','is','have','were'],c:1,t:'Information là danh từ không đếm được, dùng động từ số ít. Cụm in these files không đổi chủ ngữ.',tr:'Thông tin trong những tập tin này là bảo mật.',why:['Information không dùng số nhiều trong nghĩa này.','Đúng: information số ít/không đếm được → is.','Have không phù hợp.','Were vừa sai số vừa không có mốc quá khứ.']},
+{q:'While the manager ____ the report, the phone rang.',a:['reviews','was reviewing','has reviewed','will review'],c:1,t:'While giới thiệu hành động đang diễn ra trong quá khứ; hành động khác (rang) xen vào → was reviewing.',tr:'Trong khi quản lý đang xem báo cáo thì điện thoại reo.',why:['Hiện tại đơn không hợp bối cảnh quá khứ.','Đúng: quá khứ tiếp diễn làm nền.','Hiện tại hoàn thành không phù hợp.','Tương lai không phù hợp.']},
+{q:'One of the conference rooms ____ reserved for the visitors.',a:['are','have','is','were'],c:2,t:'Chủ ngữ là One (số ít), of the conference rooms chỉ nhóm lựa chọn → is reserved.',tr:'Một trong những phòng hội nghị được dành riêng cho khách tham quan.',why:['Rooms không phải chủ ngữ chính.','Have không phù hợp.','Đúng: one số ít → is.','Were là quá khứ, không có dấu hiệu.']},
+{q:'By next December, Mr. Lee ____ here for ten years.',a:['works','will work','will have worked','worked'],c:2,t:'By next December là mốc tương lai; nhấn mạnh thời gian làm việc tích lũy đến mốc đó → tương lai hoàn thành.',tr:'Đến tháng Mười Hai năm tới, ông Lee sẽ làm việc ở đây được mười năm.',why:['Hiện tại đơn không hợp.','Will work không nhấn mạnh hoàn tất đến mốc.','Đúng: will have + V3.','Quá khứ đơn không hợp mốc tương lai.']}
+];
+let deck=[],pos=0,answered=false;
+function newPractice(){deck=shuffle(bank);pos=0;renderPractice()}
+function renderPractice(){let q=deck[pos];answered=false;$('#practiceCount').textContent=`Câu ${pos+1} / ${deck.length}`;$('#progress').style.width=(pos/deck.length*100)+'%';$('#practiceArea').innerHTML=`<div class="tag">TOEIC GRAMMAR · VERB TENSES & SUBJECT–VERB AGREEMENT</div><div class="question">${q.q}</div><div class="choices">${q.a.map((v,i)=>`<button class="choice" data-pick="${i}">${String.fromCharCode(65+i)}. ${v}</button>`).join('')}</div><div id="practiceFeedback"></div><div class="actions"><button id="nextPractice" class="primary" disabled>${pos===deck.length-1?'Xem kết quả':'Câu tiếp theo'} ↵</button></div><p class="footerhint">Enter để chọn đáp án đầu tiên nếu chưa trả lời; sau khi xem giải thích, Enter để sang câu tiếp.</p>`;
+$$('[data-pick]').forEach(b=>b.onclick=()=>answer(+b.dataset.pick));$('#nextPractice').onclick=nextPractice}
+function answer(n){if(answered)return;answered=true;let q=deck[pos],ok=n===q.c;$$('[data-pick]').forEach(b=>{b.disabled=true;if(+b.dataset.pick===q.c)b.classList.add('correct')});if(!ok)$(`[data-pick="${n}"]`).classList.add('wrong');$('#practiceFeedback').innerHTML=`<div class="feedback ${ok?'ok':'no'}"><b>${ok?'✓ Chính xác!':'✗ Chưa chính xác.'}</b><p><b>Đáp án: ${String.fromCharCode(65+q.c)}. ${q.a[q.c]}</b></p><p class="explain">${q.t}</p><p class="translation">Dịch: ${q.tr}</p><details><summary>Vì sao các đáp án còn lại không đúng?</summary><ol>${q.why.map((x,i)=>`<li><b>${String.fromCharCode(65+i)}.</b> ${x}</li>`).join('')}</ol></details></div>`;$('#nextPractice').disabled=false}
+function nextPractice(){if(pos<deck.length-1){pos++;renderPractice()}else{$('#progress').style.width='100%';$('#practiceArea').innerHTML=`<div class="feedback ok"><h3>Hoàn thành lượt luyện tập!</h3><p>Bạn đã làm hết ${deck.length} câu. Hãy tạo lượt mới để luyện với thứ tự câu khác.</p><button class="primary" onclick="newPractice()">↻ Tạo bài mới / đảo câu</button></div>`}}
+$('#newSet').onclick=newPractice;newPractice();
+document.addEventListener('keydown',e=>{if(e.key!=='Enter')return;if($('#learn').classList.contains('active')){if(!$('#lessonNext')?.disabled&&$('#lessonNext'))$('#lessonNext').click();else if($('#lessonNext')?.disabled){let first=$('[data-answer]:not(:disabled)');if(first)first.click()}}else if($('#practice').classList.contains('active')){if(answered)$('#nextPractice')?.click();else $('[data-pick]')?.click()}});
+</script>
+</body></html>

@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Chuyên đề 2 (phần 2): Class và object nâng cao</title>
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+--bg:#f3f6fa;--surface:#fff;--text:#14202e;--muted:#5a6b7d;--line:#d3dce6;--accent:#1f5fbf;--ok:#17803d;--ok-bg:#e3f4e8;--bad:#b42318;--bad-bg:#fde8e6;--tip-bg:#fff6dd;--tip:#7a5200;--btn-text:#fff}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){color-scheme:dark;--bg:#0f1720;--surface:#17212c;--text:#e8eef5;--muted:#93a4b6;--line:#2c3a49;--accent:#6aa5f5;--ok:#5fd08a;--ok-bg:#12301f;--bad:#ff8a80;--bad-bg:#3a1a18;--tip-bg:#33290f;--tip:#f2cf7a;--btn-text:#0f1720}}
+:root[data-theme="dark"]{color-scheme:dark;--bg:#0f1720;--surface:#17212c;--text:#e8eef5;--muted:#93a4b6;--line:#2c3a49;--accent:#6aa5f5;--ok:#5fd08a;--ok-bg:#12301f;--bad:#ff8a80;--bad-bg:#3a1a18;--tip-bg:#33290f;--tip:#f2cf7a;--btn-text:#0f1720}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:"Be Vietnam Pro","Segoe UI",system-ui,sans-serif;line-height:1.6}
+main{max-width:660px;margin:0 auto;padding:20px 16px 48px}
+header{display:flex;justify-content:space-between;align-items:baseline;gap:8px;margin-bottom:8px}
+h1{font-size:1.2rem;margin:0}
+.score{font-weight:600;color:var(--accent);white-space:nowrap}
+.bar{height:6px;background:var(--line);border-radius:3px;overflow:hidden;margin-bottom:20px}
+.bar i{display:block;height:100%;width:0;background:var(--accent);transition:width .3s}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px}
+.lv{display:inline-block;padding:2px 10px;border:1.5px solid var(--accent);border-radius:999px;color:var(--accent);font-size:.82rem;font-weight:600;margin-bottom:10px}
+.q{font-size:1.06rem;font-weight:600;margin:0 0 12px}
+pre{background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:10px 12px;overflow-x:auto;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.85rem;margin:0 0 12px}
+.opts{display:grid;gap:10px}
+.opt{display:flex;gap:10px;text-align:left;width:100%;padding:12px 14px;border:1.5px solid var(--line);border-radius:10px;background:var(--surface);color:var(--text);font:inherit;cursor:pointer}
+.opt:hover:not(:disabled){border-color:var(--accent)}
+.opt:focus-visible,.btn:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.opt b{min-width:1.4em}
+.opt:disabled{cursor:default}
+.mark{margin-left:auto;font-weight:700;white-space:nowrap}
+.w.ok .opt{border-color:var(--ok);background:var(--ok-bg)}
+.w.bad .opt{border-color:var(--bad);background:var(--bad-bg)}
+.w.ok .mark{color:var(--ok)}.w.bad .mark{color:var(--bad)}
+.why{display:none;margin:6px 4px 2px;padding-left:10px;border-left:3px solid var(--line);font-size:.92rem;color:var(--muted)}
+.w.ok .why{border-color:var(--ok)}.w.bad .why{border-color:var(--bad)}
+.verdict{display:none;margin-top:14px;font-weight:600}
+.verdict.ok{color:var(--ok)}.verdict.bad{color:var(--bad)}
+.tip{display:none;margin-top:14px;padding:12px 14px;border-radius:10px;background:var(--tip-bg);color:var(--tip);font-size:.93rem}
+.tip strong{display:block;margin-bottom:4px}
+.shown .why,.shown .verdict,.shown .tip{display:block}
+.nav{display:flex;justify-content:flex-end;margin-top:16px}
+.btn{padding:11px 22px;border:0;border-radius:10px;background:var(--accent);color:var(--btn-text);font:inherit;font-weight:600;cursor:pointer}
+.btn[hidden]{display:none}
+.result{text-align:center;padding:12px 0}
+.result .big{font-size:2.6rem;font-weight:700;color:var(--accent)}
+</style>
+</head>
+<body>
+<main>
+  <header><h1>Chuyên đề 2 (phần 2): Class và object nâng cao</h1><span class="score" id="score">Điểm: 0</span></header>
+  <div class="bar"><i id="bar"></i></div>
+  <div class="card" id="card"></div>
+</main>
+<script>
+var Q=[
+{q:"Cách gọi method bark() trên object d (kiểu Dog) là gì?",code:"class Dog {\n  void bark() { System.out.println(\"Gâu\"); }\n}\n// ...\nDog d = new Dog();",o:["d.bark();","bark(d);","Dog.bark();","d->bark();"],a:0,
+t:"Method là hành động của object, nên muốn gọi phải nói rõ \"object nào làm\": tên object, dấu chấm, tên method, cặp ngoặc. Giống ra lệnh \"con chó d, sủa đi\": d.bark(). Dấu chấm đọc là \"của\".",
+x:["Đúng. d.bark() nghĩa là \"gọi method bark() của object d\".","Sai. Đây là cách gọi hàm thường, đưa d vào như tham số. bark() thuộc về object nên phải đi qua dấu chấm.","Sai. Dog.bark() chỉ đúng khi bark() là static (thuộc về class). Ở đây bark() là method của object.","Sai. Java không dùng mũi tên ->, mà dùng dấu chấm."]},
+{q:"Đoạn code sau in ra gì?",code:"class Dog { String name; }\n// ...\nDog a = new Dog();\nDog b = new Dog();\na.name = \"Mi\";\nSystem.out.println(b.name);",o:["Mi","null","Lỗi biên dịch","Chuỗi rỗng"],a:1,
+t:"Mỗi lần new tạo ra một object mới, hoàn toàn riêng biệt, như hai chiếc xe cùng mẫu nhưng là hai chiếc khác nhau. Sơn xe này màu đỏ thì xe kia vẫn giữ màu cũ. Field không static thuộc về từng object riêng.",
+x:["Sai. Gán name cho a không ảnh hưởng tới b. Đó là hai object khác nhau.","Đúng. b là object riêng, name của b chưa được gán nên vẫn là giá trị mặc định null.","Sai. Code hợp lệ.","Sai. Giá trị mặc định của String là null, không phải chuỗi rỗng."]},
+{q:"Đoạn code sau xảy ra điều gì? (Giả sử Dog có method bark())",code:"Dog d = null;\nd.bark();",o:["In ra Gâu","Ném NullPointerException lúc chạy","Lỗi biên dịch","In ra null"],a:1,
+t:"null nghĩa là biến chưa trỏ tới object nào, như tờ giấy địa chỉ còn để trống. Gọi d.bark() nghĩa là \"đến địa chỉ đó bảo con chó sủa\", nhưng địa chỉ trống nên không có ai để ra lệnh. Java báo NullPointerException, một lỗi cực kỳ phổ biến. Compiler không phát hiện được vì d có thể có object ở những đoạn code khác, nên lỗi chỉ lộ ra lúc chạy.",
+x:["Sai. Không có object nào để sủa vì d là null.","Đúng. Gọi method trên biến null gây NullPointerException lúc chạy.","Sai. Về cú pháp code hoàn toàn hợp lệ nên compiler cho qua. Lỗi chỉ lộ ra lúc chạy.","Sai. Chương trình dừng với lỗi chứ không in chữ null, vì lệnh gọi method đã thất bại trước đó."]},
+{q:"Method khai báo với kiểu trả về void nghĩa là gì?",o:["Method làm việc xong nhưng không trả về giá trị nào","Method luôn trả về số 0","Method không có tham số","Method không thể gọi từ bên ngoài"],a:0,
+t:"Kiểu trả về cho biết method \"giao lại\" cho người gọi thứ gì sau khi làm xong. int giao lại một số nguyên, String giao lại một chuỗi. void nghĩa là \"không giao lại gì cả\", chỉ làm việc rồi thôi, như nhân viên dọn phòng xong thì không đưa lại món gì.",
+x:["Đúng. void nghĩa là không trả về giá trị, nên không dùng return kèm giá trị.","Sai. void không phải số 0. Không trả về gì hoàn toàn khác với trả về 0.","Sai. Method void vẫn có thể có tham số như bình thường.","Sai. Method void gọi được bình thường, tùy vào từ khóa truy cập (public, private...), không liên quan void."]},
+{q:"Đoạn code sau in ra gì?",code:"class Person {\n  private int age;\n  void setAge(int a) { if (a > 0) age = a; }\n  int getAge() { return age; }\n}\n// ...\nPerson p = new Person();\np.setAge(-5);\nSystem.out.println(p.getAge());",o:["-5","0","Lỗi biên dịch","null"],a:1,
+t:"Đây chính là lý do tồn tại của đóng gói: setter (method gán giá trị) đóng vai bảo vệ cửa, kiểm tra dữ liệu trước khi cho vào. Nếu age là public thì ai cũng gán được -5. Với setter, giá trị không hợp lệ bị từ chối. Ở đây điều kiện a > 0 sai nên dòng age = a không chạy.",
+x:["Sai. -5 không hợp lệ nên setter từ chối, age không bị gán.","Đúng. a = -5 không thỏa a > 0, dòng age = a bị bỏ qua. age giữ giá trị mặc định của int là 0.","Sai. Code hợp lệ.","Sai. age là kiểu int nên không thể là null, mặc định là 0."]},
+{q:"Đoạn code sau in ra gì?",code:"static int add(int a, int b) { return a + b; }\nstatic double add(double a, double b) { return a + b; }\n// ...\nSystem.out.println(add(2, 3) + \" \" + add(2.5, 1));",o:["5 3.5","5.0 3.5","5 3","Lỗi biên dịch"],a:0,
+t:"Overload (nạp chồng) là viết nhiều method cùng tên nhưng khác danh sách tham số. Khi gọi, Java chọn method khớp nhất với dữ liệu bạn đưa vào, như bưu tá chọn đúng ngăn thư theo địa chỉ. add(2, 3): cả hai là int, khớp bản int. add(2.5, 1): có số thực 2.5 nên chỉ bản double dùng được, số 1 được tự đổi (hộp nhỏ sang hộp to) thành 1.0.",
+x:["Đúng. add(2, 3) chọn bản int, ra 5. add(2.5, 1) chọn bản double, ra 3.5.","Sai. add(2, 3) khớp chính xác bản int nên kết quả là số nguyên 5, không phải 5.0.","Sai. 2.5 + 1 = 3.5, bản double giữ phần lẻ, không cắt thành 3.","Sai. Hai method cùng tên nhưng khác kiểu tham số là hợp lệ (đó chính là overload)."]},
+{q:"Đoạn code sau in ra gì?",code:"class Dog {\n  String name;\n  Dog(String n) { name = n; }\n}\n// ...\nSystem.out.println(new Dog(\"Mi\"));",o:["Mi","Dog@ rồi một dãy mã (ví dụ Dog@1b6d3586)","null","Lỗi biên dịch"],a:1,
+t:"Khi in một object, println tự gọi method toString() của object đó để biến nó thành chữ. Nếu class chưa viết toString, Java dùng bản mặc định, chỉ ghi tên class, ký hiệu @ và một dãy mã, giống cái nhãn số hiệu trên thùng hàng, không cho biết bên trong có gì. Muốn in cho đẹp, hãy viết lại (override) toString, ví dụ: return \"Dog: \" + name;",
+x:["Sai. Java không tự đoán field nào để in. Phải tự viết toString mới in ra Mi.","Đúng. toString mặc định cho ra dạng Dog@ cộng một dãy mã băm (dãy mã cụ thể có thể khác nhau mỗi lần chạy).","Sai. Object Dog đã được tạo nên không in ra null.","Sai. In object là hợp lệ, vì mọi class đều có sẵn toString."]},
+{q:"Đoạn code sau in ra gì?",code:"class Box {\n  int w, h;\n  Box() { this(1, 1); }\n  Box(int w, int h) { this.w = w; this.h = h; }\n}\n// ...\nBox b = new Box();\nSystem.out.println(b.w + \",\" + b.h);",o:["0,0","1,1","1,0","Lỗi biên dịch"],a:1,
+t:"this(...) có dấu ngoặc là lời gọi một constructor khác trong cùng class, như bảo nhân viên A: \"cứ làm theo quy trình của nhân viên B, với số 1 và 1\". Nhờ đó không phải viết lặp code. Luật: this(...) phải là dòng đầu tiên trong constructor. Đừng nhầm với this. (có dấu chấm) là chỉ chính object này.",
+x:["Sai. 0,0 chỉ ra nếu constructor rỗng không gán gì. Ở đây Box() gọi sang Box(1, 1) để gán giá trị.","Đúng. new Box() chạy Box(), nó gọi this(1, 1) sang constructor có tham số và gán w = 1, h = 1.","Sai. h cũng được gán 1 trong constructor có tham số, không giữ 0.","Sai. Code hợp lệ. this(1, 1) ở dòng đầu constructor là cú pháp đúng."]},
+{q:"Đoạn code sau in ra gì?",code:"class C {\n  static int s = 0;\n  int i = 0;\n  void inc() { s++; i++; }\n}\n// ...\nC a = new C();\nC b = new C();\na.inc();\na.inc();\nb.inc();\nSystem.out.println(a.i + \" \" + a.s + \" \" + b.i);",o:["2 3 1","2 2 1","3 3 3","2 3 3"],a:0,
+t:"Phân biệt hai loại biến: i (không static) mỗi object có bản riêng, như mỗi bạn một quyển vở. s (static) cả class dùng chung một bản, như bảng thông báo chung của lớp. Mẹo giải: lập bảng theo từng lệnh. a.inc() lần 1: s = 1, a.i = 1. a.inc() lần 2: s = 2, a.i = 2. b.inc(): s = 3, b.i = 1.",
+x:["Đúng. a.i = 2 (a tăng 2 lần), s = 3 (cả 3 lần gọi đều tăng biến chung), b.i = 1 (b tăng 1 lần).","Sai. s là biến chung nên cộng dồn cả ba lần gọi (của a và của b), ra 3 chứ không phải 2.","Sai. i không static, mỗi object có i riêng. a.i chỉ tăng 2 lần và b.i chỉ tăng 1 lần.","Sai. b.i là của riêng b, chỉ tăng đúng 1 lần (b.inc() gọi một lần), không phải 3."]},
+{q:"Đoạn code sau xảy ra điều gì? (Giả sử Dog có method bark())",code:"Dog[] arr = new Dog[3];\narr[0].bark();",o:["In ra Gâu","Ném NullPointerException","Lỗi biên dịch","Ném ArrayIndexOutOfBoundsException"],a:1,
+t:"new Dog[3] chỉ tạo ra 3 ô trống để đựng tờ giấy địa chỉ Dog, chưa tạo ra con chó nào. Mảng kiểu object có giá trị mặc định là null. Giống xây dãy 3 chuồng trống: chuồng có đó nhưng chưa có con chó nào. Gọi arr[0].bark() là bảo con chó ở chuồng đầu sủa, mà chuồng rỗng. Phải tạo từng con: arr[0] = new Dog();",
+x:["Sai. Chưa có object Dog nào được tạo nên không ai sủa.","Đúng. arr[0] là null (chưa có object), nên gọi bark() gây NullPointerException.","Sai. Về cú pháp code hoàn toàn hợp lệ. Lỗi chỉ xuất hiện lúc chạy.","Sai. Chỉ số 0 hợp lệ vì mảng có 3 ô (0, 1, 2). Vấn đề là ô đó rỗng, không phải chỉ số sai."]},
+{q:"Đoạn code sau in ra gì?",code:"class Person { String name; Person(String n) { name = n; } }\n// ...\nPerson a = new Person(\"An\");\nPerson b = a;\na = null;\nSystem.out.println(b.name);",o:["An","null","NullPointerException","Lỗi biên dịch"],a:0,
+t:"Biến a và b là hai tờ giấy ghi cùng địa chỉ một ngôi nhà (object). b = a chép địa chỉ sang tờ giấy thứ hai. a = null nghĩa là xóa trống tờ giấy a, nhưng ngôi nhà vẫn đứng đó và tờ giấy b vẫn trỏ tới. Object chỉ bị dọn đi khi không còn tờ giấy nào trỏ tới (lúc đó Garbage Collector, chiếc xe rác tự động của Java, mới được phép dọn).",
+x:["Đúng. a = null chỉ làm a hết trỏ. Object vẫn còn vì b trỏ tới, nên b.name là An.","Sai. null là giá trị của biến a, không phải của field name. Field name của object vẫn là An.","Sai. NullPointerException xảy ra nếu dùng a.name, không phải b.name. b vẫn trỏ tới object hợp lệ.","Sai. Code hợp lệ."]},
+{q:"Đoạn code sau in ra gì?",code:"class T {\n  static { System.out.print(\"S\"); }\n  { System.out.print(\"I\"); }\n  T() { System.out.print(\"C\"); }\n}\n// ...\nnew T();\nnew T();",o:["SICIC","SICSIC","ICIC","SIICC"],a:0,
+t:"Class có thể có ba khu vực chạy tự động. Khối static { } chạy đúng một lần khi class được nạp lần đầu, như lắp biển hiệu cho cửa hàng, chỉ làm một lần. Khối { } thường chạy mỗi lần new, ngay trước constructor, như kiểm tra xe trước khi giao. Constructor chạy cuối cùng. Thứ tự mỗi lần new: khối thường, rồi constructor.",
+x:["Đúng. Lần new đầu: S (khối static, chỉ một lần), rồi I, rồi C. Lần new thứ hai chỉ còn I rồi C. Kết quả SICIC.","Sai. Khối static chỉ chạy một lần khi nạp class, không chạy lại ở lần new thứ hai.","Sai. Thiếu S: khối static có chạy ngay ở lần new đầu tiên.","Sai. Mỗi lần new chạy I rồi C liền nhau, không chạy hai I rồi mới hai C."]}
+];
+var L=["A","B","C","D"],i=0,score=0,done=false,card=document.getElementById("card");
+function esc(s){return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")}
+function lvl(n){return n<4?"Cơ bản":n<8?"Trung bình":"Khá"}
+function show(){
+  done=false;var d=Q[i];
+  document.getElementById("bar").style.width=(i/Q.length*100)+"%";
+  var h='<span class="lv">'+lvl(i)+'</span><p class="q">Câu '+(i+1)+'/'+Q.length+'. '+esc(d.q)+'</p>';
+  if(d.code)h+='<pre>'+esc(d.code)+'</pre>';
+  h+='<div class="opts">';
+  d.o.forEach(function(t,k){h+='<div class="w" data-k="'+k+'"><button class="opt"><b>'+L[k]+'.</b><span>'+esc(t)+'</span><span class="mark"></span></button><div class="why">'+esc(d.x[k])+'</div></div>'});
+  h+='</div><div class="verdict" id="vd"></div><div class="tip"><strong>Hiểu câu hỏi này</strong>'+esc(d.t)+'</div><div class="nav"><button class="btn" id="next" hidden>'+(i===Q.length-1?"Xem kết quả":"Câu tiếp theo")+'</button></div>';
+  card.className="card";card.innerHTML=h;
+  card.querySelectorAll(".w").forEach(function(w){w.querySelector(".opt").onclick=function(){pick(+w.dataset.k)}});
+  document.getElementById("next").onclick=function(){i++;i<Q.length?show():finish();window.scrollTo(0,0)};
+}
+function pick(k){
+  if(done)return;done=true;var d=Q[i],ok=k===d.a;if(ok)score++;
+  document.getElementById("score").textContent="Điểm: "+score;
+  card.querySelectorAll(".w").forEach(function(w,n){
+    var b=w.querySelector(".opt");b.disabled=true;
+    if(n===d.a){w.classList.add("ok");b.querySelector(".mark").textContent="✓ Đúng"}
+    else{w.classList.add("bad");b.querySelector(".mark").textContent=(n===k?"✗ Bạn chọn":"✗")}
+  });
+  var v=document.getElementById("vd");v.className="verdict "+(ok?"ok":"bad");
+  v.textContent=ok?"Chính xác! Xem lý do từng đáp án bên trên.":"Chưa đúng. Đáp án đúng là "+L[d.a]+". Xem lý do từng đáp án bên trên.";
+  card.classList.add("shown");document.getElementById("next").hidden=false;
+}
+function finish(){
+  document.getElementById("bar").style.width="100%";
+  var p=Math.round(score/Q.length*100);
+  var m=p>=80?"Rất tốt, bạn đã nắm vững class và object. Sẵn sàng sang Chuyên đề 3: kế thừa và đa hình.":p>=50?"Khá ổn. Hãy đọc lại phần \"Hiểu câu hỏi này\" ở các câu sai rồi làm lại.":"Chưa sao, hãy làm lại từ đầu và đọc kỹ phần \"Hiểu câu hỏi này\" mỗi câu.";
+  card.className="card";card.innerHTML='<div class="result"><div class="big">'+score+'/'+Q.length+'</div><p>'+m+'</p><button class="btn" id="again">Làm lại</button></div>';
+  document.getElementById("again").onclick=function(){i=0;score=0;document.getElementById("score").textContent="Điểm: 0";show()};
+}
+show();
+</script>
+</body>
+</html>

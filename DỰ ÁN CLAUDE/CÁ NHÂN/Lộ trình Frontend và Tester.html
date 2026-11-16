@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Lộ trình Frontend và Tester</title>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f2f6f8;--card:#fff;--ink:#14232e;--mute:#587080;--line:#d5e0e6;--acc:#0f766e;--accbg:#d9f0ec;--warn:#9a3412;--warnbg:#ffedd5;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0e1a22;--card:#16262f;--ink:#e6eef2;--mute:#93a9b5;--line:#2a3f4b;--acc:#4fd1c0;--accbg:#12403b;--warn:#fdba74;--warnbg:#3b2312}}
+:root[data-theme="dark"]{--bg:#0e1a22;--card:#16262f;--ink:#e6eef2;--mute:#93a9b5;--line:#2a3f4b;--acc:#4fd1c0;--accbg:#12403b;--warn:#fdba74;--warnbg:#3b2312}
+*{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 "Be Vietnam Pro",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+main{max-width:760px;margin:0 auto;padding:20px 16px 60px}
+h1{font-size:clamp(26px,6vw,38px);line-height:1.15;margin:8px 0 8px;font-weight:800}
+.lead{color:var(--mute);margin:0 0 16px;max-width:60ch}
+.rules{background:var(--warnbg);color:var(--warn);border-radius:10px;padding:12px 14px;font-size:14.5px;margin-bottom:18px}
+.rules b{display:block;margin-bottom:2px}
+.tabs{display:flex;gap:8px;margin-bottom:14px}
+.tab{flex:1;border:2px solid var(--line);background:var(--card);color:var(--ink);border-radius:10px;padding:10px 8px;font:inherit;font-weight:700;cursor:pointer;text-align:left}
+.tab small{display:block;font-weight:400;color:var(--mute);font-size:13px}
+.tab[aria-selected="true"]{border-color:var(--acc);background:var(--accbg)}
+.bar{height:10px;background:var(--line);border-radius:6px;overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:var(--acc);transition:width .3s}
+.pct{display:flex;justify-content:space-between;font-size:14px;color:var(--mute);margin:6px 0 16px}
+details{background:var(--card);border:1px solid var(--line);border-radius:12px;margin-bottom:10px}
+summary{cursor:pointer;padding:14px 16px;font-weight:700;list-style:none;display:flex;gap:10px;align-items:center;justify-content:space-between}
+summary::-webkit-details-marker{display:none}
+summary span.t{flex:1}
+summary small{display:block;font-weight:400;color:var(--mute);font-size:13px}
+.badge{font-size:12px;border-radius:20px;padding:2px 10px;background:var(--line);color:var(--mute);white-space:nowrap;font-weight:500}
+.badge.ok{background:var(--accbg);color:var(--acc)}
+details.lock{opacity:.55}
+details.lock summary{cursor:not-allowed}
+.body{padding:0 16px 14px}
+.item{border-top:1px solid var(--line);padding:12px 0}
+.item h4{margin:0 0 4px;font-size:15.5px}
+.item p{margin:2px 0;font-size:14.5px;color:var(--mute)}
+.kw{font-size:13px;color:var(--mute)}
+.hw{display:flex;gap:10px;align-items:flex-start;margin-top:8px;background:var(--bg);border-radius:8px;padding:10px;cursor:pointer;font-size:14.5px}
+.hw input{width:20px;height:20px;margin-top:2px;accent-color:var(--acc);flex:none}
+.hw b{color:var(--warn)}
+.res{font-size:13.5px;margin:10px 0 0;color:var(--mute)}
+.final{border:2px solid var(--acc)}
+button.reset{margin-top:24px;background:none;border:1px solid var(--line);color:var(--mute);border-radius:8px;padding:8px 12px;font:inherit;font-size:13px;cursor:pointer}
+:focus-visible{outline:3px solid var(--acc);outline-offset:2px}
+</style>
+</head>
+<body>
+<main>
+<h1>Lộ trình Frontend và Tester</h1>
+<p class="lead">Học theo thứ tự, làm bài tập thật, rồi mới sang giai đoạn kế tiếp. Mỗi ngày 1 đến 2 giờ là đủ.</p>
+<div class="rules"><b>Quy tắc bắt buộc</b>Chỉ tick bài tập khi bạn đã tự làm xong và lưu được sản phẩm (file hoặc link GitHub). Chưa xong hết bài tập của giai đoạn nào thì giai đoạn sau sẽ bị khóa. Đọc tài liệu tiếng Anh mỗi ngày 15 phút, các từ khóa đã được liệt kê sẵn cho bạn.</div>
+<div class="tabs" role="tablist">
+<button class="tab" role="tab" id="t-fe" aria-selected="true" data-k="fe">Frontend<small>Làm giao diện web</small></button>
+<button class="tab" role="tab" id="t-qa" aria-selected="false" data-k="qa">Tester (QA)<small>Kiểm thử phần mềm</small></button>
+</div>
+<div class="bar"><i id="bar"></i></div>
+<div class="pct"><span id="pt">0 bài tập</span><span id="pp">0%</span></div>
+<div id="list"></div>
+<button class="reset" id="reset">Xóa toàn bộ tiến độ</button>
+</main>
+<script>
+var D={
+fe:[
+{t:"Giai đoạn 1: Chuẩn bị công cụ",w:"Tuần 1",r:"Học trên F8 (tiếng Việt), MDN Web Docs, YouTube",l:[
+{n:"Cài VS Code, dùng thử DevTools (F12)",d:"Cài VS Code và tiện ích Live Server. Mở một website bất kỳ, bấm F12, xem phần Elements và Console.",k:"editor, browser, console, inspect",h:"Mở 3 website bất kỳ bằng DevTools, đổi thử chữ và màu bằng tay, chụp màn hình lại."},
+{n:"Git và GitHub cơ bản",d:"Các lệnh init, add, commit, push. Tạo tài khoản GitHub.",k:"repository, commit, push, branch",h:"Tạo repo public tên “frontend-practice” và push ít nhất 1 file lên."}]},
+{t:"Giai đoạn 2: HTML",w:"Tuần 1 đến 2",r:"F8: HTML CSS từ zero đến hero (miễn phí), W3Schools, MDN",l:[
+{n:"Thẻ cơ bản và cấu trúc trang",d:"Tiêu đề, đoạn văn, danh sách, liên kết, hình ảnh, bảng.",k:"tag, attribute, heading, list, link",h:"Viết trang giới thiệu bản thân bằng HTML thuần (chưa CSS), có ít nhất 1 ảnh, 1 danh sách, 1 bảng."},
+{n:"Form và thẻ ngữ nghĩa",d:"input, select, textarea, button, label. Thẻ header, nav, main, section, footer.",k:"form, input, semantic, label",h:"Làm form đăng ký có họ tên, email, giới tính, sở thích, nút gửi. Dùng đúng thẻ semantic."}]},
+{t:"Giai đoạn 3: CSS cơ bản",w:"Tuần 2 đến 3",r:"F8, MDN, CSS Diner (luyện selector)",l:[
+{n:"Selector, màu, font, box model",d:"Class, id, margin, padding, border. Hiểu vì sao phần tử có kích thước như vậy.",k:"selector, margin, padding, border, color",h:"Dùng CSS làm đẹp trang giới thiệu bản thân ở giai đoạn 2. Phải có ít nhất 3 class khác nhau."},
+{n:"Làm quen với CSS Diner",d:"Chơi hết trò luyện selector miễn phí.",k:"selector, child, sibling",h:"Qua hết các cấp của CSS Diner, chụp màn hình cấp cuối."}]},
+{t:"Giai đoạn 4: Bố cục và responsive",w:"Tuần 3 đến 4",r:"Flexbox Froggy, Grid Garden (đều miễn phí, có tiếng Việt)",l:[
+{n:"Flexbox và Grid",d:"Căn hàng, căn cột, chia lưới. Đây là kỹ năng được hỏi nhiều nhất khi phỏng vấn thực tập.",k:"flex, grid, align, justify, gap",h:"Chơi hết Flexbox Froggy và Grid Garden."},
+{n:"Responsive và media query",d:"Trang đẹp trên cả điện thoại lẫn máy tính.",k:"responsive, breakpoint, viewport, mobile first",h:"Làm landing page một quán cà phê (menu, giờ mở cửa, liên hệ) đẹp trên cả điện thoại. Đưa lên GitHub."}]},
+{t:"Giai đoạn 5: JavaScript cơ bản",w:"Tuần 4 đến 6",r:"F8: Lập trình JavaScript cơ bản, javascript.info, freeCodeCamp",l:[
+{n:"Biến, điều kiện, vòng lặp, hàm",d:"Nền tảng quan trọng nhất. Bạn đã học Java nên sẽ quen khái niệm, chỉ khác cú pháp.",k:"variable, function, loop, condition, return",h:"Giải 10 bài nhỏ: tính tiền hóa đơn, kiểm tra số nguyên tố, đảo chuỗi, đếm số chẵn trong mảng, tìm số lớn nhất, bảng cửu chương... Lưu thành file."},
+{n:"Mảng và object",d:"map, filter, find, forEach. Làm việc với danh sách dữ liệu.",k:"array, object, property, method",h:"Cho danh sách 10 sinh viên (tên, điểm). Lọc ra người điểm trên 8, tính điểm trung bình, sắp xếp giảm dần."}]},
+{t:"Giai đoạn 6: DOM và sự kiện",w:"Tuần 6 đến 8",r:"F8, javascript.info, MDN",l:[
+{n:"Thao tác trang web bằng JavaScript",d:"querySelector, addEventListener, thay đổi nội dung và style.",k:"DOM, event, click, listener",h:"Làm ứng dụng To-do list: thêm, xóa, đánh dấu hoàn thành công việc."},
+{n:"Ứng dụng nhỏ có logic",d:"Kết hợp HTML, CSS, JS để làm sản phẩm hoàn chỉnh.",k:"state, render, input",h:"Làm thêm 2 ứng dụng: đồng hồ đếm ngược và máy tính bỏ túi. Đưa cả 3 ứng dụng lên GitHub Pages."}]},
+{t:"Giai đoạn 7: Gọi API và lưu dữ liệu",w:"Tuần 8 đến 10",r:"javascript.info, MDN, freeCodeCamp",l:[
+{n:"fetch, async/await, JSON",d:"Lấy dữ liệu thật từ internet và hiển thị lên trang.",k:"API, fetch, promise, async, JSON",h:"Làm trang xem thời tiết hoặc danh sách phim dùng API công khai miễn phí. Phải có xử lý lỗi và trạng thái đang tải."},
+{n:"localStorage",d:"Lưu dữ liệu ngay trên trình duyệt.",k:"storage, save, load",h:"Nâng cấp To-do list để dữ liệu vẫn còn sau khi tải lại trang."}]},
+{t:"Giai đoạn 8: Dự án cuối",w:"Tuần 10 đến 12",r:"Tự làm, hỏi cộng đồng khi kẹt",f:1,l:[
+{n:"Website portfolio cá nhân",d:"Trang giới thiệu bạn, các dự án đã làm ở trên, thông tin liên hệ. Đây là thứ bạn gửi kèm CV.",k:"portfolio, deploy, README",h:"Hoàn thành portfolio, đẹp trên điện thoại, deploy bằng GitHub Pages hoặc Netlify, viết README mô tả từng dự án."},
+{n:"Chuẩn bị xin thực tập",d:"Viết CV 1 trang, dọn GitHub cho gọn.",k:"CV, internship, apply",h:"Gửi CV cho ít nhất 5 công ty hoặc 5 tin tuyển thực tập Frontend."}]}
+],
+qa:[
+{t:"Giai đoạn 1: Nền tảng kiểm thử",w:"Tuần 1 đến 2",r:"Tài liệu ISTQB Foundation (có bản tiếng Việt), các kênh YouTube về Tester",l:[
+{n:"Quy trình phát triển phần mềm",d:"SDLC, Agile, Scrum. Tester đứng ở đâu trong đội.",k:"SDLC, Agile, Scrum, sprint, requirement",h:"Viết 1 trang tóm tắt bằng lời của bạn: các bước làm phần mềm và vai trò của Tester ở mỗi bước."},
+{n:"Các loại và mức kiểm thử",d:"Unit, integration, system, acceptance. Functional và non-functional. Smoke, regression.",k:"test level, test type, regression, smoke",h:"Lập bảng so sánh ít nhất 8 loại kiểm thử, mỗi loại có 1 ví dụ cụ thể."}]},
+{t:"Giai đoạn 2: Thiết kế test case",w:"Tuần 2 đến 4",r:"ISTQB, YouTube, bài viết về kỹ thuật thiết kế test case",l:[
+{n:"Kỹ thuật thiết kế",d:"Phân vùng tương đương, giá trị biên, bảng quyết định.",k:"test case, boundary value, equivalence, precondition, expected result",h:"Làm bài tập tay: cho ô nhập tuổi từ 18 đến 60, liệt kê các giá trị cần kiểm tra theo giá trị biên và phân vùng."},
+{n:"Viết test case chuẩn",d:"Mã, tiêu đề, các bước, dữ liệu, kết quả mong đợi.",k:"step, actual result, expected result, pass, fail",h:"Viết ít nhất 30 test case cho chức năng đăng nhập (trong file Excel hoặc Google Sheets)."}]},
+{t:"Giai đoạn 3: Báo lỗi và Jira",w:"Tuần 4 đến 5",r:"Tài liệu Atlassian, YouTube",l:[
+{n:"Vòng đời lỗi và cách báo lỗi",d:"Mức độ nghiêm trọng, mức ưu tiên, cách mô tả để lập trình viên tái hiện được.",k:"bug, severity, priority, reproduce, status",h:"Tìm 5 lỗi thật (hoặc lỗi nhỏ về giao diện, chính tả) trên một website hay app, viết báo cáo lỗi đầy đủ cho từng lỗi, kèm ảnh chụp."},
+{n:"Làm quen Jira",d:"Tạo tài khoản miễn phí, tạo project, tạo issue.",k:"issue, board, backlog, assignee",h:"Tạo 1 project Jira, nhập 5 lỗi ở trên vào, chuyển trạng thái chúng qua ít nhất 3 cột."}]},
+{t:"Giai đoạn 4: SQL cơ bản",w:"Tuần 5 đến 7",r:"SQLBolt, W3Schools SQL, SQLZoo (miễn phí)",l:[
+{n:"Truy vấn dữ liệu",d:"SELECT, WHERE, ORDER BY, GROUP BY, JOIN. Tester cần kiểm tra dữ liệu trong database.",k:"query, table, row, column, join",h:"Hoàn thành toàn bộ bài trên SQLBolt."},
+{n:"Luyện đề",d:"Tự làm bài với cơ sở dữ liệu mẫu.",k:"database, primary key, foreign key",h:"Viết 20 câu truy vấn trên database mẫu (ví dụ Northwind hoặc Sakila). Lưu vào 1 file .sql."}]},
+{t:"Giai đoạn 5: Kiểm thử API với Postman",w:"Tuần 7 đến 8",r:"Tài liệu Postman Learning Center, YouTube",l:[
+{n:"Gửi request, đọc response",d:"GET, POST, PUT, DELETE. Mã trạng thái 200, 400, 404, 500.",k:"API, request, response, status code, endpoint",h:"Dùng 1 API công khai (như JSONPlaceholder), test ít nhất 10 request khác nhau, lưu thành collection."},
+{n:"Viết kiểm tra tự động trong Postman",d:"Kiểm tra mã trạng thái và nội dung trả về.",k:"assertion, test script, collection",h:"Thêm tối thiểu 10 assertion vào collection, chạy cả collection và chụp kết quả."}]},
+{t:"Giai đoạn 6: Kiểm thử website thực tế",w:"Tuần 8 đến 10",r:"Tự làm trên web có sẵn (web trường, web bán hàng nhỏ)",l:[
+{n:"Test plan và test report",d:"Lên kế hoạch kiểm thử, báo cáo kết quả.",k:"test plan, scope, report, coverage",h:"Chọn 1 website, viết test plan 1 đến 2 trang."},
+{n:"Test thực chiến",d:"Kiểm tra giao diện, chức năng, trình duyệt khác nhau, điện thoại.",k:"compatibility, usability, cross-browser",h:"Viết 50 test case cho website đã chọn, chạy thử và ghi kết quả, báo cáo ít nhất 10 lỗi."}]},
+{t:"Giai đoạn 7: Làm quen kiểm thử tự động",w:"Tuần 10 đến 13",r:"Tài liệu Selenium, kênh YouTube Selenium Java, trang demo saucedemo.com",l:[
+{n:"Selenium với ngôn ngữ bạn đang học",d:"Dùng Java (đang học ở trường) để điều khiển trình duyệt. Học cách tìm phần tử trên trang.",k:"automation, Selenium, locator, WebDriver, XPath, CSS selector",h:"Cài Selenium, viết chương trình mở trình duyệt, vào 1 trang web và in ra tiêu đề trang."},
+{n:"Tự động hóa 1 luồng đăng nhập",d:"Dùng trang demo miễn phí để luyện.",k:"assert, wait, test framework, TestNG",h:"Tự động hóa 3 kịch bản (đăng nhập đúng, sai mật khẩu, để trống) trên trang demo, đưa mã lên GitHub."}]},
+{t:"Giai đoạn 8: Hồ sơ cuối",w:"Tuần 13 đến 14",r:"Tự làm",f:1,l:[
+{n:"Bộ hồ sơ kiểm thử hoàn chỉnh",d:"Đây là thứ thay cho “kinh nghiệm” khi bạn chưa có việc.",k:"portfolio, test suite, README",h:"Gom test plan, test case, báo cáo lỗi, collection Postman, mã Selenium vào 1 repo GitHub, có README giải thích rõ."},
+{n:"Chuẩn bị xin thực tập",d:"Viết CV 1 trang, ôn câu hỏi phỏng vấn cơ bản.",k:"CV, interview, internship",h:"Gửi CV cho ít nhất 5 tin tuyển thực tập Tester."}]}
+]};
+var cur="fe",S={},$=function(i){return document.getElementById(i)};
+try{S=JSON.parse(localStorage.getItem("lt-v1")||"{}")}catch(e){S={}}
+function save(){try{localStorage.setItem("lt-v1",JSON.stringify(S))}catch(e){}}
+function done(k,p,l){return S[k+p+"-"+l]}
+function phaseDone(k,p){return D[k][p].l.every(function(_,j){return done(k,p,j)})}
+function render(){
+var ph=D[cur],tot=0,dn=0,open=-1,h="";
+ph.forEach(function(p,i){p.l.forEach(function(_,j){tot++;if(done(cur,i,j))dn++});if(open<0&&!phaseDone(cur,i))open=i});
+ph.forEach(function(p,i){
+var locked=open>=0&&i>open,fin=phaseDone(cur,i),c=p.l.filter(function(_,j){return done(cur,i,j)}).length;
+h+='<details class="'+(locked?"lock ":"")+(p.f?"final":"")+'" data-i="'+i+'"'+(i===open?" open":"")+'><summary><span class="t">'+p.t+'<small>'+p.w+'</small></span><span class="badge'+(fin?" ok":"")+'">'+(locked?"Đã khóa":fin?"Hoàn thành":c+"/"+p.l.length+" bài tập")+'</span></summary><div class="body">';
+p.l.forEach(function(x,j){
+h+='<div class="item"><h4>'+x.n+'</h4><p>'+x.d+'</p><p class="kw">Từ khóa tiếng Anh: '+x.k+'</p><label class="hw"><input type="checkbox" data-i="'+i+'" data-j="'+j+'"'+(done(cur,i,j)?" checked":"")+(locked?" disabled":"")+'><span><b>Bài tập bắt buộc:</b> '+x.h+'</span></label></div>'});
+h+='<p class="res">Nguồn học miễn phí: '+p.r+'</p></div></details>'});
+$("list").innerHTML=h;
+var pc=tot?Math.round(dn/tot*100):0;
+$("bar").style.width=pc+"%";$("pt").textContent=dn+" trên "+tot+" bài tập";$("pp").textContent=pc+"%";
+}
+$("list").addEventListener("click",function(e){
+var s=e.target.closest("summary");
+if(s&&s.parentNode.classList.contains("lock"))e.preventDefault()});
+$("list").addEventListener("change",function(e){
+var t=e.target;if(t.type!=="checkbox")return;
+S[cur+t.dataset.i+"-"+t.dataset.j]=t.checked?1:0;save();
+var openI=document.querySelector("details[open]");var oi=openI?openI.dataset.i:null;
+render();
+if(oi!==null){var d=document.querySelector('details[data-i="'+oi+'"]');if(d&&!d.classList.contains("lock"))d.open=true}});
+document.querySelectorAll(".tab").forEach(function(b){b.onclick=function(){cur=b.dataset.k;document.querySelectorAll(".tab").forEach(function(x){x.setAttribute("aria-selected",x===b)});render()}});
+$("reset").onclick=function(){if(confirm("Xóa toàn bộ tiến độ đã tick?")){S={};save();render()}};
+render();
+</script>
+</body>
+</html>

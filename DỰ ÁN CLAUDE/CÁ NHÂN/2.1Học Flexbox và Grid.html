@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Học Flexbox và Grid</title>
+<style>
+:root{--bg:#f4f7fb;--card:#fff;--text:#1f2937;--muted:#5b6678;--brand:#1f6feb;--accent:#f59e0b;--line:#d9e0ea;--ok:#15803d;--bad:#b91c1c;--box:#dbeafe;--boxb:#1f6feb;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0f1621;--card:#18212f;--text:#e5eaf2;--muted:#9aa7ba;--brand:#5b9dff;--accent:#fbbf24;--line:#2a3648;--ok:#4ade80;--bad:#f87171;--box:#1e3a63;--boxb:#5b9dff}}
+:root[data-theme="dark"]{--bg:#0f1621;--card:#18212f;--text:#e5eaf2;--muted:#9aa7ba;--brand:#5b9dff;--accent:#fbbf24;--line:#2a3648;--ok:#4ade80;--bad:#f87171;--box:#1e3a63;--boxb:#5b9dff}
+*{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--text);font:16px/1.6 system-ui,-apple-system,"Segoe UI",Arial,sans-serif}
+.wrap{max-width:900px;margin:0 auto;padding:16px}
+header h1{margin:8px 0 4px;font-size:1.6rem}
+header p{margin:0;color:var(--muted)}
+.bar{height:10px;background:var(--line);border-radius:6px;overflow:hidden;margin-top:12px}
+.bar i{display:block;height:100%;width:0;background:var(--ok);transition:width .3s}
+.barlabel{font-size:.85rem;color:var(--muted);margin-top:4px}
+nav{display:flex;gap:8px;flex-wrap:wrap;margin:16px 0}
+nav button{flex:1;min-width:110px;padding:10px;border:1px solid var(--line);background:var(--card);color:var(--text);border-radius:8px;font:inherit;font-weight:600;cursor:pointer}
+nav button.on{background:var(--brand);color:#fff;border-color:var(--brand)}
+section.tab{display:none}section.tab.on{display:block}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px;margin-bottom:16px}
+.card h2{margin:0 0 8px;font-size:1.2rem;color:var(--brand)}
+.card h3{margin:12px 0 4px;font-size:1rem}
+code,pre{font-family:ui-monospace,Consolas,monospace}
+code{background:var(--bg);padding:1px 6px;border-radius:4px;font-size:.9em}
+pre{background:#0f1621;color:#e5eaf2;padding:12px;border-radius:8px;overflow-x:auto;margin:8px 0 0;font-size:.9rem}
+.tip{border-left:4px solid var(--accent);padding:8px 12px;background:var(--bg);border-radius:0 8px 8px 0;margin:10px 0}
+.ctl{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px;margin:10px 0}
+.ctl label{display:block;font-size:.85rem;font-weight:600;color:var(--muted)}
+.ctl select,.ctl input[type=number]{width:100%;padding:8px;border:1px solid var(--line);border-radius:6px;background:var(--card);color:var(--text);font:inherit}
+.ctl input[type=range]{width:100%}
+.stage{border:2px dashed var(--line);border-radius:8px;padding:8px;background:var(--bg);overflow:auto}
+#fbox{display:flex;height:240px}
+#gbox{display:grid}
+.it{background:var(--box);border:2px solid var(--boxb);border-radius:6px;min-width:56px;padding:8px;text-align:center;font-weight:700}
+table{width:100%;border-collapse:collapse;font-size:.92rem}
+th,td{border:1px solid var(--line);padding:8px;text-align:left;vertical-align:top}
+th{background:var(--brand);color:#fff}
+.tw{overflow-x:auto}
+.btn{display:inline-block;padding:10px 16px;border-radius:8px;background:var(--brand);color:#fff;text-decoration:none;font-weight:700;border:0;font:inherit;font-weight:700;cursor:pointer}
+.game{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:8px 0}
+.row input[type=number]{width:80px;padding:6px;border:1px solid var(--line);border-radius:6px;background:var(--card);color:var(--text);font:inherit}
+.q{margin-bottom:14px}
+.q .o{display:block;width:100%;text-align:left;margin:4px 0;padding:8px 10px;border:1px solid var(--line);background:var(--card);color:var(--text);border-radius:8px;font:inherit;cursor:pointer}
+.q .o.right{border-color:var(--ok);background:var(--box)}
+.q .o.wrong{border-color:var(--bad)}
+.why{display:none;color:var(--muted);font-size:.92rem;margin:4px 0 0}
+details{border:1px solid var(--line);border-radius:8px;padding:8px 12px;margin:6px 0}
+summary{cursor:pointer;font-weight:600}
+@media (max-width:700px){.game{grid-template-columns:1fr}.wrap{padding:12px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <h1>Học Flexbox và Grid</h1>
+  <p>Kỹ năng được hỏi nhiều nhất khi phỏng vấn thực tập. Học từng bước, thử tay trực tiếp.</p>
+  <div class="bar"><i id="prog"></i></div>
+  <div class="barlabel" id="proglabel">Tiến độ bài tập bắt buộc: 0%</div>
+</header>
+
+<nav id="tabs">
+  <button data-t="flex" class="on">1. Flexbox</button>
+  <button data-t="grid">2. Grid</button>
+  <button data-t="ex">3. Bài tập bắt buộc</button>
+  <button data-t="rev">4. Ôn tập</button>
+</nav>
+
+<!-- ============ FLEXBOX ============ -->
+<section class="tab on" id="t-flex">
+  <div class="card">
+    <h2>Flexbox là gì?</h2>
+    <p>Flexbox xếp các phần tử con <b>theo một hàng hoặc một cột</b>. Bạn chỉ cần viết <code>display: flex</code> ở thẻ <b>cha</b>, các thẻ <b>con</b> tự xếp thẳng hàng.</p>
+    <div class="tip"><b>Nhớ 2 trục:</b> trục chính (main axis) là chiều các phần tử xếp. Mặc định <code>row</code> = trục chính nằm ngang, trục phụ (cross axis) thẳng đứng.<br>
+    <code>justify-content</code> căn theo <b>trục chính</b>, <code>align-items</code> căn theo <b>trục phụ</b>.</div>
+  </div>
+
+  <div class="card">
+    <h2>Thử tay: sân chơi Flexbox</h2>
+    <p>Đổi các ô bên dưới, nhìn các khối nhảy và xem code CSS tương ứng.</p>
+    <div class="ctl">
+      <div><label>flex-direction</label><select id="f-dir"><option>row</option><option>row-reverse</option><option>column</option><option>column-reverse</option></select></div>
+      <div><label>justify-content</label><select id="f-jc"><option>flex-start</option><option>center</option><option>flex-end</option><option>space-between</option><option>space-around</option><option>space-evenly</option></select></div>
+      <div><label>align-items</label><select id="f-ai"><option>stretch</option><option>flex-start</option><option>center</option><option>flex-end</option></select></div>
+      <div><label>flex-wrap</label><select id="f-wr"><option>nowrap</option><option>wrap</option></select></div>
+      <div><label>gap: <span id="f-gv">10</span>px</label><input type="range" id="f-gap" min="0" max="40" value="10"></div>
+      <div><label>Số khối: <span id="f-nv">4</span></label><input type="range" id="f-n" min="1" max="9" value="4"></div>
+    </div>
+    <div class="stage"><div id="fbox"></div></div>
+    <pre id="fcode"></pre>
+  </div>
+
+  <div class="card">
+    <h2>Bảng tra nhanh Flexbox</h2>
+    <div class="tw"><table>
+      <tr><th>Thuộc tính (đặt ở cha)</th><th>Dùng để</th><th>Giá trị hay dùng</th></tr>
+      <tr><td><code>display</code></td><td>Bật flexbox</td><td><code>flex</code></td></tr>
+      <tr><td><code>flex-direction</code></td><td>Chọn hàng hay cột</td><td><code>row</code>, <code>column</code></td></tr>
+      <tr><td><code>justify-content</code></td><td>Căn theo trục chính</td><td><code>center</code>, <code>space-between</code></td></tr>
+      <tr><td><code>align-items</code></td><td>Căn theo trục phụ</td><td><code>center</code>, <code>flex-start</code></td></tr>
+      <tr><td><code>gap</code></td><td>Khoảng cách giữa các con</td><td><code>10px</code></td></tr>
+      <tr><td><code>flex-wrap</code></td><td>Hết chỗ thì xuống dòng</td><td><code>wrap</code></td></tr>
+      <tr><td><code>flex: 1</code> (đặt ở con)</td><td>Con chiếm hết chỗ còn lại</td><td><code>1</code></td></tr>
+    </table></div>
+    <h3>Mẹo hay dùng nhất: căn giữa hoàn toàn</h3>
+<pre>.cha {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}</pre>
+  </div>
+</section>
+
+<!-- ============ GRID ============ -->
+<section class="tab" id="t-grid">
+  <div class="card">
+    <h2>Grid là gì?</h2>
+    <p>Grid chia vùng chứa thành <b>lưới có cả hàng và cột</b>. Flexbox mạnh ở <b>một chiều</b>, Grid mạnh ở <b>hai chiều</b>.</p>
+    <div class="tip"><b>Đơn vị <code>fr</code>:</b> 1fr là "một phần" không gian còn lại. <code>1fr 2fr</code> nghĩa là cột sau rộng gấp đôi cột trước.</div>
+  </div>
+
+  <div class="card">
+    <h2>Thử tay: sân chơi Grid</h2>
+    <div class="ctl">
+      <div><label>grid-template-columns</label><select id="g-col">
+        <option>1fr 1fr 1fr</option><option>1fr 2fr</option><option>repeat(4, 1fr)</option><option>150px 1fr</option><option>repeat(auto-fit, minmax(100px, 1fr))</option></select></div>
+      <div><label>gap: <span id="g-gv">10</span>px</label><input type="range" id="g-gap" min="0" max="40" value="10"></div>
+      <div><label>Số ô: <span id="g-nv">6</span></label><input type="range" id="g-n" min="1" max="12" value="6"></div>
+      <div><label>Ô số 1 chiếm 2 cột</label><select id="g-span"><option value="no">Không</option><option value="yes">Có (span 2)</option></select></div>
+    </div>
+    <div class="stage"><div id="gbox"></div></div>
+    <pre id="gcode"></pre>
+  </div>
+
+  <div class="card">
+    <h2>Bảng tra nhanh Grid</h2>
+    <div class="tw"><table>
+      <tr><th>Thuộc tính</th><th>Dùng để</th><th>Ví dụ</th></tr>
+      <tr><td><code>display: grid</code></td><td>Bật lưới (ở cha)</td><td></td></tr>
+      <tr><td><code>grid-template-columns</code></td><td>Chia cột</td><td><code>1fr 1fr 1fr</code> hoặc <code>repeat(3, 1fr)</code></td></tr>
+      <tr><td><code>grid-template-rows</code></td><td>Chia hàng</td><td><code>100px auto</code></td></tr>
+      <tr><td><code>gap</code></td><td>Khoảng cách giữa các ô</td><td><code>20px</code></td></tr>
+      <tr><td><code>grid-column</code> (ở con)</td><td>Ô trải nhiều cột</td><td><code>span 2</code> hoặc <code>1 / -1</code> (cả hàng)</td></tr>
+      <tr><td><code>justify-items</code>, <code>align-items</code></td><td>Căn nội dung trong từng ô</td><td><code>center</code></td></tr>
+    </table></div>
+    <h3>Responsive với Grid chỉ một dòng</h3>
+<pre>.luoi {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+}</pre>
+    <p>Màn hình rộng thì nhiều cột, màn hình nhỏ tự giảm cột, không cần viết media query.</p>
+  </div>
+
+  <div class="card">
+    <h2>Khi nào dùng cái nào?</h2>
+    <div class="tw"><table>
+      <tr><th>Tình huống</th><th>Chọn</th></tr>
+      <tr><td>Thanh menu, hàng nút, căn giữa 1 thứ</td><td>Flexbox</td></tr>
+      <tr><td>Ảnh nằm cạnh đoạn chữ</td><td>Flexbox</td></tr>
+      <tr><td>Form 2 cột, thư viện ảnh, bố cục cả trang</td><td>Grid</td></tr>
+    </table></div>
+  </div>
+</section>
+
+<!-- ============ BÀI TẬP ============ -->
+<section class="tab" id="t-ex">
+  <div class="card">
+    <h2>Bài tập bắt buộc: chơi hết 2 trò</h2>
+    <p>Hai trò này dạy đúng những gì bạn vừa thử ở trên, qua từng cấp nhỏ. Làm xong thì ghi tiến độ ở đây.</p>
+    <div class="game">
+      <div>
+        <h3>Flexbox Froggy (24 cấp)</h3>
+        <p>Dùng <code>justify-content</code>, <code>align-items</code>, <code>flex-direction</code> để đưa ếch về lá sen.</p>
+        <a class="btn" href="https://flexboxfroggy.com/#vi" target="_blank" rel="noopener">Mở Flexbox Froggy</a>
+        <div class="row"><label for="fr">Đã qua cấp:</label><input type="number" id="fr" min="0" max="24" value="0"> / 24</div>
+      </div>
+      <div>
+        <h3>Grid Garden (28 cấp)</h3>
+        <p>Dùng <code>grid-column</code>, <code>grid-row</code>, <code>grid-template-columns</code> để tưới nước đúng luống cà rốt.</p>
+        <a class="btn" href="https://cssgridgarden.com/#vi" target="_blank" rel="noopener">Mở Grid Garden</a>
+        <div class="row"><label for="gg">Đã qua cấp:</label><input type="number" id="gg" min="0" max="28" value="0"> / 28</div>
+      </div>
+    </div>
+    <div class="row"><input type="checkbox" id="shot"><label for="shot">Đã chụp màn hình cấp cuối của cả hai trò để nộp</label></div>
+  </div>
+  <div class="card">
+    <h2>Mẹo để không bị kẹt</h2>
+    <ul>
+      <li>Đọc đề, nhìn <b>vị trí cuối cùng</b> cần đạt, rồi đoán thuộc tính trước khi gõ.</li>
+      <li>Sai thì thử đổi giá trị khác, mỗi lần thử là một lần nhớ.</li>
+      <li>Kẹt quá thì quay lại tab Flexbox hoặc Grid ở trên, chỉnh thử ô tương ứng để xem nó làm gì.</li>
+      <li>Mỗi ngày làm 5 đến 6 cấp, vài ngày là xong, không cần dồn một buổi.</li>
+    </ul>
+    <p style="color:var(--muted);font-size:.9rem">Tiến độ lưu trong trình duyệt của bạn. Nếu mở bằng trình duyệt hoặc máy khác thì phải nhập lại.</p>
+  </div>
+</section>
+
+<!-- ============ ÔN TẬP ============ -->
+<section class="tab" id="t-rev">
+  <div class="card">
+    <h2>Câu hỏi trắc nghiệm</h2>
+    <div id="quiz"></div>
+    <div id="score" style="font-weight:700"></div>
+  </div>
+  <div class="card">
+    <h2>Câu hỏi phỏng vấn hay gặp</h2>
+    <details><summary>Flexbox và Grid khác nhau thế nào?</summary><p>Flexbox xếp theo một chiều (một hàng hoặc một cột). Grid chia theo hai chiều (hàng và cột cùng lúc). Flexbox hợp với thành phần nhỏ, Grid hợp với bố cục lớn.</p></details>
+    <details><summary>Căn giữa một phần tử cả ngang lẫn dọc?</summary><p>Ở thẻ cha viết <code>display:flex; justify-content:center; align-items:center;</code> (hoặc <code>display:grid; place-items:center;</code>).</p></details>
+    <details><summary><code>justify-content</code> và <code>align-items</code> khác nhau?</summary><p>justify-content căn theo trục chính, align-items căn theo trục phụ. Đổi <code>flex-direction</code> sang column thì hai trục đổi chỗ.</p></details>
+    <details><summary>Đơn vị <code>fr</code> là gì?</summary><p>Một phần của không gian còn trống trong lưới. <code>1fr 2fr</code> chia cột thứ hai rộng gấp đôi cột thứ nhất.</p></details>
+    <details><summary>Làm bố cục responsive thế nào?</summary><p>Có thẻ viewport, dùng đơn vị linh hoạt (%, fr), dùng <code>flex-wrap</code> hoặc <code>auto-fit</code>, và media query như <code>@media (max-width: 700px)</code> để đổi về 1 cột.</p></details>
+  </div>
+</section>
+</div>
+
+<script>
+(function(){
+var $=function(id){return document.getElementById(id)};
+var store={get:function(k){try{return localStorage.getItem(k)}catch(e){return null}},set:function(k,v){try{localStorage.setItem(k,v)}catch(e){}}};
+
+/* Tabs */
+var btns=document.querySelectorAll('#tabs button');
+btns.forEach(function(b){b.addEventListener('click',function(){
+  btns.forEach(function(x){x.classList.remove('on')});b.classList.add('on');
+  document.querySelectorAll('section.tab').forEach(function(s){s.classList.remove('on')});
+  $('t-'+b.dataset.t).classList.add('on');
+})});
+
+/* Flex playground */
+function flex(){
+  var d=$('f-dir').value,j=$('f-jc').value,a=$('f-ai').value,w=$('f-wr').value,g=$('f-gap').value,n=+$('f-n').value;
+  $('f-gv').textContent=g;$('f-nv').textContent=n;
+  var box=$('fbox');box.style.flexDirection=d;box.style.justifyContent=j;box.style.alignItems=a;box.style.flexWrap=w;box.style.gap=g+'px';
+  var h='';for(var i=1;i<=n;i++){h+='<div class="it" style="padding-top:'+(8+(i%3)*12)+'px;padding-bottom:'+(8+(i%3)*12)+'px">'+i+'</div>'}
+  box.innerHTML=h;
+  $('fcode').textContent='.cha {\n  display: flex;\n  flex-direction: '+d+';\n  justify-content: '+j+';\n  align-items: '+a+';\n  flex-wrap: '+w+';\n  gap: '+g+'px;\n}';
+}
+['f-dir','f-jc','f-ai','f-wr','f-gap','f-n'].forEach(function(id){$(id).addEventListener('input',flex)});flex();
+
+/* Grid playground */
+function grid(){
+  var c=$('g-col').value,g=$('g-gap').value,n=+$('g-n').value,s=$('g-span').value==='yes';
+  $('g-gv').textContent=g;$('g-nv').textContent=n;
+  var box=$('gbox');box.style.gridTemplateColumns=c;box.style.gap=g+'px';
+  var h='';for(var i=1;i<=n;i++){h+='<div class="it"'+(i===1&&s?' style="grid-column:span 2"':'')+'>'+i+'</div>'}
+  box.innerHTML=h;
+  $('gcode').textContent='.luoi {\n  display: grid;\n  grid-template-columns: '+c+';\n  gap: '+g+'px;\n}'+(s?'\n\n.o1 {\n  grid-column: span 2;\n}':'');
+}
+['g-col','g-gap','g-n','g-span'].forEach(function(id){$(id).addEventListener('input',grid)});grid();
+
+/* Progress */
+function clamp(v,m){v=parseInt(v,10);if(isNaN(v)||v<0)v=0;return v>m?m:v}
+function prog(save){
+  var f=clamp($('fr').value,24),g=clamp($('gg').value,28),s=$('shot').checked?1:0;
+  if(save){store.set('fg-f',f);store.set('fg-g',g);store.set('fg-s',s)}
+  var p=Math.round(((f/24)*45+(g/28)*45+s*10));
+  $('prog').style.width=p+'%';$('proglabel').textContent='Tiến độ bài tập bắt buộc: '+p+'%'+(p===100?' - Hoàn thành!':'');
+}
+$('fr').value=clamp(store.get('fg-f'),24);$('gg').value=clamp(store.get('fg-g'),28);$('shot').checked=store.get('fg-s')==='1';
+['fr','gg','shot'].forEach(function(id){$(id).addEventListener('input',function(){prog(true)})});prog(false);
+
+/* Quiz */
+var Q=[
+ {q:'Muốn xếp các thẻ con thành một hàng ngang, thẻ cha cần viết gì?',o:['display: block','display: flex','position: flex','float: row'],a:1,w:'display: flex ở thẻ cha bật Flexbox, mặc định các con xếp thành hàng.'},
+ {q:'Trong flex-direction: row, thuộc tính nào căn các con theo chiều ngang?',o:['align-items','justify-content','align-content','gap'],a:1,w:'justify-content căn theo trục chính, với row thì trục chính nằm ngang.'},
+ {q:'Muốn căn giữa theo chiều dọc (khi row), dùng thuộc tính nào?',o:['align-items: center','justify-content: center','text-align: center','margin: auto'],a:0,w:'align-items căn theo trục phụ, với row thì trục phụ là chiều dọc.'},
+ {q:'grid-template-columns: 1fr 2fr tạo ra gì?',o:['2 cột bằng nhau','2 cột, cột sau rộng gấp đôi cột trước','3 cột','2 hàng'],a:1,w:'fr là phần chia của không gian còn lại: 1 phần và 2 phần.'},
+ {q:'Muốn một ô trong lưới trải hết cả hàng, dùng?',o:['grid-column: 1 / -1','grid-gap: full','flex: 1','width: 1fr'],a:0,w:'1 / -1 nghĩa là từ đường kẻ đầu đến đường kẻ cuối, tức là cả hàng.'},
+ {q:'Dòng nào làm bố cục đổi khi màn hình nhỏ hơn 700px?',o:['@media (max-width: 700px) { ... }','@screen small { ... }','if (width < 700) { ... }','.mobile { ... }'],a:0,w:'Media query @media (max-width: ...) là cách làm responsive trong CSS.'}
+];
+var done=0,right=0;
+var qz=$('quiz');
+Q.forEach(function(it,i){
+  var d=document.createElement('div');d.className='q';
+  var t=document.createElement('div');t.innerHTML='<b>Câu '+(i+1)+'.</b> ';t.appendChild(document.createTextNode(it.q));d.appendChild(t);
+  var why=document.createElement('p');why.className='why';why.textContent='Giải thích: '+it.w;
+  var answered=false;
+  it.o.forEach(function(txt,k){
+    var b=document.createElement('button');b.className='o';b.type='button';b.textContent=txt;
+    b.addEventListener('click',function(){
+      if(answered)return;answered=true;done++;
+      if(k===it.a){b.classList.add('right');right++}else{b.classList.add('wrong');d.querySelectorAll('.o')[it.a].classList.add('right')}
+      why.style.display='block';
+      if(done===Q.length)$('score').textContent='Kết quả: '+right+'/'+Q.length+(right===Q.length?' - Tuyệt vời!':' - Xem lại các câu sai rồi thử chỉnh ở sân chơi nhé.');
+    });
+    d.appendChild(b);
+  });
+  d.appendChild(why);qz.appendChild(d);
+});
+})();
+</script>
+</body>
+</html>

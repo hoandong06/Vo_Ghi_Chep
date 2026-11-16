@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Chuyên đề 1 (phần 3): Mở rộng thêm</title>
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+--bg:#f3f6fa;--surface:#fff;--text:#14202e;--muted:#5a6b7d;--line:#d3dce6;--accent:#1f5fbf;--ok:#17803d;--ok-bg:#e3f4e8;--bad:#b42318;--bad-bg:#fde8e6;--tip-bg:#fff6dd;--tip:#7a5200;--btn-text:#fff}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){color-scheme:dark;--bg:#0f1720;--surface:#17212c;--text:#e8eef5;--muted:#93a4b6;--line:#2c3a49;--accent:#6aa5f5;--ok:#5fd08a;--ok-bg:#12301f;--bad:#ff8a80;--bad-bg:#3a1a18;--tip-bg:#33290f;--tip:#f2cf7a;--btn-text:#0f1720}}
+:root[data-theme="dark"]{color-scheme:dark;--bg:#0f1720;--surface:#17212c;--text:#e8eef5;--muted:#93a4b6;--line:#2c3a49;--accent:#6aa5f5;--ok:#5fd08a;--ok-bg:#12301f;--bad:#ff8a80;--bad-bg:#3a1a18;--tip-bg:#33290f;--tip:#f2cf7a;--btn-text:#0f1720}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:"Be Vietnam Pro","Segoe UI",system-ui,sans-serif;line-height:1.6}
+main{max-width:660px;margin:0 auto;padding:20px 16px 48px}
+header{display:flex;justify-content:space-between;align-items:baseline;gap:8px;margin-bottom:8px}
+h1{font-size:1.2rem;margin:0}
+.score{font-weight:600;color:var(--accent);white-space:nowrap}
+.bar{height:6px;background:var(--line);border-radius:3px;overflow:hidden;margin-bottom:20px}
+.bar i{display:block;height:100%;width:0;background:var(--accent);transition:width .3s}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px}
+.lv{display:inline-block;padding:2px 10px;border:1.5px solid var(--accent);border-radius:999px;color:var(--accent);font-size:.82rem;font-weight:600;margin-bottom:10px}
+.q{font-size:1.06rem;font-weight:600;margin:0 0 12px}
+pre{background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:10px 12px;overflow-x:auto;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.85rem;margin:0 0 12px}
+.opts{display:grid;gap:10px}
+.opt{display:flex;gap:10px;text-align:left;width:100%;padding:12px 14px;border:1.5px solid var(--line);border-radius:10px;background:var(--surface);color:var(--text);font:inherit;cursor:pointer}
+.opt:hover:not(:disabled){border-color:var(--accent)}
+.opt:focus-visible,.btn:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.opt b{min-width:1.4em}
+.opt:disabled{cursor:default}
+.mark{margin-left:auto;font-weight:700;white-space:nowrap}
+.w.ok .opt{border-color:var(--ok);background:var(--ok-bg)}
+.w.bad .opt{border-color:var(--bad);background:var(--bad-bg)}
+.w.ok .mark{color:var(--ok)}.w.bad .mark{color:var(--bad)}
+.why{display:none;margin:6px 4px 2px;padding-left:10px;border-left:3px solid var(--line);font-size:.92rem;color:var(--muted)}
+.w.ok .why{border-color:var(--ok)}.w.bad .why{border-color:var(--bad)}
+.verdict{display:none;margin-top:14px;font-weight:600}
+.verdict.ok{color:var(--ok)}.verdict.bad{color:var(--bad)}
+.tip{display:none;margin-top:14px;padding:12px 14px;border-radius:10px;background:var(--tip-bg);color:var(--tip);font-size:.93rem}
+.tip strong{display:block;margin-bottom:4px}
+.shown .why,.shown .verdict,.shown .tip{display:block}
+.nav{display:flex;justify-content:flex-end;margin-top:16px}
+.btn{padding:11px 22px;border:0;border-radius:10px;background:var(--accent);color:var(--btn-text);font:inherit;font-weight:600;cursor:pointer}
+.btn[hidden]{display:none}
+.result{text-align:center;padding:12px 0}
+.result .big{font-size:2.6rem;font-weight:700;color:var(--accent)}
+</style>
+</head>
+<body>
+<main>
+  <header><h1>Chuyên đề 1 (phần 3): Mở rộng thêm</h1><span class="score" id="score">Điểm: 0</span></header>
+  <div class="bar"><i id="bar"></i></div>
+  <div class="card" id="card"></div>
+</main>
+<script>
+var Q=[
+{q:"Dòng nào khai báo biến kiểu char (một ký tự) đúng?",o:["char c = 'A';","char c = \"A\";","char c = A;","char c = 'AB';"],a:0,
+t:"char lưu đúng một ký tự (chữ, số hoặc dấu). Dấu nháy đơn ' ' dành cho một ký tự, dấu nháy kép \" \" dành cho chuỗi (String). Mẹo nhớ: nháy đơn là một chữ, nháy kép là cả câu.",
+x:["Đúng. Nháy đơn bao quanh đúng một ký tự.","Sai. Nháy kép tạo ra String, không bỏ vừa vào chiếc hộp char được.","Sai. Thiếu dấu nháy, Java hiểu A là tên của một biến (mà biến đó chưa hề có).","Sai. 'AB' có hai ký tự, nhưng char chỉ chứa được một."]},
+{q:"Đoạn code sau in ra gì?",code:"boolean b = !(3 > 5);\nSystem.out.println(b);",o:["true","false","3","Lỗi biên dịch"],a:0,
+t:"boolean chỉ có hai giá trị: true (đúng) và false (sai). Dấu ! là phép phủ định (NOT): đảo true thành false và ngược lại, như công tắc đảo trạng thái. Làm từ trong ngoặc ra ngoài: tính 3 > 5 trước, rồi mới đảo.",
+x:["Đúng. 3 > 5 là false, dấu ! đảo thành true.","Sai. false là giá trị của 3 > 5, nhưng dấu ! đã đảo ngược nó.","Sai. Kết quả của phép so sánh là true hoặc false, không phải số.","Sai. Code hợp lệ."]},
+{q:"Đoạn code sau in ra gì?",code:"int x = 10;\nx += 5;\nx -= 3;\nSystem.out.println(x);",o:["15","12","7","18"],a:1,
+t:"+= là cách viết gọn: x += 5 nghĩa là x = x + 5, tức \"cộng thêm 5 vào x\". Tương tự có -=, *=, /=. Giống ghi thêm tiền vào sổ tiết kiệm rồi rút bớt ra, số dư thay đổi từng bước.",
+x:["Sai. 15 là kết quả sau x += 5, nhưng sau đó còn dòng x -= 3.","Đúng. x = 10, sau += 5 thành 15, sau -= 3 thành 12.","Sai. 7 ra nếu chỉ trừ 3 mà bỏ qua việc cộng 5 (hoặc nhầm 10 - 3).","Sai. 18 ra nếu nhầm -= 3 thành cộng thêm 3."]},
+{q:"Đoạn code sau cho kết quả gì?",code:"int x;\nSystem.out.println(x);",o:["0","null","Lỗi biên dịch","Chuỗi rỗng"],a:2,
+t:"Biến cục bộ (khai báo bên trong method) giống chiếc hộp rỗng chưa bỏ gì vào. Java bắt bạn phải gán giá trị trước khi dùng, vì không muốn bạn đọc nhầm \"rác\" còn sót trong hộp. Nếu quên, compiler (phần mềm kiểm tra code) báo lỗi ngay trước khi chạy.",
+x:["Sai. Biến cục bộ không tự có giá trị 0. (Chỉ biến thuộc về class/object mới có giá trị mặc định.)","Sai. null chỉ dùng cho kiểu tham chiếu, và biến int không thể là null.","Đúng. Compiler báo \"variable x might not have been initialized\" (biến x có thể chưa được gán giá trị).","Sai. Chuỗi rỗng là \"\" thuộc kiểu String, không liên quan tới int."]},
+{q:"Đoạn code sau in ra gì?",code:"int a = 5;\nString r = (a % 2 == 0) ? \"chẵn\" : \"lẻ\";\nSystem.out.println(r);",o:["chẵn","lẻ","true","Lỗi biên dịch"],a:1,
+t:"Toán tử ba ngôi viết gọn if/else trong một dòng: điều kiện ? giá trị nếu đúng : giá trị nếu sai. Đọc là \"nếu ... thì ... không thì ...\". Ở đây a % 2 là phần dư khi chia cho 2: dư 0 là số chẵn, dư 1 là số lẻ.",
+x:["Sai. a % 2 = 1 (5 chia 2 dư 1), khác 0 nên điều kiện sai, không lấy \"chẵn\".","Đúng. 5 % 2 = 1 nên a % 2 == 0 là sai, chọn giá trị sau dấu hai chấm: \"lẻ\".","Sai. Kết quả phải là một trong hai chuỗi ở hai vế, không phải true/false.","Sai. Code hợp lệ."]},
+{q:"Đoạn code sau in ra gì?",code:"int i = 10;\ndo {\n  System.out.print(i);\n  i++;\n} while (i < 5);",o:["Không in gì","10","1011121314","Lặp mãi không dừng"],a:1,
+t:"do-while là vòng lặp \"làm trước, kiểm tra sau\", như nếm thử món ăn trước rồi mới quyết định nấu tiếp. Khác với while (kiểm tra trước), do-while luôn chạy phần thân ít nhất một lần, dù điều kiện sai ngay từ đầu. Lưu ý có dấu ; ở cuối while(...);",
+x:["Sai. Đó là hành vi của while. do-while chạy thân một lần trước khi kiểm tra.","Đúng. Chạy thân một lần: in 10, i thành 11. Sau đó kiểm tra 11 < 5 là sai nên dừng.","Sai. Sau lần đầu, điều kiện i < 5 đã sai (i = 11) nên không lặp tiếp.","Sai. i chỉ tăng lên, và điều kiện sai ngay sau lần đầu nên vòng lặp dừng."]},
+{q:"Đoạn code sau in ra gì?",code:"System.out.println(Math.sqrt(16));",o:["4","4.0","16","Lỗi biên dịch"],a:1,
+t:"Math là hộp dụng cụ toán học có sẵn của Java. sqrt (square root) là căn bậc hai. Điểm cần nhớ: các method Math như sqrt, pow luôn trả về số thực kiểu double, nên kết quả in ra có phần thập phân .0. Gọi thẳng Math.sqrt(...) mà không cần tạo object.",
+x:["Sai. sqrt trả về double nên in ra 4.0, không phải 4.","Đúng. Căn bậc hai của 16 là 4, và vì kiểu trả về là double nên hiển thị 4.0.","Sai. 16 là số ban đầu, sqrt trả về căn bậc hai của nó.","Sai. Math nằm sẵn trong java.lang nên không cần import."]},
+{q:"Đoạn code sau in ra gì?",code:"int[][] m = {{1, 2}, {3, 4}};\nSystem.out.println(m[1][0]);",o:["1","2","3","4"],a:2,
+t:"Mảng hai chiều giống bảng tính, có hàng và cột. {{1, 2}, {3, 4}} là hai hàng, mỗi hàng hai ô. Cách đọc m[hàng][cột], cả hai đều đếm từ 0. Vậy m[1][0] là hàng số 1 (hàng thứ hai), cột số 0 (cột đầu tiên).",
+x:["Sai. 1 là m[0][0] (hàng đầu, cột đầu).","Sai. 2 là m[0][1] (hàng đầu, cột thứ hai).","Đúng. Hàng thứ hai là {3, 4}, ô đầu tiên của hàng đó là 3.","Sai. 4 là m[1][1] (hàng thứ hai, cột thứ hai)."]},
+{q:"Đoạn code sau in ra bao nhiêu dấu *?",code:"for (int i = 0; i < 2; i++) {\n  for (int j = 0; j < 3; j++) {\n    System.out.print(\"*\");\n  }\n}",o:["2 dấu","3 dấu","6 dấu","5 dấu"],a:2,
+t:"Vòng lặp lồng nhau là vòng lặp nằm bên trong một vòng lặp khác, như kim giờ và kim phút: kim phút chạy hết một vòng thì kim giờ mới nhích một nấc. Vòng ngoài chạy 2 lần, và mỗi lần đó vòng trong chạy đủ 3 lần. Tổng số lần = 2 x 3.",
+x:["Sai. 2 chỉ là số lần vòng ngoài chạy.","Sai. 3 chỉ là số lần vòng trong chạy trong một lượt của vòng ngoài.","Đúng. Mỗi lần của vòng ngoài (2 lần) thì vòng trong in 3 dấu: 2 x 3 = 6 dấu.","Sai. 5 là 2 + 3, nhưng vòng lặp lồng nhau thì nhân chứ không cộng."]},
+{q:"Đoạn code sau in ra gì?",code:"int a = 0;\nif (a != 0 && 10 / a > 1) System.out.println(\"X\");\nelse System.out.println(\"Y\");",o:["X","Y","Báo lỗi ArithmeticException (chia cho 0)","Lỗi biên dịch"],a:1,
+t:"&& có tính \"lười\" (gọi là short-circuit, đoản mạch): nếu vế trái đã sai thì kết quả chắc chắn sai, nên Java không thèm tính vế phải. Giống bảo vệ chặn cửa: bạn không có vé thì khỏi cần kiểm tra giấy tờ khác. Mẹo này hay dùng để tránh lỗi như chia cho 0 hoặc truy cập null.",
+x:["Sai. a != 0 là sai (vì a = 0) nên cả điều kiện sai, không in X.","Đúng. Vế trái a != 0 sai nên && dừng luôn, không tính 10 / a. Điều kiện sai, chạy nhánh else và in Y.","Sai. Phép chia 10 / a mới gây lỗi, nhưng vì vế trái đã sai nên vế phải không bao giờ được chạy.","Sai. Code hợp lệ."]},
+{q:"Đoạn code sau in ra gì?",code:"System.out.println('A' + 1);",o:["A1","B","66","Lỗi biên dịch"],a:2,
+t:"Máy tính chỉ hiểu số, nên mỗi ký tự có một mã số trong bảng mã (ASCII/Unicode): 'A' là 65, 'B' là 66, 'a' là 97. Khi cộng char với int, Java dùng mã số của char, nên kết quả là một số int chứ không phải chữ. Muốn ra chữ B phải ép kiểu: (char) ('A' + 1).",
+x:["Sai. Nối chuỗi chỉ xảy ra khi một vế là String, như \"A\" + 1.","Sai. Kết quả phép cộng là số int 66, Java không tự đổi lại thành chữ B.","Đúng. 'A' có mã 65, 65 + 1 = 66 (kiểu int). Vậy in ra 66.","Sai. Cộng char với int là hợp lệ."]},
+{q:"Đoạn code sau in ra gì?",code:"int x = Integer.MAX_VALUE;\nx = x + 1;\nSystem.out.println(x);",o:["2147483648","-2147483648","0","Lỗi biên dịch"],a:1,
+t:"Integer.MAX_VALUE là số int lớn nhất, bằng 2147483647. Vượt quá giới hạn thì Java không báo lỗi mà quay vòng, giống đồng hồ cây số xe máy chạy hết 99999 thì về 00000. Hiện tượng này gọi là tràn số (overflow). Muốn chứa số lớn hơn thì dùng long.",
+x:["Sai. int không chứa nổi số này nên không thể ra 2147483648.","Đúng. Cộng 1 vào số lớn nhất thì quay vòng sang số nhỏ nhất của int: -2147483648.","Sai. Không về 0, mà quay sang giá trị nhỏ nhất của int.","Sai. Code hợp lệ. Java không báo lỗi khi tràn số, chỉ âm thầm cho kết quả sai."]}
+];
+var L=["A","B","C","D"],i=0,score=0,done=false,card=document.getElementById("card");
+function esc(s){return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")}
+function lvl(n){return n<4?"Cơ bản":n<8?"Trung bình":"Khá"}
+function show(){
+  done=false;var d=Q[i];
+  document.getElementById("bar").style.width=(i/Q.length*100)+"%";
+  var h='<span class="lv">'+lvl(i)+'</span><p class="q">Câu '+(i+1)+'/'+Q.length+'. '+esc(d.q)+'</p>';
+  if(d.code)h+='<pre>'+esc(d.code)+'</pre>';
+  h+='<div class="opts">';
+  d.o.forEach(function(t,k){h+='<div class="w" data-k="'+k+'"><button class="opt"><b>'+L[k]+'.</b><span>'+esc(t)+'</span><span class="mark"></span></button><div class="why">'+esc(d.x[k])+'</div></div>'});
+  h+='</div><div class="verdict" id="vd"></div><div class="tip"><strong>Hiểu câu hỏi này</strong>'+esc(d.t)+'</div><div class="nav"><button class="btn" id="next" hidden>'+(i===Q.length-1?"Xem kết quả":"Câu tiếp theo")+'</button></div>';
+  card.className="card";card.innerHTML=h;
+  card.querySelectorAll(".w").forEach(function(w){w.querySelector(".opt").onclick=function(){pick(+w.dataset.k)}});
+  document.getElementById("next").onclick=function(){i++;i<Q.length?show():finish();window.scrollTo(0,0)};
+}
+function pick(k){
+  if(done)return;done=true;var d=Q[i],ok=k===d.a;if(ok)score++;
+  document.getElementById("score").textContent="Điểm: "+score;
+  card.querySelectorAll(".w").forEach(function(w,n){
+    var b=w.querySelector(".opt");b.disabled=true;
+    if(n===d.a){w.classList.add("ok");b.querySelector(".mark").textContent="✓ Đúng"}
+    else{w.classList.add("bad");b.querySelector(".mark").textContent=(n===k?"✗ Bạn chọn":"✗")}
+  });
+  var v=document.getElementById("vd");v.className="verdict "+(ok?"ok":"bad");
+  v.textContent=ok?"Chính xác! Xem lý do từng đáp án bên trên.":"Chưa đúng. Đáp án đúng là "+L[d.a]+". Xem lý do từng đáp án bên trên.";
+  card.classList.add("shown");document.getElementById("next").hidden=false;
+}
+function finish(){
+  document.getElementById("bar").style.width="100%";
+  var p=Math.round(score/Q.length*100);
+  var m=p>=80?"Rất tốt, bạn đã nắm vững toàn bộ Chuyên đề 1. Sẵn sàng sang Chuyên đề 2.":p>=50?"Khá ổn. Hãy đọc lại phần \"Hiểu câu hỏi này\" ở các câu sai rồi làm lại.":"Chưa sao, hãy làm lại từ đầu và đọc kỹ phần \"Hiểu câu hỏi này\" mỗi câu.";
+  card.className="card";card.innerHTML='<div class="result"><div class="big">'+score+'/'+Q.length+'</div><p>'+m+'</p><button class="btn" id="again">Làm lại</button></div>';
+  document.getElementById("again").onclick=function(){i=0;score=0;document.getElementById("score").textContent="Điểm: 0";show()};
+}
+show();
+</script>
+</body>
+</html>

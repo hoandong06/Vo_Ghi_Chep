@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="vi"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Lộ trình học Java: Cơ bản → Nâng cao</title>
+<style>
+:root{--bg:#fafaf7;--fg:#1d2433;--mut:#5d6679;--card:#fff;--bd:#e3e5ea;--ac:#d9480f;--ac2:#fff1e8;--code:#14181f;--codefg:#e6e9ef;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#13161c;--fg:#e8eaf0;--mut:#9aa3b5;--card:#1b1f28;--bd:#2c3240;--ac:#ff8a4c;--ac2:#2a2018;--code:#0b0d11;--codefg:#e6e9ef}}
+:root[data-theme="dark"]{--bg:#13161c;--fg:#e8eaf0;--mut:#9aa3b5;--card:#1b1f28;--bd:#2c3240;--ac:#ff8a4c;--ac2:#2a2018;--code:#0b0d11;--codefg:#e6e9ef}
+html{scroll-padding-top:70px}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.65 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+header{padding:40px 20px 24px;max-width:900px;margin:auto}
+h1{font-size:clamp(26px,5vw,40px);margin:0 0 8px;line-height:1.2}
+header p{color:var(--mut);margin:0}
+nav{position:sticky;top:env(safe-area-inset-top,0px);background:var(--bg);border-bottom:1px solid var(--bd);z-index:5;display:flex;gap:6px;overflow-x:auto;padding:10px 20px;justify-content:flex-start}
+nav a{white-space:nowrap;padding:6px 12px;border-radius:99px;border:1px solid var(--bd);color:var(--fg);text-decoration:none;font-size:14px}
+nav a:hover{background:var(--ac2);border-color:var(--ac)}
+main{max-width:900px;margin:auto;padding:0 20px 60px}
+h2{margin:40px 0 4px;font-size:24px}
+.sub{color:var(--mut);margin:0 0 14px}
+.bar{height:8px;background:var(--bd);border-radius:9px;overflow:hidden;margin:10px 0 0}
+.bar i{display:block;height:100%;width:0;background:var(--ac);transition:width .3s}
+details{background:var(--card);border:1px solid var(--bd);border-radius:12px;margin:10px 0;overflow:hidden}
+summary{cursor:pointer;padding:14px 16px;font-weight:600;display:flex;gap:10px;align-items:center}
+summary .n{background:var(--ac);color:#fff;border-radius:8px;padding:1px 9px;font-size:13px;white-space:nowrap}
+summary input{margin-left:auto;width:18px;height:18px;accent-color:var(--ac)}
+.b{padding:0 16px 16px;border-top:1px solid var(--bd)}
+.b h4{margin:16px 0 4px;color:var(--ac);font-size:14px;text-transform:uppercase;letter-spacing:.04em}
+.b ul,.b ol{margin:4px 0;padding-left:22px}
+pre{background:var(--code);color:var(--codefg);padding:12px 14px;border-radius:8px;overflow-x:auto;font:13px/1.5 ui-monospace,Consolas,monospace;margin:8px 0}
+.pj{background:var(--ac2);border:1px solid var(--ac);border-radius:12px;padding:16px;margin:16px 0}
+.pj h3{margin:0 0 6px}
+.pj h4{margin:12px 0 2px;font-size:14px}
+.tag{display:inline-block;background:var(--card);border:1px solid var(--bd);border-radius:6px;padding:0 8px;font-size:13px;margin:2px 4px 2px 0}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px}
+.grid div{background:var(--card);border:1px solid var(--bd);border-radius:10px;padding:12px;font-size:14px}
+.grid b{display:block;margin-bottom:2px}
+footer{text-align:center;color:var(--mut);font-size:13px;padding:20px}
+</style></head><body>
+<header>
+<h1>☕ Lộ trình học Java: từ cơ bản đến nâng cao</h1>
+<p>20 buổi học · mỗi buổi có lý thuyết, ví dụ code, bài tập · 3 mini project làm nhóm. Tick vào ô bên phải mỗi buổi để theo dõi tiến độ.</p>
+<div class="bar"><i id="pb"></i></div><p id="pt" style="font-size:13px;margin-top:4px"></p>
+</header>
+<nav id="nav"></nav>
+<main>
+<h2 id="guide">Cách học</h2>
+<div class="grid">
+<div><b>⏱ Nhịp học</b>2–3 buổi/tuần, mỗi buổi 2–3 giờ (1h lý thuyết, 1–2h làm bài).</div>
+<div><b>🛠 Công cụ</b>JDK 21 (LTS), IntelliJ IDEA Community, Git, Maven, MySQL/PostgreSQL.</div>
+<div><b>👥 Làm nhóm</b>3–4 người, chia vai: Leader, Dev, Tester, Doc. Dùng Git branch + Pull Request.</div>
+<div><b>✅ Chuẩn đạt</b>Tự giải ≥ 80% bài tập; code chạy được, đặt tên rõ ràng, có comment cần thiết.</div>
+</div>
+<div id="root"></div>
+</main>
+<footer>Java 21 LTS · Chúc bạn học tốt!</footer>
+<script>
+const P=[
+{id:"p1",t:"Giai đoạn 1 – Java cơ bản",d:"Buổi 1–8 · Nền tảng cú pháp và tư duy lập trình hướng đối tượng",
+S:[
+{t:"Giới thiệu & cài môi trường",th:["Java chạy trên JVM: viết mã .java → biên dịch thành .class (bytecode) → JVM chạy ('Write once, run anywhere').","JDK = JRE + công cụ phát triển (javac, java). JRE = JVM + thư viện chuẩn.","Cấu trúc chương trình: class, hàm main, package, import.","In ra màn hình: System.out.println; nhập: Scanner."],
+c:"public class Hello {\n  public static void main(String[] args) {\n    System.out.println(\"Xin chào Java!\");\n  }\n}",
+e:["Cài JDK + IntelliJ, chạy chương trình Hello World.","In ra tên, tuổi, lớp của bạn bằng 3 dòng.","Nhập 2 số từ bàn phím, in tổng."]},
+{t:"Biến, kiểu dữ liệu, toán tử",th:["Kiểu nguyên thủy: byte, short, int, long, float, double, char, boolean. Kiểu tham chiếu: String, mảng, đối tượng.","Ép kiểu: ngầm định (int→double) và tường minh ((int) 3.7).","Toán tử: số học + - * / %, so sánh, logic && || !, gán += ++ --.","Chú ý: chia số nguyên bỏ phần thập phân; dùng 'var' từ Java 10."],
+c:"int a = 7, b = 2;\ndouble r = (double) a / b; // 3.5\nboolean chan = a % 2 == 0;",
+e:["Tính chu vi, diện tích hình tròn từ bán kính.","Đổi độ C sang độ F.","Tách chữ số hàng chục, đơn vị của số có 2 chữ số."]},
+{t:"Câu lệnh điều kiện",th:["if / else if / else; toán tử ba ngôi: điều_kiện ? a : b.","switch truyền thống và switch expression (Java 14+) với ->.","So sánh chuỗi dùng equals(), không dùng ==."],
+c:"String xl = switch (diem / 10) {\n  case 10, 9 -> \"Giỏi\";\n  case 8, 7 -> \"Khá\";\n  default -> \"Trung bình\";\n};",
+e:["Giải phương trình bậc 2.","Nhập tháng, in số ngày của tháng (xét năm nhuận).","Máy tính 4 phép tính bằng switch."]},
+{t:"Vòng lặp",th:["for, while, do-while, for-each; break, continue; vòng lặp lồng nhau.","Chọn vòng lặp: biết số lần → for; chưa biết → while.","Tránh vòng lặp vô hạn, kiểm tra điều kiện dừng."],
+c:"for (int i = 1; i <= 5; i++) {\n  System.out.println(\"7 x \" + i + \" = \" + 7 * i);\n}",
+e:["In bảng cửu chương 2–9.","Kiểm tra số nguyên tố; in các số nguyên tố < 100.","In tam giác sao n dòng.","Trò chơi đoán số 1–100."]},
+{t:"Mảng & String",th:["Mảng: khai báo, duyệt, mảng 2 chiều, Arrays.sort / toString / copyOf.","String bất biến (immutable); các hàm: length, charAt, substring, split, indexOf, trim, toUpperCase.","StringBuilder khi nối chuỗi nhiều lần."],
+c:"int[] a = {5, 2, 9};\nArrays.sort(a);\nStringBuilder sb = new StringBuilder();\nfor (int x : a) sb.append(x).append(' ');",
+e:["Tìm max, min, tổng, trung bình của mảng.","Đảo ngược chuỗi; kiểm tra chuỗi đối xứng.","Đếm số từ và tần suất ký tự trong câu.","Cộng, nhân hai ma trận."]},
+{t:"Phương thức (method)",th:["Khai báo: kiểu_trả_về tên(tham số). void khi không trả về.","Truyền tham số theo giá trị (với đối tượng là giá trị của tham chiếu).","Nạp chồng (overloading); đệ quy cần điều kiện dừng; varargs.","Phạm vi biến: local, tham số, field."],
+c:"static int gcd(int a, int b) {\n  return b == 0 ? a : gcd(b, a % b);\n}",
+e:["Viết hàm UCLN, BCNN, giai thừa (đệ quy).","Nạp chồng hàm tính diện tích hình chữ nhật / tròn.","Dãy Fibonacci bằng đệ quy và vòng lặp, so sánh."]},
+{t:"OOP 1: Class & Object",th:["Class là bản thiết kế, object là thể hiện. Thành phần: field, constructor, method.","Đóng gói (encapsulation): field private, truy cập qua getter/setter, kiểm tra dữ liệu trong setter.","this, static, toString(), equals()/hashCode()."],
+c:"public class SinhVien {\n  private String ten; private double gpa;\n  public SinhVien(String ten, double gpa) {\n    this.ten = ten; this.gpa = gpa;\n  }\n  public double getGpa() { return gpa; }\n}",
+e:["Tạo class SinhVien, HinhChuNhat với getter/setter hợp lệ.","Class TaiKhoan: nạp, rút tiền (không rút quá số dư).","Quản lý mảng 5 SinhVien, tìm người GPA cao nhất."]},
+{t:"OOP 2: Kế thừa & Đa hình",th:["Kế thừa (extends), super, ghi đè (@Override). Java chỉ đơn kế thừa.","Đa hình: biến kiểu cha trỏ tới đối tượng con; gọi method theo kiểu thực tế lúc chạy.","Abstract class, final, access modifier: private / default / protected / public."],
+c:"abstract class Shape { abstract double area(); }\nclass Circle extends Shape {\n  double r; Circle(double r){this.r=r;}\n  @Override double area(){ return Math.PI*r*r; }\n}",
+e:["Hệ thống Shape: Circle, Rectangle, Triangle; tính tổng diện tích mảng Shape[].","Nhân viên: FullTime, PartTime, tính lương khác nhau.","Giải thích khi nào dùng kế thừa vs. composition."]}]},
+{id:"p2",t:"Giai đoạn 2 – Java trung cấp",d:"Buổi 9–14 · Công cụ hằng ngày của lập trình viên Java",
+S:[
+{t:"Interface & Enum & Record",th:["Interface: hợp đồng hành vi; một lớp implements nhiều interface; default/static method.","Abstract class (có trạng thái) vs. interface (khả năng).","enum cho tập hằng số có hành vi; record (Java 16+) cho lớp dữ liệu bất biến."],
+c:"interface Payable { double pay(); }\nenum Level { LOW, MID, HIGH }\nrecord Point(int x, int y) {}",
+e:["Interface Payable với CreditCard, Cash, EWallet.","Enum TrangThaiDon: MOI, DANG_GIAO, HOAN_TAT.","Dùng record biểu diễn Sản phẩm."]},
+{t:"Exception (xử lý ngoại lệ)",th:["Checked (IOException) bắt buộc xử lý; unchecked (RuntimeException) không bắt buộc.","try / catch / finally, try-with-resources tự đóng tài nguyên.","throw, throws, tạo custom exception. Không 'nuốt' lỗi (catch rỗng)."],
+c:"try (Scanner sc = new Scanner(System.in)) {\n  int n = Integer.parseInt(sc.nextLine());\n} catch (NumberFormatException e) {\n  System.out.println(\"Không phải số\");\n}",
+e:["Nhập số an toàn, lặp đến khi hợp lệ.","Tạo SoDuKhongDuException cho tài khoản ngân hàng.","Ghi log lỗi ra file."]},
+{t:"Collections & Generics",th:["List (ArrayList, LinkedList), Set (HashSet, TreeSet), Map (HashMap, TreeMap), Queue/Deque.","Chọn cấu trúc: cần thứ tự/trùng → List; duy nhất → Set; tra cứu theo khóa → Map.","Generics: List<String>, viết class/method generic, wildcard cơ bản.","Comparable / Comparator để sắp xếp; hashCode & equals khi làm khóa HashMap."],
+c:"Map<String,Integer> dem = new HashMap<>();\nfor (String w : text.split(\" \"))\n  dem.merge(w, 1, Integer::sum);",
+e:["Đếm tần suất từ trong đoạn văn.","Sắp xếp danh sách SinhVien theo GPA giảm dần, rồi theo tên.","Loại phần tử trùng; tìm giao của 2 Set.","Viết class Pair<A,B> generic."]},
+{t:"Lambda & Stream API",th:["Functional interface (Predicate, Function, Consumer, Supplier); lambda và method reference.","Stream: filter, map, sorted, collect, reduce, groupingBy, mapToInt.","Stream không thay đổi nguồn; thao tác trung gian (lazy) và kết thúc.","Optional để tránh NullPointerException."],
+c:"List<String> ten = ds.stream()\n  .filter(s -> s.getGpa() >= 3.2)\n  .map(SinhVien::getTen).sorted().toList();",
+e:["Lọc số chẵn, bình phương, tính tổng bằng stream.","Nhóm sinh viên theo xếp loại, đếm mỗi nhóm.","Tìm sản phẩm đắt nhất, giá trung bình theo danh mục."]},
+{t:"File I/O & Date-Time",th:["Java NIO: Files.readAllLines, Files.writeString, Path; BufferedReader/Writer.","Đọc/ghi CSV, JSON (thư viện Jackson/Gson); serialization cơ bản.","java.time: LocalDate, LocalDateTime, Duration, DateTimeFormatter (tránh Date cũ)."],
+c:"List<String> dong = Files.readAllLines(Path.of(\"data.csv\"));\nLocalDate d = LocalDate.parse(\"2026-11-06\");",
+e:["Đọc CSV sinh viên vào List, ghi kết quả đã lọc ra file.","Tính số ngày giữa hai ngày; tuổi từ ngày sinh.","Lưu/đọc danh sách đối tượng dạng JSON."]},
+{t:"Git, Maven & Unit Test",th:["Git: clone, branch, commit, merge, pull request, giải quyết conflict.","Maven/Gradle: pom.xml, dependency, build, cấu trúc src/main & src/test.","JUnit 5: @Test, assertEquals, assertThrows; viết test trước/sau code; đặt tên test rõ nghĩa."],
+c:"@Test\nvoid rutQuaSoDu() {\n  var tk = new TaiKhoan(100);\n  assertThrows(SoDuKhongDuException.class, () -> tk.rut(200));\n}",
+e:["Tạo repo, mỗi người một nhánh, mô phỏng và giải quyết conflict.","Tạo project Maven, thêm JUnit, viết 5 test cho class TaiKhoan.","Thêm thư viện Jackson qua pom.xml."]}]},
+{id:"p3",t:"Giai đoạn 3 – Java nâng cao",d:"Buổi 15–20 · Đa luồng, CSDL, Spring Boot, thiết kế phần mềm",
+S:[
+{t:"Multithreading & Concurrency",th:["Thread, Runnable; vòng đời thread; race condition, deadlock.","synchronized, volatile, Lock; ExecutorService/thread pool; CompletableFuture.","Cấu trúc an toàn luồng: ConcurrentHashMap, AtomicInteger. Java 21: virtual threads."],
+c:"ExecutorService ex = Executors.newFixedThreadPool(4);\nFuture<Integer> f = ex.submit(() -> tinhNang());\nSystem.out.println(f.get()); ex.shutdown();",
+e:["Hai thread cùng tăng biến đếm: tái hiện lỗi rồi sửa.","Tải song song 5 tác vụ giả lập bằng thread pool.","Mô hình Producer–Consumer với BlockingQueue."]},
+{t:"SQL & JDBC",th:["SQL: CREATE, INSERT, SELECT, UPDATE, DELETE, JOIN, GROUP BY, khóa chính/ngoại.","JDBC: Connection, PreparedStatement (chống SQL Injection), ResultSet, transaction (commit/rollback).","Mẫu DAO/Repository tách tầng truy cập dữ liệu."],
+c:"String sql = \"SELECT * FROM sv WHERE gpa >= ?\";\ntry (var ps = conn.prepareStatement(sql)) {\n  ps.setDouble(1, 3.2);\n  var rs = ps.executeQuery();\n}",
+e:["Thiết kế bảng sinh viên – lớp, viết 8 câu truy vấn.","Làm CRUD sinh viên bằng JDBC theo mẫu DAO.","Chuyển tiền giữa 2 tài khoản bằng transaction."]},
+{t:"Design Pattern & SOLID",th:["SOLID: Single responsibility, Open/closed, Liskov, Interface segregation, Dependency inversion.","Creational: Singleton, Factory, Builder. Structural: Adapter, Decorator. Behavioral: Strategy, Observer.","Clean code: tên rõ nghĩa, hàm ngắn, tránh trùng lặp (DRY)."],
+c:"interface GiamGia { double ap(double gia); }\nclass Vip implements GiamGia {\n  public double ap(double g){ return g * 0.8; }\n} // Strategy",
+e:["Refactor đoạn code if-else dài thành Strategy.","Cài Builder cho class Đơn hàng.","Observer: thông báo khi giá sản phẩm thay đổi."]},
+{t:"Spring Boot nhập môn & REST API",th:["Spring IoC/DI: @Component, @Service, @Autowired / constructor injection.","REST: GET/POST/PUT/DELETE, status code, JSON; @RestController, @RequestMapping, @PathVariable, @RequestBody.","Validation (@Valid), xử lý lỗi toàn cục (@ControllerAdvice); cấu hình application.yml."],
+c:"@RestController @RequestMapping(\"/api/sv\")\nclass SvController {\n  @GetMapping(\"/{id}\")\n  SinhVien get(@PathVariable long id){ return svc.find(id); }\n}",
+e:["Tạo project bằng start.spring.io, endpoint /hello.","CRUD API sách (lưu trong List).","Thêm validation và trả lỗi JSON thống nhất."]},
+{t:"Spring Data JPA & bảo mật cơ bản",th:["JPA/Hibernate: @Entity, @Id, quan hệ @OneToMany / @ManyToOne; JpaRepository, query method.","Phân tầng Controller – Service – Repository; DTO tách khỏi Entity.","Spring Security cơ bản: mã hóa mật khẩu BCrypt, đăng nhập JWT; tránh lộ thông tin nhạy cảm."],
+c:"public interface SvRepo extends JpaRepository<SinhVien, Long> {\n  List<SinhVien> findByGpaGreaterThan(double g);\n}",
+e:["Entity Lớp – Sinh viên (1–n), API phân trang.","Đăng ký / đăng nhập với mật khẩu BCrypt.","Viết test cho Service bằng Mockito."]},
+{t:"Đóng gói, Docker & Triển khai",th:["Build file JAR (mvn package), cấu hình theo môi trường (profile dev/prod).","Docker: Dockerfile, image, container; docker compose chạy app + database.","Logging (SLF4J), CI cơ bản với GitHub Actions; Swagger/OpenAPI để tài liệu hóa API."],
+c:"FROM eclipse-temurin:21-jre\nCOPY target/app.jar app.jar\nENTRYPOINT [\"java\",\"-jar\",\"app.jar\"]",
+e:["Đóng gói app thành Docker image và chạy.","Viết docker-compose.yml gồm app + MySQL.","Thiết lập GitHub Actions tự chạy test khi push."]}]}
+];
+const J=[
+{after:"Cuối giai đoạn 1 (sau buổi 8)",t:"Mini Project 1: Quản lý thư viện (Console)",tm:"Nhóm 3 người · 1 tuần",
+g:"Ứng dụng console quản lý sách, độc giả và mượn/trả sách.",
+f:["Thêm/sửa/xóa/tìm sách và độc giả","Mượn/trả sách, giới hạn số sách mỗi người","Menu rõ ràng, nhập liệu có kiểm tra lỗi"],
+k:["Class, đóng gói, kế thừa/đa hình","Mảng/ArrayList, vòng lặp, Exception"],
+r:["Leader: thiết kế class & chia việc","Dev A: module Sách + Độc giả","Dev B: module Mượn/Trả + Menu"],
+d:["Source trên Git (mỗi người ≥ 5 commit)","README hướng dẫn chạy","Demo 5 phút"]},
+{after:"Cuối giai đoạn 2 (sau buổi 14)",t:"Mini Project 2: Quản lý chi tiêu cá nhân",tm:"Nhóm 3–4 người · 2 tuần",
+g:"Ứng dụng quản lý thu/chi, lưu dữ liệu ra file, thống kê bằng Stream.",
+f:["CRUD giao dịch (ngày, số tiền, danh mục, ghi chú)","Lưu/đọc CSV hoặc JSON","Thống kê theo tháng/danh mục; tìm kiếm, sắp xếp","Cảnh báo vượt ngân sách"],
+k:["Collections, Stream, java.time, File I/O","Maven, JUnit (≥ 10 test), Git branch + PR"],
+r:["Leader: kiến trúc & review PR","Dev: nghiệp vụ + thống kê","Dev: lưu trữ file","Tester: viết test, kiểm thử"],
+d:["Repo Git có lịch sử PR","Báo cáo test coverage cơ bản","Demo + trình bày thiết kế"]},
+{after:"Cuối giai đoạn 3 (sau buổi 20)",t:"Capstone: Hệ thống Quản lý Đặt món/Bán hàng (REST API)",tm:"Nhóm 4 người · 3–4 tuần",
+g:"Backend Spring Boot cho cửa hàng: sản phẩm, đơn hàng, người dùng; có thể kèm giao diện web đơn giản.",
+f:["Đăng ký/đăng nhập JWT, phân quyền ADMIN/USER","CRUD sản phẩm & danh mục; giỏ hàng, tạo đơn, đổi trạng thái đơn","Phân trang, tìm kiếm, validation, xử lý lỗi thống nhất","Tài liệu Swagger"],
+k:["Spring Boot, JPA, MySQL/PostgreSQL","Docker compose, GitHub Actions, JUnit/Mockito"],
+r:["Leader/Architect: thiết kế DB & API","Backend 1: Auth + User","Backend 2: Sản phẩm + Đơn hàng","QA/DevOps: test, Docker, CI"],
+d:["Sơ đồ ERD + danh sách API","Chạy được bằng docker compose up","Demo 10 phút + trả lời vấn đáp"]}
+];
+const $=s=>document.querySelector(s);
+let done={};try{done=JSON.parse(localStorage.getItem("jv")||"{}")}catch(e){}
+const esc=s=>s.replace(/&/g,"&amp;").replace(/</g,"&lt;");
+const li=a=>a.map(x=>"<li>"+esc(x)+"</li>").join("");
+let n=0,h="",nav='<a href="#guide">Cách học</a>';
+P.forEach((p,pi)=>{nav+=`<a href="#${p.id}">GĐ${pi+1}</a>`;
+h+=`<h2 id="${p.id}">${p.t}</h2><p class="sub">${p.d}</p>`;
+p.S.forEach(s=>{n++;const id="s"+n;
+h+=`<details id="${id}"><summary><span class="n">Buổi ${n}</span>${s.t}<input type="checkbox" data-k="${id}" ${done[id]?"checked":""} onclick="event.stopPropagation()" aria-label="Hoàn thành"></summary><div class="b"><h4>Lý thuyết</h4><ul>${li(s.th)}</ul><h4>Ví dụ code</h4><pre>${esc(s.c)}</pre><h4>Bài tập</h4><ol>${li(s.e)}</ol></div></details>`});
+J.filter((j,ji)=>ji==pi).forEach(j=>{h+=`<div class="pj"><h3>🚀 ${j.t}</h3><span class="tag">${j.after}</span><span class="tag">${j.tm}</span><p>${j.g}</p><h4>Chức năng</h4><ul>${li(j.f)}</ul><h4>Kiến thức áp dụng</h4><ul>${li(j.k)}</ul><h4>Phân vai</h4><ul>${li(j.r)}</ul><h4>Sản phẩm nộp</h4><ul>${li(j.d)}</ul></div>`})});
+h+=`<h2 id="eval">Tiêu chí chấm project</h2><div class="grid"><div><b>40% Chức năng</b>Chạy đúng, đủ yêu cầu.</div><div><b>25% Chất lượng code</b>Cấu trúc, đặt tên, test.</div><div><b>20% Làm việc nhóm</b>Commit, PR, phân chia việc.</div><div><b>15% Trình bày</b>Demo, trả lời câu hỏi.</div></div>`;
+$("#root").innerHTML=h;$("#nav").innerHTML=nav+'<a href="#eval">Chấm điểm</a>';
+function upd(){const c=document.querySelectorAll("[data-k]:checked").length;$("#pb").style.width=c/n*100+"%";$("#pt").textContent=`Đã hoàn thành ${c}/${n} buổi`;}
+document.querySelectorAll("[data-k]").forEach(i=>i.onchange=()=>{done[i.dataset.k]=i.checked;try{localStorage.setItem("jv",JSON.stringify(done))}catch(e){}upd()});
+upd();
+</script></body></html>
